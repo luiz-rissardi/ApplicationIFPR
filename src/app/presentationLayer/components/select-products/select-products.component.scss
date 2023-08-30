@@ -1,0 +1,21 @@
+
+@import "../../../styles/mixins";
+
+.productsList{
+    position: fixed !important;
+    height: 68vh;
+    width: 100%;
+    background-color: aqua;
+}
+
+.initSale{
+    position: fixed;
+    top:88%;
+    height: 12vh;
+    width: 100%;
+    padding: 20px;
+    background-color: red;
+    @include BreakPoint(desktop-only){
+        padding-left: 70%;
+    }
+}
