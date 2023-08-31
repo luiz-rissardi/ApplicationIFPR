@@ -1,10 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./app/styles/mixins";
 
 *{
     font-family: monospace;
     font-size: 1.2rem;
+    @include BreakPoint(mobile-only){
+        font-size: 1rem !important;
+    }
 }
-
 
 ::-webkit-scrollbar{
     width: 1px;
