@@ -8,7 +8,6 @@ import { Component,OnInit,Renderer2 } from '@angular/core';
 export class NavBarComponent implements OnInit{
 
   public ShowNavDescriptionItem = window.innerWidth >= 992 ? false:true;
-  public ShowOnlyIconNavItem = window.innerWidth >= 470 ? true:false;
 
   constructor(private DOM:Renderer2){
   }

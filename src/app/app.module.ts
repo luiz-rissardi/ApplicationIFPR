@@ -11,6 +11,7 @@ import { DashBoardComponent } from './presentationLayer/components/dash-board/da
 import { NavBarComponent } from './presentationLayer/shared/nav-bar/nav-bar.component';
 import { NewProductFormComponent } from './presentationLayer/forms/new-product-form/new-product-form.component';
 import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
+import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SelectProductsComponent } from './presentationLayer/components/select-p
     NavBarComponent,
     NewProductFormComponent,
     SelectProductsComponent,
+    ListProductsComponent,
   ],
   imports: [
     BrowserModule,

@@ -10,19 +10,19 @@
         <li class="mt-lg-5">
             <a routerLink="">
                 <i class="fi fi-rr-home"></i>
-                <span class="ms-2" *ngIf="this.ShowNavDescriptionItem === true && this.ShowOnlyIconNavItem === true"> home </span>
+                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> home </span>
             </a>
         </li>
         <li class="my-lg-5">
             <a routerLink="dashBoard">
                 <i class="fi fi-rr-stats"></i>
-                <span class="ms-2" *ngIf="this.ShowNavDescriptionItem === true && this.ShowOnlyIconNavItem === true"> Graficos </span>
+                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> Graficos </span>
             </a>
         </li>
         <li>
             <a routerLink="sales">
                 <i class="fi fi-rr-badge-dollar"></i>
-                <span class="ms-2" *ngIf="this.ShowNavDescriptionItem === true && this.ShowOnlyIconNavItem === true"> Vendas </span>
+                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> Vendas </span>
             </a>
         </li>
     </ul>

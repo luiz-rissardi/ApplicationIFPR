@@ -1,11 +1,18 @@
 
 @import "../../../styles/mixins";
+@import "../../../styles/vars";
 
 .productsList{
-    position: fixed !important;
+    position: fixed ;
     height: 68vh;
     width: 100%;
-    background-color: aqua;
+    background-color: $mainColor;
+    display: flex;
+    padding: 30px;
+
+    @include BreakPoint(desktop-only){
+        width: 95%;
+    }
 }
 
 .initSale{
@@ -14,8 +21,44 @@
     height: 12vh;
     width: 100%;
     padding: 20px;
-    background-color: red;
+    background-color: $secondaryColor;
     @include BreakPoint(desktop-only){
-        padding-left: 70%;
+        padding-left: 65%;
     }
 }
+
+.list{
+    width: 80vw;
+    margin: auto;
+    height: 62vh;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    border-radius: 15px;  
+    padding: 0;
+
+    @include BreakPoint(desktop-only){
+        position: absolute
+    }
+}
+
+.product{
+    width: auto;
+    height: auto;
+    max-height: 150px;
+    background-color: $secondaryColor;
+    list-style: none;
+    color: white;
+    padding: 10px;
+    border-radius: 15px;
+    border: 3px solid white;
+    margin: auto;
+    margin-top:10px;
+
+    &:hover{
+        color: $secondaryColor;
+        background-color: white;
+        border: 3px solid $secondaryColor;
+    }
+}
+
