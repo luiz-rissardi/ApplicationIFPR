@@ -20,7 +20,7 @@
             width: 9vw;
 
             @include BreakPoint(mobile-only) {
-                width: 25vw;
+                width: 19vw;
             }
 
             @include BreakPoint(tablet-up) {

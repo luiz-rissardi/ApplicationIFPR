@@ -9,9 +9,10 @@ import { HeaderComponent } from './presentationLayer/shared/header/header.compon
 import { FooterComponent } from './presentationLayer/shared/footer/footer.component';
 import { DashBoardComponent } from './presentationLayer/components/dash-board/dash-board.component';
 import { NavBarComponent } from './presentationLayer/shared/nav-bar/nav-bar.component';
-import { NewProductFormComponent } from './presentationLayer/forms/new-product-form/new-product-form.component';
+import { ProductFormComponent } from './presentationLayer/forms/product-form/product-form.component';
 import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
 import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
+import { WarningHandlerComponent } from './presentationLayer/shared/warning-handler/warning-handler.component';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,10 @@ import { ListProductsComponent } from './presentationLayer/components/list-produ
     HeaderComponent,
     FooterComponent,
     NavBarComponent,
-    NewProductFormComponent,
+    ProductFormComponent,
     SelectProductsComponent,
     ListProductsComponent,
+    WarningHandlerComponent,
   ],
   imports: [
     BrowserModule,

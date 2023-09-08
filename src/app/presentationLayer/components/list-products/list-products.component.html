@@ -11,7 +11,12 @@
         </thead>
 
         <tbody>
-            <tr data-bs-toggle="modal" data-bs-target="#deleteOrEdit">
+            <tr *ngIf=" windowWidth >= 500 else mobileRender" (click)='this.chosenProduct({
+                productId:1,
+                productName:"luiz",
+                productPrice:54.90,
+                productQtde:10
+            })'>
                 <td>1</td>
                 <td>luiz</td>
                 <td>10</td>
@@ -24,46 +29,66 @@
                         </span>
                     </button>
 
-                    <button type="button" class="btn btn-warning w-50 pt-2">
+                    <button type="button" class="btn btn-warning w-50 pt-2" (click)="this.updateProduct({
+                        productId:1,
+                        productPrice:59.83,
+                        productQtde:27,
+                        productName:'Alberto'
+                        })">
                         <span>
                             <i class="fi fi-rr-pencil"></i>
                         </span>
                     </button>
                 </td>
             </tr>
+
+            <ng-template #mobileRender>
+                <tr data-bs-toggle="modal" data-bs-target="#deleteOrEdit" (click)='this.chosenProduct({
+                    productId:1,
+                    productName:"luiz",
+                    productPrice:54.90,
+                    productQtde:10
+                })'>
+                    <td>1</td>
+                    <td>luiz</td>
+                    <td>10</td>
+                    <td>54.90</td>
+                </tr>
+            </ng-template>
         </tbody>
     </table>
 </section>
 
-  
-  <!-- Modal -->
-  <div class="modal fade" id="deleteOrEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel"> Produto -  </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body grid gap-2 d-flex">
-            <button type="button" class="btn btn-danger pt-2" style="width: 40%;">
-                <span>
-                    Deletar
-                    <br>
-                    <i class="fi fi-rr-circle-trash"></i>
-                </span>
-            </button>
 
-            <button type="button" class="btn btn-warning pt-2" style="width: 40%;">
-                <span>
-                    Editar 
-                    <br>
-                    <i class="fi fi-rr-pencil"></i>
-                </span>
-            </button>
+<!-- Modal -->
+<div class="modal fade" id="deleteOrEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"> Produto - </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body grid gap-2 d-flex">
+                <button type="button" class="btn btn-danger pt-2" style="width: 40%;">
+                    <span>
+                        Deletar
+                        <br>
+                        <i class="fi fi-rr-circle-trash"></i>
+                    </span>
+                </button>
+
+                <button type="button" class="btn btn-warning pt-2" data-bs-dismiss="modal" style="width: 40%;"
+                    (click)="this.updateProduct(this.productChosen)">
+                    <span>
+                        Editar
+                        <br>
+                        <i class="fi fi-rr-pencil"></i>
+                    </span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancelar</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
