@@ -8,13 +8,16 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MainComponent } from './presentationLayer/components/main/main.component';
 import { HeaderComponent } from './presentationLayer/shared/header/header.component';
-import { FooterComponent } from './presentationLayer/shared/footer/footer.component';
-import { DashBoardComponent } from './presentationLayer/components/dash-board/dash-board.component';
 import { NavBarComponent } from './presentationLayer/shared/nav-bar/nav-bar.component';
 import { ProductFormComponent } from './presentationLayer/forms/product-form/product-form.component';
 import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
 import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
 import { WarningHandlerComponent } from './presentationLayer/shared/warning-handler/warning-handler.component';
+import { NgxApexchartsModule } from "ngx-apexcharts";
+import { DonutBoardComponent } from './presentationLayer/shared/donut-board/donut-board.component';
+import { DashBoardComponent } from './presentationLayer/components/dash-boards/dash-board.component';
+import { LineBoardComponent } from './presentationLayer/shared/line-board/line-board.component';
+import { TotalSalesComponent } from './presentationLayer/shared/total-sales/total-sales.component';
 
 @NgModule({
   declarations: [
@@ -22,18 +25,21 @@ import { WarningHandlerComponent } from './presentationLayer/shared/warning-hand
     MainComponent,
     DashBoardComponent,
     HeaderComponent,
-    FooterComponent,
     NavBarComponent,
     ProductFormComponent,
     SelectProductsComponent,
     ListProductsComponent,
     WarningHandlerComponent,
+    DonutBoardComponent,
+    LineBoardComponent,
+    TotalSalesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

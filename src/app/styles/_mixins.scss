@@ -7,6 +7,12 @@
         }
     }
 
+    @if($point == tablet-only){
+        @media screen and (max-width:900px){
+            @content;
+        }
+    }
+
     @if($point == tablet-up){
         @media screen and (min-width:650px) and (max-width:950px) {
             @content;

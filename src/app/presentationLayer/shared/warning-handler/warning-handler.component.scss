@@ -14,6 +14,7 @@
         padding: 20px;
         visibility: hidden;
         transition: 2s ease;
+        z-index: 1000;
         @include BreakPoint(desktop-up){
             left: 70%;
         }

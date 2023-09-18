@@ -16,11 +16,9 @@ export class StockService {
 
       const headers = {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       };
       const options = { headers: headers };
-      
-      return this.http.get("http://localhost:8723/api/getAllProducts",options)
+      return this.http.get("https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1",options)
     } catch (error:any) {
       throw new StockExceptions(`não foi possível criar um novo usuário => ${error.message}`)
     }

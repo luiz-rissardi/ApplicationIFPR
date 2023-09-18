@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { MainComponent } from './presentationLayer/components/main/main.component';
-import { DashBoardComponent } from './presentationLayer/components/dash-board/dash-board.component';
+import { DashBoardComponent } from './presentationLayer/components/dash-boards/dash-board.component';
 import { ProductFormComponent } from './presentationLayer/forms/product-form/product-form.component';
 import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
 import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
