@@ -9,7 +9,7 @@ import { Top5Products, Top5ProductsPerHour } from '../../components/dash-boards/
 })
 export class LineBoardComponent {
 
-  private isMobile = window.innerWidth < 500 ? "300px" : "600px";
+  private isMobile = window.innerWidth < 500 ? "300px" : "500px";
 
   public teste: Top5ProductsPerHour = {
     chartOptions: {

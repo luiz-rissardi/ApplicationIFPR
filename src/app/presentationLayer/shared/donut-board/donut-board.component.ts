@@ -8,7 +8,7 @@ import { Top5Products } from '../../components/dash-boards/Interface-boards/dash
 })
 export class DonutBoardComponent {
 
-  private isMobile = window.innerWidth < 500 ? "400px" : "600px";
+  private isMobile = window.innerWidth < 500 ? "400px" : "500px";
 
 
   public top5Products: Top5Products = {

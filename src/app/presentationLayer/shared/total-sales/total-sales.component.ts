@@ -9,7 +9,7 @@ import { AllProducts, Top5ProductsPerHour } from '../../components/dash-boards/I
 })
 export class TotalSalesComponent {
 
-  private isMobile = window.innerWidth < 500 ? "300px" : "600px";
+  private isMobile = window.innerWidth < 500 ? "300px" : "500px";
 
   public teste: AllProducts = {
     chartOptions: {
