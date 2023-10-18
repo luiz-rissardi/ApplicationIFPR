@@ -7,11 +7,11 @@
                     <div class="mt-4">
                         <span class="d-block">
                             <i class="fi fi-rr-box-open"></i>
-                            {{ product.productQtde }}
+                            {{ product.quantity }}
                         </span>
                         <span>
                             <i class="fi fi-rr-badge-dollar"></i>
-                            {{ product.productPrice }}$
+                            {{ product.price | number: '1.2-2' }}$
                         </span>
                     </div>
                 </li>

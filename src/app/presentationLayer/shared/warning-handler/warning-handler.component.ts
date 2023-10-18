@@ -14,7 +14,7 @@ export class WarningHandlerComponent {
   message: string = "";
   constructor(@Inject(WarningHandlerService) private listenHander: Listen, private dom: Renderer2) {
     this.listenHander.listenFeedBack()
-      .subscribe(data => {
+      .subscribe(data => {1
         const { message, typeFeedback } = JSON.parse(data);
         this.message = message;
         const el = this.dom.selectRootElement("#warningHandler", true);

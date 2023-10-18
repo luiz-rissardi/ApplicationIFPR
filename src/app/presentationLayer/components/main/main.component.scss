@@ -30,13 +30,4 @@
     a{
         color: $secondaryColor !important;
     }
-
-    img {
-        filter: invert(50%);
-        ;
-    }
-}
-
-img {
-    filter: brightness(0) saturate(100%) invert(100%);
 }

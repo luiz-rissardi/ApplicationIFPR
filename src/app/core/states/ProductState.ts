@@ -6,8 +6,8 @@ import { ReplaySubject, Subject } from "rxjs"
     providedIn:"root"
 })
 
-export class ProdudtState {
-    private subject:ReplaySubject<ProductModel> = new ReplaySubject<ProductModel>(2)
+export class ProductState {
+    private subject:ReplaySubject<ProductModel> = new ReplaySubject<ProductModel>(2);
 
     public setState(product:ProductModel):void{
         this.notifyAll(product);

@@ -3,7 +3,8 @@
 
 export interface ProductModel{
     productId:number;
-    productPrice:number;
-    productQtde:number;
+    price:number;
+    quantity:number;
     productName:string;
+    active:boolean;
 }

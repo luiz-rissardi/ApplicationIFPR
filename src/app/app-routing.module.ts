@@ -11,6 +11,7 @@ const routes: Routes = [
   {path:"",component:MainComponent},
   {path:"dashBoard",component:DashBoardComponent},
   {path:"Product",component:ProductFormComponent},
+  {path:"Product/:id",component:ProductFormComponent},
   {path:"selectProducts",component:SelectProductsComponent},
   {path:"listOfProducts",component:ListProductsComponent}
 ];

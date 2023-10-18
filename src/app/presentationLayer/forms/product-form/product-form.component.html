@@ -3,25 +3,32 @@
     <section class="main p-0">
         <div class="card main-card">
             <form [formGroup]="formProduct">
+                <input type="hidden" formControlName="productId">
                 <div class="form-group">
-                    <label for="productName" clasd="form-label "> Nome do produto: </label>
+                    <label for="productName" class="form-label "> Nome do produto: </label>
                     <input type="text" formControlName="productName" id="productName" class="form-control">
                     <span class="invalid-feedback text-white bg-danger rounded p-1"> </span>
                 </div>
                 <div class="form-group my-3">
-                    <label for="productQuantity" clasd="form-label "> Quantiedade no estoque: </label>
-                    <input type="text" formControlName="productQtde" id="productQuantity" class="form-control">
+                    <label for="productQuantity" class="form-label "> Quantiedade no estoque: </label>
+                    <input type="text" formControlName="quantity" id="productQuantity" class="form-control">
                     <span class="invalid-feedback text-white bg-danger rounded p-1"> </span>
                 </div>
                 <div class="form-group">
-                    <label for="productPrice" clasd="form-label "> Preço do produto: </label>
-                    <input type="text" formControlName="productPrice" id="productPrice" class="form-control">
+                    <label for="productPrice" class="form-label "> Preço do produto: </label>
+                    <input type="text" formControlName="price" id="productPrice" class="form-control">
                     <span class="invalid-feedback text-white bg-danger rounded p-1"> </span>
                 </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <button type="button" class="btn btn-success mx-3" (click)="this.PutProduct()"> confirmar </button>
+                <div class="d-flex justify-content-end mt-3" *ngIf="this.isUpdate == false else updateData">
+                    <button type="button" class="btn btn-success mx-3" (click)="this.CreateProduct()"> confirmar </button>
                     <button type="button" class="btn btn-danger" (click)="this.cancel()" > cancelar </button>
                 </div>
+                <ng-template #updateData>
+                    <div class="d-flex justify-content-end mt-3">
+                        <button type="button" class="btn btn-success mx-3" (click)="this.PutProduct()"> atualizar </button>
+                        <button type="button" class="btn btn-danger" (click)="this.cancel()" > cancelar </button>
+                    </div>
+                </ng-template>
             </form>
         </div>
     </section>

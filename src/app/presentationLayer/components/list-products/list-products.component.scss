@@ -4,3 +4,9 @@
 .main{
     background-color: $mainColor;
 }
+
+.tableOverflow{
+    height: 70vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}

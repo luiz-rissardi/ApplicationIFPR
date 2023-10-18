@@ -16,8 +16,8 @@ export class WarningHandlerService implements Handler, Listen {
     this.SendMessage(message,"invalid")
   }
 
-  reportSuccess(message: string): void {
-    this.SendMessage(message,"valid")
+  reportSuccess(message: string,type:string): void {
+    this.SendMessage(message,type)
   }
 
   listenFeedBack(): Subject<string> {
