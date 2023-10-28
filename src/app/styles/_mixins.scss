@@ -8,7 +8,7 @@
     }
 
     @if($point == tablet-only){
-        @media screen and (max-width:900px){
+        @media screen and (max-width:950px){
             @content;
         }
     }
@@ -20,13 +20,19 @@
     }
 
     @if($point == desktop-md-up){
-        @media screen and (min-width:950px) {
+        @media screen and (min-width:950px) and (max-width:1150px){
             @content;
         }
     }
 
     @if($point == desktop-up){
         @media screen and (min-width:1150px) {
+            @content;
+        }
+    }
+
+    @if($point == desktop-only){
+        @media screen and (max-width:1150px) {
             @content;
         }
     }

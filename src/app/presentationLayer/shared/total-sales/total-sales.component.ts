@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ApexAxisChartSeries } from 'ngx-apexcharts';
-import { AllProducts, Top5ProductsPerHour } from '../../components/dash-boards/Interface-boards/dashBoards-Interfaces';
+import { AllProducts
+ } from '../../components/dash-boards/Interface-boards/dashBoards-Interfaces';
 
 @Component({
   selector: 'app-total-sales',
@@ -27,19 +27,4 @@ export class TotalSalesComponent {
       categories: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro','Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro']
     }
   }
-
-  chartSeries: ApexAxisChartSeries = [
-    {
-      name: "cachorro-quente",
-      data: [
-        20, 30, 504, 32
-      ],
-    },
-    {
-      name: "refrigerante",
-      data: [
-        53, 434, 73, 98, 95, 201
-      ],
-    }
-  ]
 }

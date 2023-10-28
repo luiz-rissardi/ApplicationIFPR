@@ -6,14 +6,26 @@ import { DashBoardComponent } from './presentationLayer/components/dash-boards/d
 import { ProductFormComponent } from './presentationLayer/forms/product-form/product-form.component';
 import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
 import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
+import { MasterComponent } from './presentationLayer/components/master/master.component';
+import { LoginComponent } from './presentationLayer/components/login/login.component';
 
 const routes: Routes = [
-  {path:"",component:MainComponent},
-  {path:"dashBoard",component:DashBoardComponent},
-  {path:"Product",component:ProductFormComponent},
-  {path:"Product/:id",component:ProductFormComponent},
-  {path:"selectProducts",component:SelectProductsComponent},
-  {path:"listOfProducts",component:ListProductsComponent}
+  {
+    path:"",
+    component:MasterComponent,
+    children: [
+      { path: "", component: MainComponent },
+      { path: "dashBoard", component: DashBoardComponent },
+      { path: "Product", component: ProductFormComponent },
+      { path: "Product/:id", component: ProductFormComponent },
+      { path: "selectProducts", component: SelectProductsComponent },
+      { path: "listOfProducts", component: ListProductsComponent }
+    ]
+  },
+  {
+    path:"login",
+    component:LoginComponent
+  }
 ];
 
 @NgModule({

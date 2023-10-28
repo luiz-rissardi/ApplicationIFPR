@@ -1,9 +1,7 @@
 
-
-
 export class StockExceptions extends Error{
-    constructor(Errormessage:string){
-        super(Errormessage);
+    constructor(ErrorMessage:string){
+        super(ErrorMessage);
         this.name = "StockExceptions";
     }
 }

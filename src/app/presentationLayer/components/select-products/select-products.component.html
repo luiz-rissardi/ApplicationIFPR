@@ -1,5 +1,6 @@
 <div class="container-fluid  d-flex p-0">
     <div class="position-absolute main me-5">
+        <app-shopping-cart></app-shopping-cart>
         <section class="productsList me-5">
             <ul class="list">
                 <li *ngFor="let product of this.products" class="product p-2" id="product-{{product.productId}}" (click)="selectProduct(product)">
@@ -18,8 +19,8 @@
             </ul>
         </section>
         <div class="initSale d-flex ">
-            <button type="button" class="btn btn-success mx-3"> confirmar </button>
-            <button type="button" class="btn btn-danger" (click)="deleteAllPorductsChosen()"> cancelar </button>
+            <button type="button" class="btn btn-success mx-3" (click)="confirmSale()" > confirmar </button>
+            <button type="button" class="btn btn-danger" (click)="cancel()"> cancelar </button>
         </div>
     </div>
 </div>

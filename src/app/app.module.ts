@@ -18,6 +18,9 @@ import { DonutBoardComponent } from './presentationLayer/shared/donut-board/donu
 import { DashBoardComponent } from './presentationLayer/components/dash-boards/dash-board.component';
 import { LineBoardComponent } from './presentationLayer/shared/line-board/line-board.component';
 import { TotalSalesComponent } from './presentationLayer/shared/total-sales/total-sales.component';
+import { ShoppingCartComponent } from './presentationLayer/components/shopping-cart/shopping-cart.component';
+import { LoginComponent } from './presentationLayer/components/login/login.component';
+import { MasterComponent } from './presentationLayer/components/master/master.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { TotalSalesComponent } from './presentationLayer/shared/total-sales/tota
     DonutBoardComponent,
     LineBoardComponent,
     TotalSalesComponent,
+    ShoppingCartComponent,
+    LoginComponent,
+    MasterComponent,
   ],
   imports: [
     BrowserModule,

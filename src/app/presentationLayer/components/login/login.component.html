@@ -1,0 +1,28 @@
+
+<section>
+    <div class="d-flex justify-content-center align-items-center">
+        <img src="../../../../assets/images/ifprLogo.png" alt="ifprBanner" class="logoBanner">
+        <div class="cardLogin">
+            <div class="d-flex justify-content-center">
+                <h1>Login</h1>
+            </div>
+
+            <form [formGroup]="form" class="form-group d-grid gap-4 w-100">
+                <fieldset class="form-group w-100">
+                    <label for="name" class="form-label"> Nome: </label>
+                    <input type="text" id="name" class="form-control" formControlName="name">
+                </fieldset>
+                <fieldset class="form-group w-100">
+                    <label for="password" class="form-label"> Senha: </label>
+                    <input type="text" id="password" class="form-control" formControlName="password">
+                </fieldset>
+                <fieldset class="form-group">
+                    <button type="button" class="btn btn-personality" (click)="login()"> login </button>
+                </fieldset>
+            </form>
+            <div class="d-flex mt-5">
+                <button type="button" class="btn btn-recSenha ms-auto"> esqueci a senha </button>
+            </div>
+        </div>
+    </div>
+</section>
