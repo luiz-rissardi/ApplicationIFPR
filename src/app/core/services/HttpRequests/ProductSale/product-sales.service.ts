@@ -17,7 +17,6 @@ export class ProductSalesService {
   insertProductsIntoSale(saleId: number, products: ProductModel[]) {
     try {
       const options = { headers: this.headers };
-      console.log(saleId,products);
       const body = { saleId, products };
       return this.http.post("http://localhost:8723/api/insertProducts",body,options);
     } catch (error) {

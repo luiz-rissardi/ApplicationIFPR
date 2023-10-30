@@ -4,6 +4,7 @@ import { ProductModel } from '../core/models/productModel';
 import { WarningHandlerService } from '../core/services/warningHandler/warning-handler.service';
 import { Handler } from '../core/services/interfaces/warningHandler/handler';
 import { Observable } from 'rxjs';
+import { LoaderSpinnerState } from '../core/states/LoaderSpinnerState';
 
 
 @Injectable({
@@ -11,24 +12,53 @@ import { Observable } from 'rxjs';
 })
 
 export class StockFacade {
-    constructor(private service: StockService, @Inject(WarningHandlerService) private warningHandler: Handler) {
+    constructor(
+        private service: StockService,
+        private spinnerState:LoaderSpinnerState,
+        @Inject(WarningHandlerService) private warningHandler: Handler
+    ) {
 
     }
 
     private handleOperation(operation: Observable<any>, errorMessage: string) {
         operation.subscribe({
-            next: (data: any) => this.warningHandler.reportSuccess(data.message, data.type),
+            next: (data: any) => {
+                this.spinnerState.setState(false);
+                this.warningHandler.reportSuccess(data?.message, data?.type);
+            },
             error: (error) => {
                 console.log(error);
+                this.spinnerState.setState(false);
                 this.warningHandler.reportError(errorMessage);
             }
         });
     }
 
-    createProduct(product: ProductModel) {
+    createProduct(product: ProductModel): Promise<number> {
+        return new Promise((resolve, reject) => {
+            try {
+                this.service.createProduct(product).subscribe({
+                    next: (data: any) => {
+                        this.spinnerState.setState(false);
+                        this.warningHandler.reportSuccess(data.message, data.type);
+                        resolve(data.productId);
+                    },
+                    error: (error) => {
+                        console.log(error);
+                        this.spinnerState.setState(false);
+                        this.warningHandler.reportError("Não foi possível criar o produto!");
+                    }
+                })
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
+
+    substractionOfStock(updates: any) {
         this.handleOperation(
-            this.service.createProduct(product),
-            "Não foi possível criar o produto!"
+            this.service.substractionStock(updates),
+            "não foi possivel substrair do estoque"
         )
     }
 
@@ -52,10 +82,12 @@ export class StockFacade {
         return new Observable(subscriber => {
             this.service.getAllProduct().subscribe({
                 next: (data: any) => {
+                    this.spinnerState.setState(false);
                     subscriber.next(data)
                 },
                 error: (error) => {
                     subscriber.error("invalid")
+                    this.spinnerState.setState(false);
                     this.warningHandler.reportError("Não foi possível pegar os produtos!");
                 }
             })

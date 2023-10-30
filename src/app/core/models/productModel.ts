@@ -1,7 +1,5 @@
 
-
-
-export interface ProductModel{
+export type ProductModel = {
     productId:number;
     price:number;
     quantity:number;

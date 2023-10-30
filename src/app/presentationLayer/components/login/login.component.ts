@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder,FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AuthFacade } from 'src/app/abstractionLayer/AuthFacade';
+
 
 @Component({
   selector: 'app-login',
@@ -8,18 +10,23 @@ import { FormBuilder,FormGroup } from '@angular/forms';
 })
 export class LoginComponent {
 
-  public form:FormGroup;
+  public form: FormGroup;
+  public load: boolean = false;
 
-  constructor(private formBuilder:FormBuilder){
+  constructor(formBuilder: FormBuilder, private AuthFacade: AuthFacade) {
     this.form = formBuilder.group({
-      name:[],
-      password:[]
+      name: [],
+      password: []
     })
   }
 
-  login(){
-    const [name,password] = ["name","password"].map(el => this.form.get(el).value)
-    console.log(name,password);
+  login() {
+    const [name, password] = ["name", "password"].map(el => this.form.get(el).value)
+    this.AuthFacade.login(name, password);
+    this.load = true;
+    setTimeout(() => {
+      this.load = false;
+    }, 500);
   }
 
 }

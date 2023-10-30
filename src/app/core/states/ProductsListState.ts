@@ -14,6 +14,7 @@ export class ProductsListState {
     private subject: ReplaySubject<any> = new ReplaySubject(1);
 
     setProductList(productList: ProductModel[]) {
+        this.productList.clear();
         productList.forEach(product => {
             this.productList.set(product.productId, product);
         })

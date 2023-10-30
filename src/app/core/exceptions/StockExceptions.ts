@@ -1,5 +1,5 @@
 
-export class StockExceptions extends Error{
+export class StockException extends Error{
     constructor(ErrorMessage:string){
         super(ErrorMessage);
         this.name = "StockExceptions";

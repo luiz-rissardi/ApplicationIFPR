@@ -21,6 +21,7 @@ import { TotalSalesComponent } from './presentationLayer/shared/total-sales/tota
 import { ShoppingCartComponent } from './presentationLayer/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './presentationLayer/components/login/login.component';
 import { MasterComponent } from './presentationLayer/components/master/master.component';
+import { SpinnerLoaderComponent } from './presentationLayer/shared/spinner-loader/spinner-loader.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { MasterComponent } from './presentationLayer/components/master/master.co
     ShoppingCartComponent,
     LoginComponent,
     MasterComponent,
+    SpinnerLoaderComponent,
+
   ],
   imports: [
     BrowserModule,

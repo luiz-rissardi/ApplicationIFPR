@@ -12,6 +12,15 @@ import { LoginComponent } from './presentationLayer/components/login/login.compo
 const routes: Routes = [
   {
     path:"",
+    redirectTo:"login",
+    pathMatch:"full"
+  },
+  {
+    path:"login",
+    component:LoginComponent,
+  },
+  {
+    path:"home",
     component:MasterComponent,
     children: [
       { path: "", component: MainComponent },
@@ -22,10 +31,6 @@ const routes: Routes = [
       { path: "listOfProducts", component: ListProductsComponent }
     ]
   },
-  {
-    path:"login",
-    component:LoginComponent
-  }
 ];
 
 @NgModule({

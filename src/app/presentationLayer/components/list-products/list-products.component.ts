@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ProductState } from 'src/app/core/states/ProductState';
 import { StockFacade } from 'src/app/abstractionLayer/StockFacade';
 import { ProductsListState } from 'src/app/core/states/ProductsListState';
+import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
 
 
 @Component({
@@ -18,11 +19,13 @@ export class ListProductsComponent implements OnInit {
   public productChosen!: ProductModel;
   public products: ProductModel[] = [];
   public modalIsOpen: boolean = window.innerWidth <= 765 ? true : false;
-  private productState: ProductState;
 
-
-  constructor(private router: Router, productState: ProductState, private productsListState: ProductsListState,private stockFacade:StockFacade) {
-    this.productState = productState;
+  constructor(
+    private router: Router,
+    private spinnerState:LoaderSpinnerState,
+    private productState: ProductState, 
+    private productsListState: ProductsListState,
+    private stockFacade:StockFacade) {
   }
 
   ngOnInit(): void {
@@ -40,10 +43,11 @@ export class ListProductsComponent implements OnInit {
 
   updateProduct(product: ProductModel) {
     this.productState.setState(product)
-    this.router.navigate(["/Product/" + product.productId])
+    this.router.navigate(["/home/Product/" + product.productId])
   }
 
   inactiveProduct(product:ProductModel){
+    this.spinnerState.setState(true);
     const execute = this.productsListState.deleteProductIntoList(product);
     const rollback = execute();
     try {

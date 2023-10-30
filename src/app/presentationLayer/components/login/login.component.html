@@ -1,5 +1,6 @@
-
 <section>
+    <app-warning-handler></app-warning-handler>
+    
     <div class="d-flex justify-content-center align-items-center">
         <img src="../../../../assets/images/ifprLogo.png" alt="ifprBanner" class="logoBanner">
         <div class="cardLogin">
@@ -17,7 +18,14 @@
                     <input type="text" id="password" class="form-control" formControlName="password">
                 </fieldset>
                 <fieldset class="form-group">
-                    <button type="button" class="btn btn-personality" (click)="login()"> login </button>
+                    <button type="button" class="btn btn-personality" (click)="login()">
+                        <p *ngIf="!load else loaded" class="text-center my-auto"> Login </p>
+                        <ng-template #loaded>
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </ng-template>
+                    </button>
                 </fieldset>
             </form>
             <div class="d-flex mt-5">

@@ -1,4 +1,4 @@
-import { Component, Renderer2, ElementRef } from '@angular/core';
+import { Component, Renderer2, ElementRef, OnInit } from '@angular/core';
 import { ProductModel } from 'src/app/core/models/productModel';
 import { ShoppingCartState } from 'src/app/core/states/ShoppingCartState';
 
@@ -7,11 +7,13 @@ import { ShoppingCartState } from 'src/app/core/states/ShoppingCartState';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss']
 })
-export class ShoppingCartComponent {
+export class ShoppingCartComponent implements OnInit {
 
   products: Map<number, ProductModel> = new Map();
 
   constructor(private shoppingCartState: ShoppingCartState, private dom: Renderer2, private el: ElementRef) {
+  }
+  ngOnInit(): void {
     this.shoppingCartState.onChangeShoppingCart()
       .subscribe(data => {
         this.setShoppingCart(data);
@@ -51,13 +53,13 @@ export class ShoppingCartComponent {
     this.dom.removeClass(el, "hidden");
   }
 
-  private setShoppingCart(data:Map<number,ProductModel>){
+  private setShoppingCart(data: Map<number, ProductModel>) {
     this.products = new Map([...data]);
-        if (this.products.size - 1 < 0) {
-          this.hiddenShoppingCart();
-        } else {
-          this.showShoppingCart();
-        }
+    if (this.products.size - 1 < 0) {
+      this.hiddenShoppingCart();
+    } else {
+      this.showShoppingCart();
+    }
   }
 
 }
