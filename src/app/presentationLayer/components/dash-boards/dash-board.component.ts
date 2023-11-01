@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Top5Products } from './Interface-boards/dashBoards-Interfaces';
 
 @Component({
   selector: 'app-dash-board',

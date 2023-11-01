@@ -6,6 +6,6 @@ export interface Account {
 }
 
 export interface AccountSeller extends Account {
-    productIdAnexed: number
+    productIdAnexed: number;
 }
 

@@ -2,7 +2,6 @@ import { ReplaySubject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Account, AccountSeller } from "../models/AccountModel";
 
-
 // pattern observable 
 @Injectable({
     providedIn: "root"

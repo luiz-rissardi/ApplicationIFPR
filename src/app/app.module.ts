@@ -18,10 +18,13 @@ import { DonutBoardComponent } from './presentationLayer/shared/donut-board/donu
 import { DashBoardComponent } from './presentationLayer/components/dash-boards/dash-board.component';
 import { LineBoardComponent } from './presentationLayer/shared/line-board/line-board.component';
 import { TotalSalesComponent } from './presentationLayer/shared/total-sales/total-sales.component';
-import { ShoppingCartComponent } from './presentationLayer/components/shopping-cart/shopping-cart.component';
-import { LoginComponent } from './presentationLayer/components/login/login.component';
+import { ShoppingCartComponent } from './presentationLayer/shared/shopping-cart/shopping-cart.component';
+import { LoginComponent } from './presentationLayer/forms/login/login.component';
 import { MasterComponent } from './presentationLayer/components/master/master.component';
 import { SpinnerLoaderComponent } from './presentationLayer/shared/spinner-loader/spinner-loader.component';
+import { CreateAccountComponent } from './presentationLayer/forms/create-account/create-account.component';
+import { AuthComponent } from './presentationLayer/components/auth/auth.component';
+import { TicketManagerComponent } from './presentationLayer/components/ticket-manager/ticket-manager.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,9 @@ import { SpinnerLoaderComponent } from './presentationLayer/shared/spinner-loade
     LoginComponent,
     MasterComponent,
     SpinnerLoaderComponent,
-
+    CreateAccountComponent,
+    AuthComponent,
+    TicketManagerComponent,
   ],
   imports: [
     BrowserModule,
