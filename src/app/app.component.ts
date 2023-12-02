@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StockFacade } from './abstractionLayer/StockFacade';
+import { StockFacade } from './facades/StockFacade';
 import { ProductsListState } from './core/states/ProductsListState';
 import { LoaderSpinnerState } from './core/states/LoaderSpinnerState';
 
@@ -8,8 +8,9 @@ import { LoaderSpinnerState } from './core/states/LoaderSpinnerState';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit{
   title = 'Project';
+
   //get data of database
   constructor(
     private stockFacade: StockFacade,
@@ -24,4 +25,5 @@ export class AppComponent implements OnInit {
       this.productListState.setProductList(data);
     })
   }
+  
 }

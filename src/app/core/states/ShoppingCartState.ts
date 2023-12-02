@@ -1,4 +1,4 @@
-import { Subject } from "rxjs";
+import { ReplaySubject, Subject } from "rxjs";
 import { ProductModel } from "../models/productModel";
 import { Injectable } from "@angular/core";
 
@@ -9,7 +9,7 @@ import { Injectable } from "@angular/core";
 export class ShoppingCartState {
 
     private products: Map<number, ProductModel> = new Map<number, ProductModel>();
-    private subject: Subject<any> = new Subject();
+    private subject: ReplaySubject<any> = new ReplaySubject(1);
 
     addToCart(product: ProductModel) {
         if (this.products.has(product.productId)) {

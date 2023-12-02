@@ -2,29 +2,35 @@ import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { MainComponent } from './presentationLayer/components/main/main.component';
-import { HeaderComponent } from './presentationLayer/shared/header/header.component';
-import { NavBarComponent } from './presentationLayer/shared/nav-bar/nav-bar.component';
-import { ProductFormComponent } from './presentationLayer/forms/product-form/product-form.component';
-import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
-import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
-import { WarningHandlerComponent } from './presentationLayer/shared/warning-handler/warning-handler.component';
+
+//component
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './components/header/header.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { WarningHandlerComponent } from './components/warning-handler/warning-handler.component';
 import { NgxApexchartsModule } from "ngx-apexcharts";
-import { DonutBoardComponent } from './presentationLayer/shared/donut-board/donut-board.component';
-import { DashBoardComponent } from './presentationLayer/components/dash-boards/dash-board.component';
-import { LineBoardComponent } from './presentationLayer/shared/line-board/line-board.component';
-import { TotalSalesComponent } from './presentationLayer/shared/total-sales/total-sales.component';
-import { ShoppingCartComponent } from './presentationLayer/shared/shopping-cart/shopping-cart.component';
-import { LoginComponent } from './presentationLayer/forms/login/login.component';
-import { MasterComponent } from './presentationLayer/components/master/master.component';
-import { SpinnerLoaderComponent } from './presentationLayer/shared/spinner-loader/spinner-loader.component';
-import { CreateAccountComponent } from './presentationLayer/forms/create-account/create-account.component';
-import { AuthComponent } from './presentationLayer/components/auth/auth.component';
-import { TicketManagerComponent } from './presentationLayer/components/ticket-manager/ticket-manager.component';
+import { DonutBoardComponent } from './components/boards/donut-board/donut-board.component';
+import { LineBoardComponent } from './components/boards/line-board/line-board.component';
+import { TotalSalesComponent } from './components/boards/total-sales/total-sales.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { LoginComponent } from './components/forms/login/login.component';
+import { CreateAccountComponent } from './components/forms/create-account/create-account.component';
+import { RecoverPasswordComponent } from './components/forms/recover-password/recover-password.component';
+import { SpinnerLoaderComponent } from './components/spinner-loader/spinner-loader.component';
+
+//pages
+import { ListProductsComponent } from './pages/list-products/list-products.component';
+import { SelectProductsComponent } from './pages/select-products/select-products.component';
+import { DashBoardComponent } from './pages/dash-boards/dash-board.component';
+import { MasterComponent } from './pages/master/master.component';
+import { AuthComponent } from './pages/auth/auth.component';
+import { TicketManagerComponent } from './pages/ticket-manager/ticket-manager.component';
+import { MainComponent } from './pages/main/main.component';
+import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
+import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +39,6 @@ import { TicketManagerComponent } from './presentationLayer/components/ticket-ma
     DashBoardComponent,
     HeaderComponent,
     NavBarComponent,
-    ProductFormComponent,
     SelectProductsComponent,
     ListProductsComponent,
     WarningHandlerComponent,
@@ -47,6 +52,9 @@ import { TicketManagerComponent } from './presentationLayer/components/ticket-ma
     CreateAccountComponent,
     AuthComponent,
     TicketManagerComponent,
+    RecoverPasswordComponent,
+    CreateProductFormComponent,
+    UpdateProductFormComponent,
   ],
   imports: [
     BrowserModule,

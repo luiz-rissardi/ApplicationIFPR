@@ -1,0 +1,20 @@
+<section class="shoppingCart p-2" id="shoppingCart">
+    <h3 class="w-100"> Carrinho de compras </h3>
+
+    <ul class="shoppingCart-menu">
+        <li *ngFor="let item of this.mapEntries()" class="d-flex shoppingCart-item my-1 p-0">
+            <ng-container *ngIf="isProduct(item)">
+                <p class="me-2"> {{ item.productName }} </p>
+                <div class="d-flex ms-auto me-1">
+                    <button type="button" (click)="this.addOneItem(item)" class="btn btn-secondary d-flex align-items-center btn1"> + </button>
+                    <p class="mx-3"> {{ item.quantity }} </p>
+                    <button type="button" (click)="this.removeOneItem(item)" class="btn btn-secondary d-flex align-items-center btn2"> - </button>
+                </div>
+            </ng-container>
+        </li>
+    </ul>
+    <div class="d-flex">
+        <button type="button" class="btn btn-success mx-3" (click)="confirmSale()" > confirmar </button>
+        <button type="button" class="btn btn-danger" (click)="cancel()"> cancelar </button>
+    </div>
+</section>

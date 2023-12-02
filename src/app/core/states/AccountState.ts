@@ -1,6 +1,7 @@
-import { ReplaySubject } from "rxjs";
+import { ReplaySubject, count } from "rxjs";
 import { Injectable } from "@angular/core";
-import { Account, AccountSeller } from "../models/AccountModel";
+import { Account } from "../models/AccountModel";
+import { setAuthStorage } from "../storage/sessionStorage";
 
 // pattern observable 
 @Injectable({
@@ -8,15 +9,16 @@ import { Account, AccountSeller } from "../models/AccountModel";
 })
 
 export class AccountState {
-    private account: Account | AccountSeller;
-    private subject: ReplaySubject<Account | AccountSeller> = new ReplaySubject<Account | AccountSeller>(1);
+    private account: Account;
+    private subject: ReplaySubject<Account > = new ReplaySubject<Account >(1);
 
     onChangeAccount(){
         return this.subject;
     }
 
-    setState(acconut: Account | AccountSeller) {
+    setState(acconut: Account ) {
         this.account = acconut;
+        setAuthStorage(acconut.typeAccount);
         this.notifyAll();
     }
 

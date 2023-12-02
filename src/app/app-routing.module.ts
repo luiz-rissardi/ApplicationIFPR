@@ -1,42 +1,62 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MainComponent } from './presentationLayer/components/main/main.component';
-import { DashBoardComponent } from './presentationLayer/components/dash-boards/dash-board.component';
-import { ProductFormComponent } from './presentationLayer/forms/product-form/product-form.component';
-import { SelectProductsComponent } from './presentationLayer/components/select-products/select-products.component';
-import { ListProductsComponent } from './presentationLayer/components/list-products/list-products.component';
-import { MasterComponent } from './presentationLayer/components/master/master.component';
-import { LoginComponent } from './presentationLayer/forms/login/login.component';
-import { CreateAccountComponent } from './presentationLayer/forms/create-account/create-account.component';
-import { AuthComponent } from './presentationLayer/components/auth/auth.component';
-import { TicketManagerComponent } from './presentationLayer/components/ticket-manager/ticket-manager.component';
+import { LoginComponent } from './components/forms/login/login.component';
+import { CreateAccountComponent } from './components/forms/create-account/create-account.component';
+import { TicketManagerComponent } from './pages/ticket-manager/ticket-manager.component';
+import { RecoverPasswordComponent } from './components/forms/recover-password/recover-password.component';
+
+import { MainComponent } from './pages/main/main.component';
+import { DashBoardComponent } from './pages/dash-boards/dash-board.component';
+import { ListProductsComponent } from './pages/list-products/list-products.component';
+import { SelectProductsComponent } from './pages/select-products/select-products.component';
+import { MasterComponent } from './pages/master/master.component';
+import { AuthComponent } from './pages/auth/auth.component';
+
+import { SellerGuard } from './core/guards/seller/guard-seller.guard';
+import { ManagerGuard } from './core/guards/manager/guard-manager.guard';
+
+import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
+import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
+
 
 const routes: Routes = [,
   {
     path: "auth",
     component: AuthComponent,
     children: [
-      { path: "", component: LoginComponent },
-      { path: "createAccount", component: CreateAccountComponent }
+      { path: "login", component: LoginComponent },
+      { path: "createAccount", component: CreateAccountComponent },
+      { path: "updatePassword",component: RecoverPasswordComponent }
     ]
   },
   {
     path: "home",
     component: MasterComponent,
+    canActivateChild: [ManagerGuard],
     children: [
       //caixa gerenciador
       { path: "", component: MainComponent },
       { path: "dashBoard", component: DashBoardComponent },
-      { path: "Product", component: ProductFormComponent },
-      { path: "Product/:id", component: ProductFormComponent },
-      { path: "selectProducts", component: SelectProductsComponent },
+      { path: "createProduct", component: CreateProductFormComponent },
+      { path: "updateProduct", component: UpdateProductFormComponent },
+      { path: "commerce", component: SelectProductsComponent },
       { path: "listOfProducts", component: ListProductsComponent },
-
+    ]
+  },
+  {
+    path: "home",
+    component: MasterComponent,
+    canActivateChild: [SellerGuard],
+    children: [
       //vendedor gerenciador
       { path: "manager", component: TicketManagerComponent }
     ]
   },
+  {
+    path: "**",
+    redirectTo: "home"
+  }
 ];
 
 @NgModule({
