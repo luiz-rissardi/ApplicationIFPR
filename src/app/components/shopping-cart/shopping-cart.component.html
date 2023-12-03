@@ -11,19 +11,23 @@
     </button>
 
     <ul class="shoppingCart-menu mt-3">
-        <li *ngFor="let item of this.mapEntries(this.productsOfShoppingCart)" class="d-flex shoppingCart-item my-1 p-0">
-            <ng-container *ngIf="isProduct(item)">
-                <p class="me-2"> {{ item.productName }} </p>
-                <div class="d-flex ms-auto me-1">
-                    <button type="button" (click)="this.addOneItem(item)" class="btn btn-secondary d-flex align-items-center btn1"> + </button>
-                    <p class="mx-3"> {{ item.quantity }} </p>
-                    <button type="button" (click)="this.removeOneItem(item)" class="btn btn-secondary d-flex align-items-center btn2"> - </button>
+        <li *ngFor="let product of this.mapEntries(this.productsOfShoppingCart)">
+            <ng-container *ngIf="isProduct(product)">
+                <div class="d-flex shoppingCart-item my-1 p-2" id="product-{{product.productId}}">
+                    <p class="me-2"> {{ product.productName }} </p>
+                    <div class="d-flex ms-auto me-1">
+                        <button type="button" (click)="this.addOneItem(product)"
+                            class="btn btn-secondary d-flex align-items-center btn1"> + </button>
+                        <p class="mx-3"> {{ product.quantity }} </p>
+                        <button type="button" (click)="this.removeOneItem(product)"
+                            class="btn btn-secondary d-flex align-items-center btn2"> - </button>
+                    </div>
                 </div>
             </ng-container>
         </li>
     </ul>
     <div class="d-flex me-3 mt-auto">
-        <button type="button" class="btn btn-success mx-3 ms-auto" (click)="confirmSale()" > confirmar </button>
+        <button type="button" class="btn btn-success mx-3 ms-auto" (click)="confirmSale()"> confirmar </button>
         <button type="button" class="btn btn-danger" (click)="cancel()"> cancelar </button>
     </div>
 </section>

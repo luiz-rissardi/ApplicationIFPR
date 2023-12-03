@@ -27,7 +27,8 @@ export class UpdateProductFormComponent {
       productId: [null],
       productName: [null],
       quantity: [null],
-      price: [null]
+      price: [null],
+      productChosen:[null]
     })
 
     this.productState.getStateWhenChanging()
@@ -36,18 +37,19 @@ export class UpdateProductFormComponent {
           productName: product.productName,
           price: product.price,
           quantity: product.quantity,
-          productId: product.productId
+          productId: product.productId,
+          productChosen:product.productChosen
         })
       })
   }
 
   PutProduct() {
     this.spinnerState.setState(true);
-    const { productName, quantity, price, productId } = this.formProduct.value;
-    const execute = this.productListState.putProductIntoList({ productName, quantity, price, productId, active: true })
+    const { productName, quantity, price, productId, productChosen } = this.formProduct.value;
+    const execute = this.productListState.putProductIntoList({ productName, quantity, price, productId, active: true, productChosen })
     const rollback = execute();
     try {
-      this.stockFacade.updateProduct({ productName, quantity, price, productId, active: true });
+      this.stockFacade.updateProduct({ productName, quantity, price, productId, active: true, productChosen });
     } catch (error) {
       rollback();
     }

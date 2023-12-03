@@ -19,7 +19,7 @@ export class CreateProductFormComponent {
     private productListState: ProductsListState,
     private spinnerState: LoaderSpinnerState,
     private stockFacade: StockFacade
-    ) {
+  ) {
     this.formProduct = this.Builder.group({
       productId: [null],
       productName: [null],
@@ -32,10 +32,10 @@ export class CreateProductFormComponent {
     this.spinnerState.setState(true);
     const { productName, quantity, price } = this.formProduct.value;
     try {
-      const productId = await this.stockFacade.createProduct({ productId: 1, productName, price, quantity, active: true });
-      const execute = this.productListState.addProductIntoList({ productName, quantity, price, productId, active: true })
+      const productId = await this.stockFacade.createProduct({ productId: 1, productName, price, quantity, active: true, productChosen: false });
+      const execute = this.productListState.addProductIntoList({ productName, quantity, price, productId, active: true, productChosen: false })
       const rollback = execute();
-      if(productId == undefined) rollback();
+      if (productId == undefined) rollback();
     } catch (error) {
       console.log(error);
     }

@@ -1,5 +1,7 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 import { ProductModel } from 'src/app/core/models/productModel';
+import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
+import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
 import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { ShoppingCartState } from 'src/app/core/states/ShoppingCartState';
 import { DOMManipulation } from "src/app/shared/domManipulation/dommanipulation";
@@ -15,6 +17,7 @@ export class SelectProductsComponent extends DOMManipulation implements OnInit,O
   public products: ProductModel[] = [];
 
   constructor(
+    @Inject(WarningHandlerService) private listenHander: Handler,
     private productsListState: ProductsListState,
     private shoppingCartState: ShoppingCartState,
     el: ElementRef,
@@ -46,10 +49,11 @@ export class SelectProductsComponent extends DOMManipulation implements OnInit,O
         this.addClassToElement(`product-${product.productId}`, 'product-active');
       }
     }else{
+      this.listenHander.reportError("produto com quantiedade insuficiente");
       this.addClassToElement(`product-${product.productId}`,"productInvalid");
       setTimeout(()=>{
         this.removeClassToElement(`product-${product.productId}`,"productInvalid");
-      },1500)
+      },1500);
     }
   }
 

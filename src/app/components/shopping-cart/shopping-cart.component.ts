@@ -41,14 +41,12 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     this.productsListState.onProductListChange().subscribe(data => {
       this.products.clear();
       data.forEach((product: ProductModel) => {
-        this.products.set(product.productId,product)
+        this.products.set(product.productId, product)
       })
     })
-
-    console.log();
   }
 
-  mapEntries(arr:Map<number,ProductModel>):ProductModel[] {
+  mapEntries(arr: Map<number, ProductModel>): ProductModel[] {
     return Array.from(arr.values())
   }
 
@@ -57,8 +55,15 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
   }
 
   addOneItem(product: ProductModel) {
-    
-    this.shoppingCartState.addToCart(product);
+    if (this.checkQuantityForSale(product)) {
+      this.shoppingCartState.addToCart(product);
+    } else {
+      this.listenHander.reportError("produto com quantiedade insuficiente");
+      this.addClassToElement(`product-${product.productId}`, "productInvalid");
+      setTimeout(() => {
+        this.removeClassToElement(`product-${product.productId}`, "productInvalid");
+      }, 1500);
+    }
   }
 
   removeOneItem(product: ProductModel) {
@@ -76,7 +81,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
       this.listenHander.reportSuccess("produtos removidos com sucesso", "valid")
     } catch (error) {
       console.log(error);
-      this.listenHander.reportError("não foi possivel remover os produtos")
+      this.listenHander.reportError("não foi possivel remover os produtos");
     }
   }
 
@@ -84,7 +89,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     try {
       this.spinnerState.setState(true);
       let productsOsShoppingCart = this.shoppingCartState.getAllProducts();
-      productsOsShoppingCart = productsOsShoppingCart.map(el => ({ ...el, active: el.active ? true : false }));
+      productsOsShoppingCart = productsOsShoppingCart.map(el => ({ ...el, active: el.active ? true : false, productChosen: el.productChosen ? true : false }));
       this.commerceFacade.insertSale(productsOsShoppingCart);
       this.stockFacade.SubstractItem(this.mapEntries(this.products), productsOsShoppingCart);
       this.removeAllItensOfShoppingCart();
@@ -95,16 +100,16 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     }
   }
 
-  closeShoppingCart(){
-    this.removeClassToElement("backgroundCurtain","showBackgroundCurtain");
-    this.setAttributeStyle("shoppingCart","display","none");
+  closeShoppingCart() {
+    this.removeClassToElement("backgroundCurtain", "showBackgroundCurtain");
+    this.setAttributeStyle("shoppingCart", "display", "none");
     this.removeClassToElement("shoppingCart", "show");
     this.addClassToElement("shoppingCart", "hidden");
   }
 
-  openShoppingCart(){
-    this.addClassToElement("backgroundCurtain","showBackgroundCurtain");
-    this.setAttributeStyle("shoppingCart","display","block");
+  openShoppingCart() {
+    this.addClassToElement("backgroundCurtain", "showBackgroundCurtain");
+    this.setAttributeStyle("shoppingCart", "display", "block");
     this.removeClassToElement("shoppingCart", "hidden");
     this.addClassToElement("shoppingCart", "show");
   }
@@ -124,6 +129,12 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     } else {
       this.openShoppingCart();
     }
+  }
+
+  private checkQuantityForSale(product: ProductModel): boolean {
+    const productOfListQtde = this.products.get(product.productId).quantity;
+    const productOfShoopingCart = this.productsOfShoppingCart.get(product.productId).quantity;
+    return productOfListQtde - productOfShoopingCart > 0
   }
 
 }
