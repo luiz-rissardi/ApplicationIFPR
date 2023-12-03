@@ -1,8 +1,17 @@
-<section class="shoppingCart p-2" id="shoppingCart">
-    <h3 class="w-100"> Carrinho de compras </h3>
+<button class="btn btn-icon mt-3" (click)="openShoppingCart()">
+    <i class="fi fi-rr-shopping-cart"></i>
+</button>
 
-    <ul class="shoppingCart-menu">
-        <li *ngFor="let item of this.mapEntries()" class="d-flex shoppingCart-item my-1 p-0">
+<div class="backgroundCurtain" id="backgroundCurtain"></div>
+
+<section class="shoppingCart p-2" id="shoppingCart">
+    <h3 class="w-100 text-center"> Carrinho de compras </h3>
+    <button class="btn btn-icon closeCollapse" (click)="closeShoppingCart()">
+        <i class="fi fi-rr-arrow-small-right"></i>
+    </button>
+
+    <ul class="shoppingCart-menu mt-3">
+        <li *ngFor="let item of this.mapEntries(this.productsOfShoppingCart)" class="d-flex shoppingCart-item my-1 p-0">
             <ng-container *ngIf="isProduct(item)">
                 <p class="me-2"> {{ item.productName }} </p>
                 <div class="d-flex ms-auto me-1">
@@ -13,8 +22,8 @@
             </ng-container>
         </li>
     </ul>
-    <div class="d-flex">
-        <button type="button" class="btn btn-success mx-3" (click)="confirmSale()" > confirmar </button>
+    <div class="d-flex me-3 mt-auto">
+        <button type="button" class="btn btn-success mx-3 ms-auto" (click)="confirmSale()" > confirmar </button>
         <button type="button" class="btn btn-danger" (click)="cancel()"> cancelar </button>
     </div>
 </section>

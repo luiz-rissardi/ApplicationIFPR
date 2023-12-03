@@ -66,3 +66,16 @@
     }
 }
 
+.productInvalid{
+    animation: blink 500ms 3; 
+}
+
+@keyframes blink {
+    0%, 50%, 100%{
+        background-color: white;
+    }
+    25%,75%{
+        background-color: $invalid;
+    }
+}
+

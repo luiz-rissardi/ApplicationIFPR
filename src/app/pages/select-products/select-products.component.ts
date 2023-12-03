@@ -1,9 +1,9 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-
 import { ProductModel } from 'src/app/core/models/productModel';
 import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { ShoppingCartState } from 'src/app/core/states/ShoppingCartState';
 import { DOMManipulation } from "src/app/shared/domManipulation/dommanipulation";
+
 
 @Component({
   selector: 'app-commerce',
@@ -36,8 +36,8 @@ export class SelectProductsComponent extends DOMManipulation implements OnInit,O
   }
 
   selectProduct(product: ProductModel) {
+    const isSelected = this.elementContais(`product-${product.productId}`, "product-active");
     if (product.quantity > 0) {
-      const isSelected = this.elementContais(`product-${product.productId}`, "product-active")
       if (isSelected) {
         this.shoppingCartState.removeItem(product);
         this.removeClassToElement(`product-${product.productId}`, "product-active")
@@ -45,6 +45,11 @@ export class SelectProductsComponent extends DOMManipulation implements OnInit,O
         this.shoppingCartState.addToCart(product);
         this.addClassToElement(`product-${product.productId}`, 'product-active');
       }
+    }else{
+      this.addClassToElement(`product-${product.productId}`,"productInvalid");
+      setTimeout(()=>{
+        this.removeClassToElement(`product-${product.productId}`,"productInvalid");
+      },1500)
     }
   }
 

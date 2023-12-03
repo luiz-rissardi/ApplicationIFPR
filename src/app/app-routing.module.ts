@@ -25,7 +25,7 @@ const routes: Routes = [,
     path: "auth",
     component: AuthComponent,
     children: [
-      { path: "login", component: LoginComponent },
+      { path: "", component: LoginComponent },
       { path: "createAccount", component: CreateAccountComponent },
       { path: "updatePassword",component: RecoverPasswordComponent }
     ]

@@ -17,13 +17,13 @@ import { DOMManipulation } from 'src/app/shared/domManipulation/dommanipulation'
 export class ShoppingCartComponent extends DOMManipulation implements OnInit {
 
   public productsOfShoppingCart: Map<number, ProductModel> = new Map();
-  private products: ProductModel[] = [];
+  private products: Map<number, ProductModel> = new Map();
 
   constructor(
     @Inject(WarningHandlerService) private listenHander: Handler,
     private shoppingCartState: ShoppingCartState,
     private productsListState: ProductsListState,
-    private stockFacade:StockFacade,
+    private stockFacade: StockFacade,
     private commerceFacade: CommerceFacade,
     private spinnerState: LoaderSpinnerState,
     dom: Renderer2,
@@ -34,19 +34,22 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
   ngOnInit(): void {
     this.shoppingCartState.onChangeShoppingCart()
       .subscribe(data => {
+        this.openShoppingCart();
         this.setShoppingCart(data);
       })
 
     this.productsListState.onProductListChange().subscribe(data => {
-      this.products.length = 0;
+      this.products.clear();
       data.forEach((product: ProductModel) => {
-        this.products.push(product)
+        this.products.set(product.productId,product)
       })
     })
+
+    console.log();
   }
 
-  mapEntries() {
-    return Array.from(this.productsOfShoppingCart).flat().filter(el => !Number.isInteger(el))
+  mapEntries(arr:Map<number,ProductModel>):ProductModel[] {
+    return Array.from(arr.values())
   }
 
   isProduct(item: any): item is ProductModel {
@@ -54,6 +57,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
   }
 
   addOneItem(product: ProductModel) {
+    
     this.shoppingCartState.addToCart(product);
   }
 
@@ -82,11 +86,27 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
       let productsOsShoppingCart = this.shoppingCartState.getAllProducts();
       productsOsShoppingCart = productsOsShoppingCart.map(el => ({ ...el, active: el.active ? true : false }));
       this.commerceFacade.insertSale(productsOsShoppingCart);
-      this.stockFacade.SubstractItem(this.products, productsOsShoppingCart);
+      this.stockFacade.SubstractItem(this.mapEntries(this.products), productsOsShoppingCart);
+      this.removeAllItensOfShoppingCart();
+      this.closeShoppingCart();
     } catch (error) {
       console.log(error);
       this.listenHander.reportError("não foi possive realizar venda");
     }
+  }
+
+  closeShoppingCart(){
+    this.removeClassToElement("backgroundCurtain","showBackgroundCurtain");
+    this.setAttributeStyle("shoppingCart","display","none");
+    this.removeClassToElement("shoppingCart", "show");
+    this.addClassToElement("shoppingCart", "hidden");
+  }
+
+  openShoppingCart(){
+    this.addClassToElement("backgroundCurtain","showBackgroundCurtain");
+    this.setAttributeStyle("shoppingCart","display","block");
+    this.removeClassToElement("shoppingCart", "hidden");
+    this.addClassToElement("shoppingCart", "show");
   }
 
   private removeAllItensOfShoppingCart() {
@@ -96,22 +116,13 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     })
   }
 
-  private hiddenShoppingCart() {
-    this.removeClassToElement("shoppingCart", "show");
-    this.addClassToElement("shoppingCart", "hidden");
-  }
-
-  private showShoppingCart() {
-    this.removeClassToElement("shoppingCart", "hidden");
-    this.addClassToElement("shoppingCart", "show")
-  }
 
   private setShoppingCart(data: Map<number, ProductModel>) {
     this.productsOfShoppingCart = new Map([...data]);
     if (this.productsOfShoppingCart.size - 1 < 0) {
-      this.hiddenShoppingCart();
+      this.closeShoppingCart();
     } else {
-      this.showShoppingCart();
+      this.openShoppingCart();
     }
   }
 
