@@ -39,7 +39,9 @@ export class CreateAccountComponent extends ValidateForm implements OnInit {
       .subscribe((data: ProductModel[]) => {
         this.products.length = 0;
         data.forEach((product: ProductModel) => {
-          this.products.push(product)
+          if(product.productChosen == false){
+            this.products.push(product)
+          }
         })
       })
   }

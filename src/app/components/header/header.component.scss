@@ -4,7 +4,8 @@
 .header {
     width: 100%;
     height: 20vh;
-    background-color: $secondaryColor;
+    background-color: white;
+    border-bottom:10px solid $secondaryColor;
     display: flex;
     justify-content: space-between;
     align-items: center;

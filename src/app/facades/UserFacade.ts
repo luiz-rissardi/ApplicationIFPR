@@ -4,6 +4,7 @@ import { WarningHandlerService } from "../core/services/warningHandler/warning-h
 import { Handler } from "../core/services/interfaces/warningHandler/handler";
 import { AccountState } from "../core/states/AccountState";
 import { Router } from "@angular/router";
+import { setUserNameStorage } from "../core/storage/sessionStorage";
 
 @Injectable({
     providedIn: "root"
@@ -14,13 +15,14 @@ export class UserFacade {
         @Inject(WarningHandlerService) private waninrgHandler: Handler,
         private accountService: AccountService,
         private AccountState: AccountState,
-        private router: Router
+        private router: Router,
     ) {
 
     }
 
     login(name: string, password: string) {
         try {
+            setUserNameStorage(name);
             this.accountService.login(name, password).subscribe((data: any) => {
                 let { authenticated, user } = data;
                 if (authenticated) {
@@ -65,7 +67,7 @@ export class UserFacade {
             this.accountService.updatePassword(userName, password)
                 .subscribe((data: any) => {
                     this.waninrgHandler.reportSuccess(data?.message,data?.type);
-                    if(data?.type !== "invalid") this.router.navigate(["auth/login"]);
+                    if(data?.type !== "invalid") this.router.navigate(["/auth"]);
                 })
         } catch (error) {
             this.waninrgHandler.reportError("não foi possivel atualizar a senha")
