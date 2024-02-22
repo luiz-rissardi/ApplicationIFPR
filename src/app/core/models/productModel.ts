@@ -5,5 +5,5 @@ export type ProductModel = {
     quantity:number;
     productName:string;
     active:boolean;
-    productChosen:boolean;
+    productChosen:boolean | number;
 }

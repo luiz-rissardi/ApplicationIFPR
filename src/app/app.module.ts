@@ -10,10 +10,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { WarningHandlerComponent } from './components/warning-handler/warning-handler.component';
-import { NgxApexchartsModule } from "ngx-apexcharts";
-import { DonutBoardComponent } from './components/boards/donut-board/donut-board.component';
-import { LineBoardComponent } from './components/boards/line-board/line-board.component';
-import { TotalSalesComponent } from './components/boards/total-sales/total-sales.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './components/forms/login/login.component';
 import { CreateAccountComponent } from './components/forms/create-account/create-account.component';
@@ -42,9 +38,6 @@ import { UpdateProductFormComponent } from './components/forms/update-product-fo
     SelectProductsComponent,
     ListProductsComponent,
     WarningHandlerComponent,
-    DonutBoardComponent,
-    LineBoardComponent,
-    TotalSalesComponent,
     ShoppingCartComponent,
     LoginComponent,
     MasterComponent,
@@ -61,13 +54,12 @@ import { UpdateProductFormComponent } from './components/forms/update-product-fo
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgxApexchartsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    // ServiceWorkerModule.register('ngsw-worker.js', {
+    //   enabled: !isDevMode(),
+    //   // Register the ServiceWorker as soon as the application is stable
+    //   // or after 30 seconds (whichever comes first).
+    //   registrationStrategy: 'registerWhenStable:30000'
+    // })
   ],
   providers: [],
   bootstrap: [AppComponent]

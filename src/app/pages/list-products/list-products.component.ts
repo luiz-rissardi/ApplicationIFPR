@@ -51,6 +51,7 @@ export class ListProductsComponent implements OnInit {
     const execute = this.productsListState.deleteProductIntoList(product);
     const rollback = execute();
     try {
+      product.productChosen = product.productChosen == 0?false:true;
       this.stockFacade.inactiveProduct(product);
     } catch (error) {
       rollback();

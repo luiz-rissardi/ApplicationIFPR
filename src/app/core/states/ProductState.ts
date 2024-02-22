@@ -10,6 +10,7 @@ export class ProductState {
     private subject:ReplaySubject<ProductModel> = new ReplaySubject<ProductModel>(2);
 
     public setState(product:ProductModel):void{
+        product.productChosen = product.productChosen == 0?false:true;
         this.notifyAll(product);
     }
 

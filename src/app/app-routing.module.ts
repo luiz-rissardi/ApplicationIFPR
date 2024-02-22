@@ -52,10 +52,6 @@ const routes: Routes = [,
       //vendedor gerenciador
       { path: "manager", component: TicketManagerComponent }
     ]
-  },
-  {
-    path: "**",
-    redirectTo: "home"
   }
 ];
 
