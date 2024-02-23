@@ -12,7 +12,7 @@
     padding-inline: 10vw;
 
     @include BreakPoint(mobile-only) {
-        height: 10vh;
+        height: 15vh;
     }
 
     .logo {
