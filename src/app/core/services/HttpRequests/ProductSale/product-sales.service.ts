@@ -14,7 +14,7 @@ export class ProductSalesService {
 
   constructor(private http: HttpClient) { }
 
-  insertProductsIntoSale(saleId: number, products: ProductModel[]) {
+  insertProductsIntoSale(saleId: string, products: ProductModel[]) {
     try {
       const options = { headers: this.headers };
       const body = { saleId, products };

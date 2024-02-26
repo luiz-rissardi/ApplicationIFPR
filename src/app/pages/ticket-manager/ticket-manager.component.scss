@@ -1,10 +1,12 @@
 
 
 #cameraView {
-    width: 100%;
-    height: auto;
+    margin: auto;
 }
+
 #cameraContainer {
-    width: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
 }

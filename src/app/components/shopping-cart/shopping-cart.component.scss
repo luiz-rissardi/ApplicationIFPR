@@ -1,6 +1,9 @@
 @import "../../styles/mixins";
 @import "../../styles/vars";
 
+label{
+    font-size: 1rem;
+}
 
 .backgroundCurtain{
     position: fixed;
@@ -25,7 +28,7 @@
     min-height: 60px;
     min-width: 24vw;
     width: auto;
-    height: 50vh;
+    height: 60vh;
     margin: 0;
     margin-left: 75vw;
     margin-top: 2vh;
@@ -51,7 +54,7 @@
          }
 
          &-menu{
-            height: 55vh !important;
+            height: 40vh !important;
          }
     }
 
@@ -63,7 +66,7 @@
          }
 
          &-menu{
-            height: 70vh !important;
+            height: 60vh !important;
          }
     }
 
@@ -82,7 +85,7 @@
             background: #F4F4F4;
         }
 
-        height: 60%;
+        height: 47%;
     }
 
     &-item {

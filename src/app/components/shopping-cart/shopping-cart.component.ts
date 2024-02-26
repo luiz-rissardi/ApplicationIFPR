@@ -78,24 +78,27 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
   cancel() {
     try {
       this.removeAllItensOfShoppingCart();
-      this.listenHander.reportSuccess("produtos removidos com sucesso", "valid")
+      this.listenHander.reportSuccess("venda cancelada", "valid")
     } catch (error) {
-      console.log(error);
       this.listenHander.reportError("não foi possivel remover os produtos");
     }
   }
 
   async confirmSale() {
     try {
+      const phone:string = this.findElement("phone").value;
+      if( phone == undefined || phone.length <= 10){
+        this.listenHander.reportError("telefone inválido");
+        return;
+      }
       this.spinnerState.setState(true);
       let productsOsShoppingCart = this.shoppingCartState.getAllProducts();
       productsOsShoppingCart = productsOsShoppingCart.map(el => ({ ...el, active: el.active ? true : false, productChosen: el.productChosen ? true : false }));
-      this.commerceFacade.insertSale(productsOsShoppingCart);
+      this.commerceFacade.insertSale(productsOsShoppingCart,phone);
       this.stockFacade.SubstractItem(this.mapEntries(this.products), productsOsShoppingCart);
       this.removeAllItensOfShoppingCart();
       this.closeShoppingCart();
     } catch (error) {
-      console.log(error);
       this.listenHander.reportError("não foi possive realizar venda");
     }
   }

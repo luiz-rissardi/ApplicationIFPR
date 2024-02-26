@@ -10,6 +10,13 @@
         <i class="fi fi-rr-arrow-small-right"></i>
     </button>
 
+    <form class="form">
+        <fieldset class="form-group">
+            <label for="phone" class="label-form"> número de telefone do cliente: </label>
+            <input type="text" class="form-control" name="phone" id="phone" placeholder="ex: (41)999999999">
+        </fieldset>
+    </form>
+
     <ul class="shoppingCart-menu mt-3">
         <li *ngFor="let product of this.mapEntries(this.productsOfShoppingCart)">
             <ng-container *ngIf="isProduct(product)">
@@ -26,8 +33,9 @@
             </ng-container>
         </li>
     </ul>
-    <div class="d-flex me-3 mt-auto">
+    <div class="d-flex me-3">
         <button type="button" class="btn btn-success mx-3 ms-auto" (click)="confirmSale()"> confirmar </button>
         <button type="button" class="btn btn-danger" (click)="cancel()"> cancelar </button>
     </div>
 </section>
+

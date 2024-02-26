@@ -13,10 +13,10 @@ export class ShoppingService {
     'Content-Type': 'application/json',
   };
 
-  createSale() {
+  createSale(saleId:string) {
     try {
       const options = { headers: this.headers };
-      return this.http.post("http://localhost:8723/api/insertNewSale",{},options);
+      return this.http.post("http://localhost:8723/api/insertNewSale",{saleId},options);
     } catch (error) {
       throw new ShoppingException("não foi possivel criar uma nova venda")
     }
