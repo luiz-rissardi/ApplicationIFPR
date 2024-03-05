@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserException } from 'src/app/core/exceptions/UserException';
+import { ServiceBase } from '../shared/serviceBase';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class AccountService extends ServiceBase {
 
-  constructor(private http: HttpClient) { }
-
-  private Headers = {
-    'Content-Type': 'application/json'
+  constructor(http: HttpClient) {
+    super(http)
   }
 
   login(userName: string, password: string) {
@@ -19,11 +18,7 @@ export class AccountService {
         userName, password
       };
 
-      const options = {
-        headers: this.Headers
-      };
-
-      return this.http.post("http://localhost:8723/api/login", body, options);
+      return this.http.post(this.uri + "/auth", body, this.options);
     } catch (error) {
       throw new UserException("não foi possivel realizar o login")
     }
@@ -31,17 +26,13 @@ export class AccountService {
 
   createAccount(account: any) {
     try {
-      const options = {
-        headers: this.Headers
-      };
-
       const body = {
         userName: account.userName,
         password: account.password,
         productIdAnexed: account.productIdAnexed
       }
 
-      return this.http.post("http://localhost:8723/api/createAccount", body, options);
+      return this.http.post(this.uri + "/user", body, this.options);
     } catch (error) {
       throw new UserException("não foi possivel criar nova conta")
     }
@@ -49,15 +40,11 @@ export class AccountService {
 
   updatePassword(userName: string, password: string) {
     try {
-      const options = {
-        headers: this.Headers
-      }
-
       const body = {
         userName, password
       }
 
-      return this.http.put("http://localhost:8723/api/updatePassword",body,options);
+      return this.http.put(this.uri + "/user/password", body, this.options);
     } catch (error) {
       throw new UserException("não foi possivel mudar a senha")
     }

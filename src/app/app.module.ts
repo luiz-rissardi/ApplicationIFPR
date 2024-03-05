@@ -26,6 +26,7 @@ import { TicketManagerComponent } from './pages/ticket-manager/ticket-manager.co
 import { MainComponent } from './pages/main/main.component';
 import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
+import { WriteOffSaleComponent } from './pages/writeOffSale/writeOffSale.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { UpdateProductFormComponent } from './components/forms/update-product-fo
     RecoverPasswordComponent,
     CreateProductFormComponent,
     UpdateProductFormComponent,
+    WriteOffSaleComponent,
   ],
   imports: [
     BrowserModule,

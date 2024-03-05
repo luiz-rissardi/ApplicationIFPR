@@ -1,0 +1,18 @@
+<section class="container-fluid p-0 pt-5 pt-lg-5 d-flex flex-column">
+    <h1 class="mx-auto"> Marcar retiro do produto  </h1>
+
+    <article class="contentBox d-flex flex-column">
+        <h2 class="mx-auto"> Fixas restantes do cliente: {{ productSales?.quantity }} </h2>
+        <hr>
+        <p class="mx-auto"> A retirar </p>
+        <div class="boxRemove">
+            <button (click)="addToRemove()"> + </button>
+            <span> {{ amountToRemove }} </span>
+            <button (click)="lessToRemove()"> - </button>
+        </div>
+        <button class="recordButton" (click)="confirmRemove()">
+            confrimar retiro  
+        </button>
+    </article>
+
+</section>

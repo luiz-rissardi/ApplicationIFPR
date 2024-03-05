@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { ProductModel } from "../models/productModel";
+import { Product } from "../models/productModel";
 import { ReplaySubject, Subject } from "rxjs"
 
 @Injectable({
@@ -7,18 +7,18 @@ import { ReplaySubject, Subject } from "rxjs"
 })
 
 export class ProductState {
-    private subject:ReplaySubject<ProductModel> = new ReplaySubject<ProductModel>(2);
+    private subject:ReplaySubject<Product> = new ReplaySubject<Product>(2);
 
-    public setState(product:ProductModel):void{
+    public setState(product:Product):void{
         product.productChosen = product.productChosen == 0?false:true;
         this.notifyAll(product);
     }
 
-    public getStateWhenChanging():Subject<ProductModel>{
+    public getStateWhenChanging():Subject<Product>{
         return this.subject;
     }
 
-    private notifyAll(product:ProductModel):void{
+    private notifyAll(product:Product):void{
         this.subject.next(product)
     }
 

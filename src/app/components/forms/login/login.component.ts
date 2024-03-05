@@ -1,5 +1,5 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { UserFacade } from 'src/app/facades/UserFacade';
 import { ValidateForm } from '../validateFormService/validateFomr-Service';
 

@@ -1,34 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Product } from 'src/app/core/models/productModel';
 import { StockException } from 'src/app/core/exceptions/StockExceptions';
+import { ServiceBase } from '../shared/serviceBase';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class StockService {
+export class StockService extends ServiceBase {
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient) {
+    super(http)
+  }
 
-  private headers = {
-    'Content-Type': 'application/json',
-  };
-
-  createProduct(product: ProductModel) {
+  createProduct(product: Product) {
     try {
-      const options = { headers: this.headers };
-      return this.http.post("http://localhost:8723/api/createProduct", product, options);
+      return this.http.post(this.uri + "/product", product, this.options);
     } catch (error: any) {
       throw new StockException(`não foi possível criar um novo usuário => ${error.message}`)
     }
   }
 
-  substractionStock(updates:any){
+  substractionStock(updates: any) {
     try {
-      const options = { headers:this.headers };
-      return this.http.post("http://localhost:8723/api/substractionStock",{ updates }, options);
+      return this.http.post(this.uri + "/product/substraction", { updates }, this.options);
     } catch (error) {
       throw new StockException("não foi possivel subtrair do estoque");
     }
@@ -36,17 +33,16 @@ export class StockService {
 
   getAllProduct() {
     try {
-      return this.http.get("http://localhost:8723/api/getAllProducts");
+      return this.http.get(this.uri + "/product");
     } catch (error: any) {
       throw new StockException(`não foi possivel buscar todos os dados => ${error.message}`)
     }
   }
 
-  updateProduct(product: ProductModel) {
+  updateProduct(product: Product) {
     try {
-      const options = { headers: this.headers };
       const body = { productId: product.productId, product }
-      return this.http.put("http://localhost:8723/api/updateProduct", body, options);
+      return this.http.put(this.uri + "/product", body, this.options);
     } catch (error: any) {
       throw new StockException(`não foi possivel atualizar o usuário => ${error.message}`)
     }

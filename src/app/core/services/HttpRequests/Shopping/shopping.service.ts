@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ShoppingException } from 'src/app/core/exceptions/ShoppingExceptions';
+import { ServiceBase } from '../shared/serviceBase';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingService {
+export class ShoppingService extends ServiceBase {
 
-  constructor(private http: HttpClient) { }
+  constructor(http: HttpClient) {
+    super(http)
+  }
 
-  private headers = {
-    'Content-Type': 'application/json',
-  };
-
-  createSale(saleId:string) {
+  createSale(saleId: string) {
     try {
-      const options = { headers: this.headers };
-      return this.http.post("http://localhost:8723/api/insertNewSale",{saleId},options);
+      return this.http.post(this.uri + "/sale", { saleId }, this.options);
     } catch (error) {
       throw new ShoppingException("não foi possivel criar uma nova venda")
     }

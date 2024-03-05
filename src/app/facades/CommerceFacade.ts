@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 import { ShoppingService } from "../core/services/HttpRequests/Shopping/shopping.service";
 import { ProductSalesService } from "../core/services/HttpRequests/ProductSale/product-sales.service";
-import { ProductModel } from "../core/models/productModel";
+import { Product } from "../core/models/productModel";
 import { Observable, switchMap } from "rxjs";
 import { WarningHandlerService } from "../core/services/warningHandler/warning-handler.service";
 import { Handler } from "../core/services/interfaces/warningHandler/handler";
@@ -21,7 +21,7 @@ export class CommerceFacade {
         private spinnerState: LoaderSpinnerState,
         @Inject(WarningHandlerService) private warningHandler: Handler) { }
 
-    handlerOperation(operation: Observable<any>, errorMessage: string) {
+    private handlerOperation(operation: Observable<any>, errorMessage: string) {
         operation.subscribe({
             next: (data) => {
                 this.warningHandler.reportSuccess(data.message, data.type);
@@ -36,7 +36,7 @@ export class CommerceFacade {
         })
     }
 
-    insertSale(products: ProductModel[],phone:string) {
+    insertSale(products: Product[],phone:string) {
         const saleId = uuidv4();
         products = products.map(el => ({ ...el, price: Number(el.price) }));
         const observable = this.clientService.handlerClient(phone,saleId).pipe(
@@ -44,5 +44,18 @@ export class CommerceFacade {
             switchMap((data:any) => this.productSale.insertProductsIntoSale(data.saleId,products))
         )
         this.handlerOperation(observable, "não foi possivel criar a venda");
+    }
+
+    getProductsOfSale(saleId:string,productId:number){
+        this.spinnerState.setState(true);
+        const observable = this.productSale.getAllProductsOfSale(saleId,productId);
+        this.handlerOperation(observable,"não foi possivel pegar produtos da venda")
+        return observable;
+    }
+
+    recordProductSale(saleId:string,productId:number,quantity:number){
+        this.spinnerState.setState(true);
+        const observable = this.productSale.lessProductQuantityOfSale(saleId,productId,quantity);
+        this.handlerOperation(observable,"não foi possivel realizar baixa");
     }
 }

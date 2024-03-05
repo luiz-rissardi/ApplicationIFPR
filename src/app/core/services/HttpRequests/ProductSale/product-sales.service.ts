@@ -1,26 +1,41 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Product } from 'src/app/core/models/productModel';
 import { ProductSaleException } from 'src/app/core/exceptions/ProductSaleException';
+import { ServiceBase } from '../shared/serviceBase';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductSalesService {
+export class ProductSalesService extends ServiceBase {
 
-  private headers = {
-    'Content-Type': 'application/json'
+  constructor(http: HttpClient) {
+    super(http)
   }
 
-  constructor(private http: HttpClient) { }
-
-  insertProductsIntoSale(saleId: string, products: ProductModel[]) {
+  insertProductsIntoSale(saleId: string, products: Product[]) {
     try {
-      const options = { headers: this.headers };
       const body = { saleId, products };
-      return this.http.post("http://localhost:8723/api/insertProducts",body,options);
+      return this.http.post(this.uri + "/product/sale", body, this.options);
     } catch (error) {
       throw new ProductSaleException("não foi possivel inserir os produtos na venda");
+    }
+  }
+
+  getAllProductsOfSale(saleId: string, productId: number) {
+    try {
+      return this.http.get(this.uri + `/product/sale/${saleId}&${productId}`, this.options);
+    } catch (error) {
+      throw new ProductSaleException("não foi possivel pegar os produtos da venda");
+    }
+  }
+
+  lessProductQuantityOfSale(saleId: string, productId: number, quantity: number) {
+    try {
+      const body = { saleId, productId, quantity };
+      return this.http.post(this.uri + "/product/sale/remove", body, this.options);
+    } catch (error) {
+      throw new ProductSaleException("não foi possivel realizar baixa");
     }
   }
 

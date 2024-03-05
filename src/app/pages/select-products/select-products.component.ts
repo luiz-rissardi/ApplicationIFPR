@@ -1,5 +1,5 @@
-import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Product } from 'src/app/core/models/productModel';
 import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
 import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
 import { ProductsListState } from 'src/app/core/states/ProductsListState';
@@ -14,7 +14,7 @@ import { DOMManipulation } from "src/app/shared/domManipulation/dommanipulation"
 })
 export class SelectProductsComponent extends DOMManipulation implements OnInit,OnDestroy {
 
-  public products: ProductModel[] = [];
+  public products: Product[] = [];
 
   constructor(
     @Inject(WarningHandlerService) private listenHander: Handler,
@@ -32,13 +32,13 @@ export class SelectProductsComponent extends DOMManipulation implements OnInit,O
   ngOnInit(): void {
     this.productsListState.onProductListChange().subscribe(data => {
       this.products.length = 0;
-      data.forEach((product: ProductModel) => {
+      data.forEach((product: Product) => {
         this.products.push(product)
       })
     })
   }
 
-  selectProduct(product: ProductModel) {
+  selectProduct(product: Product) {
     const isSelected = this.elementContais(`product-${product.productId}`, "product-active");
     if (product.quantity > 0) {
       if (isSelected) {

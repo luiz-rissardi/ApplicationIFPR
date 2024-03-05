@@ -1,5 +1,5 @@
 import { Component, Renderer2, ElementRef, OnInit, Inject } from '@angular/core';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Product } from 'src/app/core/models/productModel';
 import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
 import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
@@ -16,8 +16,8 @@ import { DOMManipulation } from 'src/app/shared/domManipulation/dommanipulation'
 })
 export class ShoppingCartComponent extends DOMManipulation implements OnInit {
 
-  public productsOfShoppingCart: Map<number, ProductModel> = new Map();
-  private products: Map<number, ProductModel> = new Map();
+  public productsOfShoppingCart: Map<number, Product> = new Map();
+  private products: Map<number, Product> = new Map();
 
   constructor(
     @Inject(WarningHandlerService) private listenHander: Handler,
@@ -40,21 +40,21 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
 
     this.productsListState.onProductListChange().subscribe(data => {
       this.products.clear();
-      data.forEach((product: ProductModel) => {
+      data.forEach((product: Product) => {
         this.products.set(product.productId, product)
       })
     })
   }
 
-  mapEntries(arr: Map<number, ProductModel>): ProductModel[] {
+  mapEntries(arr: Map<number, Product>): Product[] {
     return Array.from(arr.values())
   }
 
-  isProduct(item: any): item is ProductModel {
+  isProduct(item: any): item is Product {
     return item instanceof Object && 'active' in item;
   }
 
-  addOneItem(product: ProductModel) {
+  addOneItem(product: Product) {
     if (this.checkQuantityForSale(product)) {
       this.shoppingCartState.addToCart(product);
     } else {
@@ -66,7 +66,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     }
   }
 
-  removeOneItem(product: ProductModel) {
+  removeOneItem(product: Product) {
     this.shoppingCartState.removeOneToCart(product);
     if (product.quantity < 0) {
       this.shoppingCartState.removeItem(product);
@@ -125,7 +125,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
   }
 
 
-  private setShoppingCart(data: Map<number, ProductModel>) {
+  private setShoppingCart(data: Map<number, Product>) {
     this.productsOfShoppingCart = new Map([...data]);
     if (this.productsOfShoppingCart.size - 1 < 0) {
       this.closeShoppingCart();
@@ -134,7 +134,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
     }
   }
 
-  private checkQuantityForSale(product: ProductModel): boolean {
+  private checkQuantityForSale(product: Product): boolean {
     const productOfListQtde = this.products.get(product.productId).quantity;
     const productOfShoopingCart = this.productsOfShoppingCart.get(product.productId).quantity;
     return productOfListQtde - productOfShoopingCart > 0

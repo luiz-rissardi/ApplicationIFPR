@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { UserFacade } from 'src/app/facades/UserFacade';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Product } from 'src/app/core/models/productModel';
 import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { ValidateForm } from '../validateFormService/validateFomr-Service';
 import { StockFacade } from 'src/app/facades/StockFacade';
@@ -14,7 +14,7 @@ import { StockFacade } from 'src/app/facades/StockFacade';
 export class CreateAccountComponent extends ValidateForm implements OnInit {
 
   public load: boolean = false;
-  public products: ProductModel[] = [];
+  public products: Product[] = [];
 
   constructor(
     private userFacade: UserFacade,
@@ -36,9 +36,9 @@ export class CreateAccountComponent extends ValidateForm implements OnInit {
   ngOnInit(): void {
 
     this.productListState.onProductListChange()
-      .subscribe((data: ProductModel[]) => {
+      .subscribe((data: Product[]) => {
         this.products.length = 0;
-        data.forEach((product: ProductModel) => {
+        data.forEach((product: Product) => {
           if(product.productChosen == false){
             this.products.push(product)
           }

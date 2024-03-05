@@ -1,5 +1,5 @@
 
-export type ProductModel = {
+export type Product = {
     productId:number;
     price:number;
     quantity:number;

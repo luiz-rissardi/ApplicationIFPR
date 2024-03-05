@@ -1,5 +1,5 @@
 import { ReplaySubject, Subject } from "rxjs";
-import { ProductModel } from "../models/productModel";
+import { Product } from "../models/productModel";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -8,10 +8,10 @@ import { Injectable } from "@angular/core";
 
 export class ShoppingCartState {
 
-    private products: Map<number, ProductModel> = new Map<number, ProductModel>();
+    private products: Map<number, Product> = new Map<number, Product>();
     private subject: ReplaySubject<any> = new ReplaySubject(1);
 
-    addToCart(product: ProductModel) {
+    addToCart(product: Product) {
         if (this.products.has(product.productId)) {
             this.addToShoppingCart(product);
         } else {
@@ -24,7 +24,7 @@ export class ShoppingCartState {
         return Array.from(this.products.values()).flat().filter(el => !Number.isInteger(el))
     }
 
-    removeOneToCart(product: ProductModel) {
+    removeOneToCart(product: Product) {
         const productSale = this.products.get(product.productId);
         productSale.quantity -= 1;
         this.products.delete(product.productId);
@@ -32,7 +32,7 @@ export class ShoppingCartState {
         this.notifyAll();
     }
 
-    removeItem(product: ProductModel) {
+    removeItem(product: Product) {
         this.products.delete(product.productId);
         this.notifyAll();
     }
@@ -50,14 +50,14 @@ export class ShoppingCartState {
         this.subject.next(this.products);
     }
 
-    private addToShoppingCart(product: ProductModel) {
+    private addToShoppingCart(product: Product) {
         const productSale = this.products.get(product.productId);
         productSale.quantity += 1;
         this.products.delete(product.productId);
         this.products.set(product.productId, productSale);
     }
 
-    private createToShoppingCart(product:ProductModel) {
+    private createToShoppingCart(product:Product) {
         const productSale = { ...product, quantity: 1 };
         this.products.set(product.productId, productSale);
     }

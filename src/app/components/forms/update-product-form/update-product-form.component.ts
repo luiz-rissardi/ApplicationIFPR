@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { StockFacade } from 'src/app/facades/StockFacade';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Product } from 'src/app/core/models/productModel';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
 import { ProductState } from 'src/app/core/states/ProductState';
 import { ProductsListState } from 'src/app/core/states/ProductsListState';
@@ -32,7 +32,7 @@ export class UpdateProductFormComponent {
     })
 
     this.productState.getStateWhenChanging()
-      .subscribe((product: ProductModel) => {
+      .subscribe((product: Product) => {
         this.formProduct.setValue({
           productName: product.productName,
           price: product.price,

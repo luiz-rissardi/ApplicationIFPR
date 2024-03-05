@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductModel } from 'src/app/core/models/productModel';
+import { Product } from 'src/app/core/models/productModel';
 import { Router } from '@angular/router';
 import { ProductState } from 'src/app/core/states/ProductState';
 import { StockFacade } from 'src/app/facades/StockFacade';
@@ -16,8 +16,8 @@ import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
 export class ListProductsComponent implements OnInit {
 
   public windowWidth: number = window.innerWidth;
-  public productChosen!: ProductModel;
-  public products: ProductModel[] = [];
+  public productChosen!: Product;
+  public products: Product[] = [];
   public modalIsOpen: boolean = window.innerWidth <= 765 ? true : false;
 
   constructor(
@@ -31,22 +31,22 @@ export class ListProductsComponent implements OnInit {
   ngOnInit(): void {
     this.productsListState.onProductListChange().subscribe(data => {
       this.products.length = 0;
-      data.forEach((product:ProductModel) =>{
+      data.forEach((product:Product) =>{
         this.products.push(product);
       })
     })
   }
 
-  chosenProduct(product: ProductModel) {
+  chosenProduct(product: Product) {
     this.productChosen = product;
   }
 
-  updateProduct(product: ProductModel) {
+  updateProduct(product: Product) {
     this.productState.setState(product)
     this.router.navigate(["/home/updateProduct/"])
   }
 
-  inactiveProduct(product:ProductModel){
+  inactiveProduct(product:Product){
     this.spinnerState.setState(true);
     const execute = this.productsListState.deleteProductIntoList(product);
     const rollback = execute();

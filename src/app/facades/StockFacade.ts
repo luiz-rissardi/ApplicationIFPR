@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { StockService } from '../core/services/HttpRequests/Stock/stock-service.service';
-import { ProductModel } from '../core/models/productModel';
+import { Product } from '../core/models/productModel';
 import { WarningHandlerService } from '../core/services/warningHandler/warning-handler.service';
 import { Handler } from '../core/services/interfaces/warningHandler/handler';
 import { Observable } from 'rxjs';
@@ -37,7 +37,7 @@ export class StockFacade {
         });
     }
 
-    createProduct(product: ProductModel): Promise<number> {
+    createProduct(product: Product): Promise<number> {
         return new Promise((resolve, reject) => {
             try {
                 this.service.createProduct(product).subscribe({
@@ -59,14 +59,14 @@ export class StockFacade {
         })
     }
 
-    updateProduct(product: ProductModel) {
+    updateProduct(product: Product) {
         this.handleOperation(
             this.service.updateProduct(product),
             "Não foi possível atualizar o produto!"
         )
     }
 
-    inactiveProduct(product: ProductModel) {
+    inactiveProduct(product: Product) {
         product.active = false;
 
         this.handleOperation(
@@ -92,7 +92,7 @@ export class StockFacade {
         })
     }
 
-    SubstractItem(products: ProductModel[], productsOsShoppingCart: ProductModel[]) {
+    SubstractItem(products: Product[], productsOsShoppingCart: Product[]) {
         const { substractsMapped, updates } = this.mapSubstraction(productsOsShoppingCart, products);
         this.substractionOfStock(updates);
         this.productsListState.setProductList(substractsMapped);
@@ -105,7 +105,7 @@ export class StockFacade {
         )
     }
 
-    private mapSubstraction(productsOsShoppingCart: ProductModel[], products: ProductModel[]) {
+    private mapSubstraction(productsOsShoppingCart: Product[], products: Product[]) {
         const updates = productsOsShoppingCart.map(el => ({ productId: el.productId, quantity: el.quantity }));
 
         const map = products.map(el => {
