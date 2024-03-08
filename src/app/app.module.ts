@@ -27,7 +27,9 @@ import { MainComponent } from './pages/main/main.component';
 import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
 import { WriteOffSaleComponent } from './pages/writeOffSale/writeOffSale.component';
-
+import { DonutComponent } from './dashboards/donut/donut.component';
+import { NgxApexchartsModule } from 'ngx-apexcharts';
+import { RelatoryComponent } from './components/relatory/relatory.component';
 
 @NgModule({
   declarations: [
@@ -50,12 +52,15 @@ import { WriteOffSaleComponent } from './pages/writeOffSale/writeOffSale.compone
     CreateProductFormComponent,
     UpdateProductFormComponent,
     WriteOffSaleComponent,
+    DonutComponent,
+    RelatoryComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxApexchartsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

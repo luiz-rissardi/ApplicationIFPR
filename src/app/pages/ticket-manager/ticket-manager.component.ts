@@ -31,14 +31,6 @@ export class TicketManagerComponent {
       this.router.navigate(["/home/sale"])
     })
 
-    // const qr = qrcode(0,"M");
-    // qr.addData("a9afd6f9-6579-440d-9ae3-910dfec4b225")
-    // qr.make();
-    // const qrCodeData = qr.createImgTag();
-    // const qrCodeContainer = document.getElementById('qrCodeContainer');
-    // qrCodeContainer.innerHTML = qrCodeData;
-
-
     // const cameraView: HTMLVideoElement = document.getElementsByTagName('video')[0];
     // navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
     //   .then((stream) => {

@@ -87,7 +87,7 @@ export class ShoppingCartComponent extends DOMManipulation implements OnInit {
   async confirmSale() {
     try {
       const phone:string = this.findElement("phone").value;
-      if( phone == undefined || phone.length <= 10){
+      if( phone == undefined || phone.length < 10){
         this.listenHander.reportError("telefone inválido");
         return;
       }

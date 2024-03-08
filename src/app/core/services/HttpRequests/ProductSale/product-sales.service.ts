@@ -39,4 +39,12 @@ export class ProductSalesService extends ServiceBase {
     }
   }
 
+  getTopSellingProducts(rank: string) {
+    try {
+      return this.http.get(this.uri + `/product/top/${rank}`,this.options);
+    } catch (error) {
+      throw new ProductSaleException("não foi possivel pegar top produtos vendidos");
+    }
+  }
+
 }
