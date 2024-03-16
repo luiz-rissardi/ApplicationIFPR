@@ -26,7 +26,6 @@ import { TicketManagerComponent } from './pages/ticket-manager/ticket-manager.co
 import { MainComponent } from './pages/main/main.component';
 import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
-import { WriteOffSaleComponent } from './pages/writeOffSale/writeOffSale.component';
 import { DonutComponent } from './dashboards/donut/donut.component';
 import { NgxApexchartsModule } from 'ngx-apexcharts';
 import { RelatoryComponent } from './components/relatory/relatory.component';
@@ -51,7 +50,6 @@ import { RelatoryComponent } from './components/relatory/relatory.component';
     RecoverPasswordComponent,
     CreateProductFormComponent,
     UpdateProductFormComponent,
-    WriteOffSaleComponent,
     DonutComponent,
     RelatoryComponent,
   ],

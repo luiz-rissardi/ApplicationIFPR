@@ -12,9 +12,9 @@ export class ShoppingService extends ServiceBase {
     super(http)
   }
 
-  createSale(saleId: string) {
+  createSale(orderId: string) {
     try {
-      return this.http.post(this.uri + "/sale", { saleId }, this.options);
+      return this.http.post(this.uri + "/sale", { orderId }, this.options);
     } catch (error) {
       throw new ShoppingException("não foi possivel criar uma nova venda")
     }

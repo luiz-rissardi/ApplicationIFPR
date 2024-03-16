@@ -1,13 +1,22 @@
-<section class="container-fluid pt-5 pt-lg-0 h-100">
-    <h2 class=" text-center">
-        Escaneie o QR code
-    </h2>
-
-    <div id="cameraContainer">
-        <button type="button" (click)="scan()"> escanear </button>
-        <video id="cameraView" width="350" height="380" autoplay playsinline></video>
+<section class="container-fluid p-5 d-block d-lg-flex grid gap-5">
+    <div class="tick-manager-container w-100 w-lg-50 mt-5">
+        <div class="w-100">
+            <label for="commandId"> informe a comanda do cliente: </label>
+            <input type="text" class="form-control" [formControl]="controlCommand" placeholder="ex:234" id="commandId">
+        </div>
+        <button type="button" (click)="getProductSales()"> buscar </button>
     </div>
-    <div id="qrCodeContainer">
-
-    </div>
+    <article class="contentBox d-flex flex-column w-100 w-lg-50" *ngIf="this.productSales?.quantity > 0">
+        <h2 class="mx-auto"> Fixas restantes do cliente: {{ productSales?.quantity }} </h2>
+        <hr>
+        <p class="mx-auto"> A retirar </p>
+        <div class="boxRemove">
+            <button (click)="addToRemove()" class="text-dark"> + </button>
+            <span> {{ amountToRemove }} </span>
+            <button (click)="lessToRemove()" class="text-dark"> - </button>
+        </div>
+        <button class="recordButton mt-4" (click)="confirmRemove()">
+            confirmar retiro
+        </button>
+    </article>
 </section>

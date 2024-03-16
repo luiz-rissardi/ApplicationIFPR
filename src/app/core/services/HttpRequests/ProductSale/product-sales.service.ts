@@ -13,26 +13,26 @@ export class ProductSalesService extends ServiceBase {
     super(http)
   }
 
-  insertProductsIntoSale(saleId: string, products: Product[]) {
+  insertProductsIntoSale(orderId: string, products: Product[]) {
     try {
-      const body = { saleId, products };
+      const body = { orderId, products };
       return this.http.post(this.uri + "/product/sale", body, this.options);
     } catch (error) {
       throw new ProductSaleException("não foi possivel inserir os produtos na venda");
     }
   }
 
-  getAllProductsOfSale(saleId: string, productId: number) {
+  getAllProductsOfSale(orderId: string, productId: number) {
     try {
-      return this.http.get(this.uri + `/product/sale/${saleId}&${productId}`, this.options);
+      return this.http.get(this.uri + `/product/sale/${orderId}&${productId}`, this.options);
     } catch (error) {
       throw new ProductSaleException("não foi possivel pegar os produtos da venda");
     }
   }
 
-  lessProductQuantityOfSale(saleId: string, productId: number, quantity: number) {
+  lessProductQuantityOfSale(orderId: string, productId: number, quantity: number) {
     try {
-      const body = { saleId, productId, quantity };
+      const body = { orderId, productId, quantity };
       return this.http.post(this.uri + "/product/sale/remove", body, this.options);
     } catch (error) {
       throw new ProductSaleException("não foi possivel realizar baixa");

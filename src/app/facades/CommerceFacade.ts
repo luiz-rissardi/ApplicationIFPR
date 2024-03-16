@@ -11,9 +11,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { TopProductsSellingState } from "../core/states/TopProductSelling";
 import { TopProductsSelling } from "../core/models/TopProductSelling";
 
-import qrcode from 'qrcode-generator';
-import { MessageService } from "../core/services/HttpRequests/message/message.service";
-
 @Injectable({
     providedIn: 'root'
 })
@@ -24,13 +21,12 @@ export class CommerceFacade {
         private clientService: ClientService,
         private spinnerState: LoaderSpinnerState,
         private topProductsState: TopProductsSellingState,
-        private messageService:MessageService,
         @Inject(WarningHandlerService) private warningHandler: Handler) { }
 
     private handlerOperation(operation: Observable<any>, errorMessage: string) {
         operation.subscribe({
             next: (data) => {
-                this.warningHandler.reportSuccess(data.message, data.type);
+                this.warningHandler.reportSuccess(data?.message, data?.type);
             },
             error: (error) => {
                 console.log(error);
@@ -43,33 +39,30 @@ export class CommerceFacade {
     }
 
     insertSale(products: Product[], phone: string) {
-        const saleId = uuidv4();
+        const orderId = uuidv4();
         products = products.map(el => ({ ...el, price: Number(el.price) }));
-        const observable = this.clientService.handlerClient(phone, saleId).pipe(
-            switchMap((data: any) => this.shoppingService.createSale(data.saleId)),
+        const observable = this.clientService.handlerClient(phone, orderId).pipe(
             switchMap((data: any) => {
-                const qr = qrcode(0, "M");
-                qr.addData(data.saleId)
-                qr.make();
-                const qrCodeData = qr.createImgTag();
-                this.messageService.sendQrcodeToClient(phone,qrCodeData)
-
-                return this.productSale.insertProductsIntoSale(data.saleId, products)
-            })
+                console.log(data);
+                return this.shoppingService.createSale(data.orderId)
+            }),
+            switchMap((data: any) => this.productSale.insertProductsIntoSale(data.orderId, products))
         )
         this.handlerOperation(observable, "não foi possivel criar a venda");
     }
 
-    getProductsOfSale(saleId: string, productId: number) {
+    getProductsOfSale(command: number, productId: number) {
         this.spinnerState.setState(true);
-        const observable = this.productSale.getAllProductsOfSale(saleId, productId);
-        this.handlerOperation(observable, "não foi possivel pegar produtos da venda")
-        return observable;
+        const observable = this.clientService.getByCommand(command).pipe(
+            switchMap((data: any) => this.productSale.getAllProductsOfSale(data?.orderId, productId))
+        )
+        this.handlerOperation(observable, "comanda não existe")
+        return observable
     }
 
-    recordProductSale(saleId: string, productId: number, quantity: number) {
+    recordProductSale(orderId: string, productId: number, quantity: number) {
         this.spinnerState.setState(true);
-        const observable = this.productSale.lessProductQuantityOfSale(saleId, productId, quantity);
+        const observable = this.productSale.lessProductQuantityOfSale(orderId, productId, quantity);
         this.handlerOperation(observable, "não foi possivel realizar baixa");
     }
 

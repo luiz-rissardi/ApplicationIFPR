@@ -1,4 +1,4 @@
-import { ReplaySubject, count } from "rxjs";
+import { ReplaySubject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Account } from "../models/AccountModel";
 import { setAuthStorage } from "../storage/sessionStorage";

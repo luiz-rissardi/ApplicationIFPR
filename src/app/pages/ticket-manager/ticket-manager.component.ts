@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
-import jsQR from 'jsqr';
-import qrcode from 'qrcode-generator';
-import { Router } from '@angular/router';
+import { Component, Inject } from '@angular/core';
 import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 import { getProductIdUserAnexed } from 'src/app/core/storage/sessionStorage';
-import { ProductsSalesState } from 'src/app/core/states/ProductSalesState';
 import { ProductSales } from 'src/app/core/models/producSaleModel';
+import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
+import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { UserFacade } from 'src/app/facades/UserFacade';
+import { AccountState } from 'src/app/core/states/AccountState';
+import { Account } from 'src/app/core/models/AccountModel';
 
 @Component({
   selector: 'app-ticket-manager',
@@ -14,52 +16,63 @@ import { ProductSales } from 'src/app/core/models/producSaleModel';
 })
 export class TicketManagerComponent {
 
-  private productId: number
+  private productId: number;
+  controlCommand:FormControl;
+  productSales: ProductSales;
+  amountToRemove: number = 0;
+  
 
   constructor(
+    formBuiler: FormBuilder,
     private commerceFacade: CommerceFacade,
-    private productSalesState:ProductsSalesState,
-    private router: Router
+    private userState:AccountState,
+    @Inject(WarningHandlerService) private warningHandler: Handler,
   ) {
+    this.controlCommand = formBuiler.control(null);
     this.productId = Number(getProductIdUserAnexed());
+    if(Number.isNaN(this.productId)){
+      this.userState.onChangeAccount().subscribe((data: Account) => {
+        this.productId = data.productIdAnexed;
+      })
+    }
   }
 
-  scan() {
-
-    this.commerceFacade.getProductsOfSale("2ccff0d4-8228-4fc6-bb5f-d21c2f02c693", 11).subscribe((data:ProductSales) => {
-      this.productSalesState.setProductSales(data)
-      this.router.navigate(["/home/sale"])
-    })
-
-    // const cameraView: HTMLVideoElement = document.getElementsByTagName('video')[0];
-    // navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-    //   .then((stream) => {
-    //     cameraView.srcObject = stream;
-    //     requestAnimationFrame(this.tick(cameraView))
-    //   })
-    //   .catch(function (err) {
-    //     console.error('Erro ao acessar a câmera: ', err);
-    //   });
+  getProductSales(){
+    const command = Number(this.controlCommand.value)
+    
+    if(!Number.isNaN(command)){
+      this.commerceFacade.getProductsOfSale(command,this.productId).subscribe((data:ProductSales) => {
+        this.productSales = data
+        if(!data){
+          this.warningHandler.reportError("Usuário sem produtos")
+        }
+      })
+    }
+    else{
+      this.warningHandler.reportError("por favor informe o numero da comanda")
+    }
   }
 
-  private tick(video: HTMLVideoElement) {
-    return async () => {
-      const canvasElement = document.createElement('canvas');
-      canvasElement.width = 200;
-      canvasElement.height = 200;
-      const context = canvasElement.getContext('2d');
-      context.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-
-      const imageData = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height);
-      if (code) {
-        // this.commerceFacade.getProductsOfSale(code.data, this.productId).subscribe(data => {
-        //   this.productSalesState.setProductSales(data)
-        //   this.router.navigate(["/home/sale"])
-        // })
-      }
-      requestAnimationFrame(this.tick(video));
-    };
-
+  addToRemove() {
+    if (this.amountToRemove < this.productSales?.quantity) {
+      this.amountToRemove++;
+    } else {
+      this.warningHandler.reportError("quantiedade máxima atingida")
+    }
   }
+
+  lessToRemove() {
+    if (this.amountToRemove > 1) {
+      this.amountToRemove--;
+    } else {
+      this.warningHandler.reportError("quantiedade minima atingida")
+    }
+  }
+
+  confirmRemove() {
+    this.productSales.quantity -= this.amountToRemove;
+    this.commerceFacade.recordProductSale(this.productSales.orderId, this.productSales.productId, this.amountToRemove)
+    this.amountToRemove = 0;
+  }
+
 }

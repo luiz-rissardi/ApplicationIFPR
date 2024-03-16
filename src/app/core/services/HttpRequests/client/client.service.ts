@@ -12,12 +12,20 @@ export class ClientService extends ServiceBase {
     super(http)
   }
 
-  handlerClient(phone: string, saleId: string) {
+  handlerClient(phone: string, orderId: string) {
     try {
-      const body = { saleId, phone };
+      const body = { orderId, phone };
       return this.http.post(this.uri + "/client", body, this.options);
     } catch (error) {
       throw new ClientException("não foi possivel anexar o cliente")
+    }
+  }
+
+  getByCommand(command: number) {
+    try {
+      return this.http.get(this.uri + "/client/"+command, this.options);
+    } catch (error) {
+      throw new ClientException("não foi possivel buscar o cliente")
     }
   }
 }

@@ -1,7 +1,7 @@
 
 
 export interface ProductSales{
-    saleId: string,
+    orderId: string,
     productId: number,
     quantity: number,
     totalPrice: number

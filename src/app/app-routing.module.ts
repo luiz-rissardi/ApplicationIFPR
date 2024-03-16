@@ -18,7 +18,6 @@ import { ManagerGuard } from './core/guards/manager/guard-manager.guard';
 
 import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
-import { WriteOffSaleComponent } from './pages/writeOffSale/writeOffSale.component';
 
 const routes: Routes = [,
   {
@@ -51,7 +50,6 @@ const routes: Routes = [,
     children: [
       //vendedor gerenciador
       { path: "manager", component: TicketManagerComponent },
-      { path: "sale",component:WriteOffSaleComponent }
     ]
   }
 ];
