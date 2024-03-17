@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/core/models/productModel';
+import { Products } from 'src/app/core/models/ProductsModel';
 import { Router } from '@angular/router';
-import { ProductState } from 'src/app/core/states/ProductState';
-import { StockFacade } from 'src/app/facades/StockFacade';
-import { ProductsListState } from 'src/app/core/states/ProductsListState';
+import { ProductsState } from 'src/app/core/states/ProductState';
+import { ProductsFacade } from 'src/app/facades/ProductsFacade';
+import { ProductssListState } from 'src/app/core/states/ProductsListState';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
 
 
@@ -13,46 +13,46 @@ import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
   styleUrls: ['./list-products.component.scss']
 })
 
-export class ListProductsComponent implements OnInit {
+export class ListProductssComponent implements OnInit {
 
   public windowWidth: number = window.innerWidth;
-  public productChosen!: Product;
-  public products: Product[] = [];
+  public productChosen!: Products;
+  public products: Products[] = [];
   public modalIsOpen: boolean = window.innerWidth <= 765 ? true : false;
 
   constructor(
     private router: Router,
     private spinnerState:LoaderSpinnerState,
-    private productState: ProductState, 
-    private productsListState: ProductsListState,
-    private stockFacade:StockFacade) {
+    private productState: ProductsState, 
+    private productsListState: ProductssListState,
+    private stockFacade:ProductsFacade) {
   }
 
   ngOnInit(): void {
-    this.productsListState.onProductListChange().subscribe(data => {
+    this.productsListState.onProductsListChange().subscribe(data => {
       this.products.length = 0;
-      data.forEach((product:Product) =>{
+      data.forEach((product:Products) =>{
         this.products.push(product);
       })
     })
   }
 
-  chosenProduct(product: Product) {
+  chosenProducts(product: Products) {
     this.productChosen = product;
   }
 
-  updateProduct(product: Product) {
+  updateProducts(product: Products) {
     this.productState.setState(product)
-    this.router.navigate(["/home/updateProduct/"])
+    this.router.navigate(["/home/updateProducts/"])
   }
 
-  inactiveProduct(product:Product){
+  inactiveProducts(product:Products){
     this.spinnerState.setState(true);
-    const execute = this.productsListState.deleteProductIntoList(product);
+    const execute = this.productsListState.deleteProductsIntoList(product);
     const rollback = execute();
     try {
       product.productChosen = product.productChosen == 0?false:true;
-      this.stockFacade.inactiveProduct(product);
+      this.stockFacade.inactiveProducts(product);
     } catch (error) {
       rollback();
     }

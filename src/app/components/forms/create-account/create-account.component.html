@@ -19,8 +19,8 @@
         </span>
     </fieldset>
     <fieldset class="form-group w-100">
-        <label for="chosenProduct"> Produto escolhido: </label>
-        <select id="chosenProduct" class="form-select" formControlName="chonsenProduct">
+        <label for="chosenProducts"> Produto escolhido: </label>
+        <select id="chosenProducts" class="form-select" formControlName="chonsenProducts">
             <option *ngFor="let product of this.products" [ngValue]="product" >
                     {{ product.productName }}
             </option>

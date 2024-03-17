@@ -1,6 +1,6 @@
 import { ReplaySubject } from "rxjs";
 import { Injectable } from "@angular/core";
-import { TopProductsSelling } from "../models/TopProductSelling";
+import { TopProductssSelling } from "../models/TopProductSelling";
 
 
 // pattern observable 
@@ -8,22 +8,22 @@ import { TopProductsSelling } from "../models/TopProductSelling";
     providedIn: "root"
 })
 
-export class TopProductsSellingState {
+export class TopProductssSellingState {
 
-    private topProducts: TopProductsSelling[]
-    private subject: ReplaySubject<TopProductsSelling[]> = new ReplaySubject(1);
+    private topProductss: TopProductssSelling[]
+    private subject: ReplaySubject<TopProductssSelling[]> = new ReplaySubject(1);
 
-    setTopProducts(productSale: TopProductsSelling[]) {
-        this.topProducts = productSale;
+    setTopProductss(productOrder: TopProductssSelling[]) {
+        this.topProductss = productOrder;
         this.notifyAll();
     }
 
 
-    onProductListChange() {
+    onProductsListChange() {
         return this.subject;
     }
 
     private notifyAll() {
-        this.subject.next(this.topProducts);
+        this.subject.next(this.topProductss);
     }
 }

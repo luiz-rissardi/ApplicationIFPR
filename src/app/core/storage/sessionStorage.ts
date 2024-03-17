@@ -8,5 +8,5 @@ export const getUserNameStorage = () => sessionStorage.getItem("userName") || ""
 export const setAuthStorage = (authType: number) => sessionStorage.setItem("authType", String(authType))
 export const setUserNameStorage = (userName: string) => sessionStorage.setItem("userName", userName)
 
-export const setProductIdUserAnexed = (productId: number) => sessionStorage.setItem("productIdAnexed",String(productId));
-export const getProductIdUserAnexed = () => sessionStorage.getItem("productIdAnexed") || "";
+export const setProductsIdUserAnexed = (productId: number) => sessionStorage.setItem("productIdAnexed",String(productId));
+export const getProductsIdUserAnexed = () => sessionStorage.getItem("productIdAnexed") || "";

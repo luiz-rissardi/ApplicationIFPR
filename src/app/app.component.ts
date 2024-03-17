@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StockFacade } from './facades/StockFacade';
-import { ProductsListState } from './core/states/ProductsListState';
+import { ProductsFacade } from './facades/ProductsFacade';
+import { ProductssListState } from './core/states/ProductsListState';
 import { LoaderSpinnerState } from './core/states/LoaderSpinnerState';
 
 @Component({
@@ -13,16 +13,16 @@ export class AppComponent implements OnInit{
 
   //get data of database
   constructor(
-    private stockFacade: StockFacade,
-    private productListState: ProductsListState,
+    private productsFacade: ProductsFacade,
+    private productListState: ProductssListState,
     private spinnerState: LoaderSpinnerState
   ) {
   }
 
   ngOnInit(): void {
     this.spinnerState.setState(true);
-    this.stockFacade.findAllProducts().subscribe(data => {
-      this.productListState.setProductList(data);
+    this.productsFacade.findAllProductss().subscribe(data => {
+      this.productListState.setProductsList(data);
     })
   }
   

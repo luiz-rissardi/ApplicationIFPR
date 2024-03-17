@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from 'src/app/core/models/AccountModel';
 import { AccountState } from 'src/app/core/states/AccountState';
-import { ShoppingCartState } from 'src/app/core/states/ShoppingCartState';
+import { OrderCartState } from 'src/app/core/states/OrderCartState';
 import { getAuthOfStorage } from 'src/app/core/storage/sessionStorage';
 
 @Component({
@@ -12,11 +12,11 @@ import { getAuthOfStorage } from 'src/app/core/storage/sessionStorage';
 export class MasterComponent implements OnInit {
 
   public isAdminAccount: boolean = false;
-  public activeShoppingCart:boolean = false;
+  public activeOrderCart:boolean = false;
 
   constructor(
     private accountState: AccountState,
-    private shoppingCartState: ShoppingCartState
+    private orderCartState: OrderCartState
   ) {}
 
   ngOnInit(): void {
@@ -26,9 +26,9 @@ export class MasterComponent implements OnInit {
         this.isAdminAccount = account.typeAccount == 1 ? true : false;
       })
 
-    this.shoppingCartState.onChangeShoppingCart()
+    this.orderCartState.onChangeOrderCart()
       .subscribe(data => {
-        this.activeShoppingCart = data.size > 0;
+        this.activeOrderCart = data.size > 0;
       })
   }
 

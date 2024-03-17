@@ -2,7 +2,7 @@
     <div class="position-absolute main me-5">
         <section class="productsList me-5">
             <ul class="list">
-                <li *ngFor="let product of this.products" class="product p-2" id="product-{{product.productId}}" (click)="selectProduct(product)">
+                <li *ngFor="let product of this.products" class="product p-2" id="product-{{product.productId}}" (click)="selectProducts(product)">
                     <h4> {{ product.productName }} </h4>
                     <div class="mt-4">
                         <span class="d-block">

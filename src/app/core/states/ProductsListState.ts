@@ -1,5 +1,5 @@
 import { ReplaySubject, Subject, map } from "rxjs";
-import { Product } from "../models/productModel";
+import { Products } from "../models/ProductsModel";
 import { Injectable } from "@angular/core";
 
 
@@ -8,12 +8,12 @@ import { Injectable } from "@angular/core";
     providedIn: "root"
 })
 
-export class ProductsListState {
+export class ProductssListState {
 
-    private productList: Map<number, Product> = new Map<number, Product>();
+    private productList: Map<number, Products> = new Map<number, Products>();
     private subject: ReplaySubject<any> = new ReplaySubject(1);
 
-    setProductList(productList: Product[]) {
+    setProductsList(productList: Products[]) {
         this.productList.clear();
         productList.forEach(product => {
             this.productList.set(product.productId, product);
@@ -21,24 +21,24 @@ export class ProductsListState {
         this.notifyAll();
     }
 
-    addProductIntoList(product: Product) {
+    addProductsIntoList(product: Products) {
         //execute
         return () => {
-            const savedData = new Map<number, Product>(this.productList);
+            const savedData = new Map<number, Products>(this.productList);
             this.productList.set(product.productId, product);
             this.notifyAll();
             //roll back
             return () => {
-                this.productList = new Map<number, Product>(savedData);
+                this.productList = new Map<number, Products>(savedData);
                 this.notifyAll();
             }
         }
     }
 
-    putProductIntoList(product: Product) {
+    putProductsIntoList(product: Products) {
         //execute
         return () => {
-            const savedData = new Map<number, Product>(this.productList);
+            const savedData = new Map<number, Products>(this.productList);
             if (this.productList.has(product.productId)) {
                 this.productList.delete(product.productId);
                 this.productList.set(product.productId, product);
@@ -46,29 +46,29 @@ export class ProductsListState {
             }
             //roll back
             return () => {
-                this.productList = new Map<number, Product>(savedData);
+                this.productList = new Map<number, Products>(savedData);
                 this.notifyAll();
             }
 
         }
     }
 
-    deleteProductIntoList(product: Product) {
+    deleteProductsIntoList(product: Products) {
         //execute
         return () => {
-            const savedData = new Map<number, Product>(this.productList);
+            const savedData = new Map<number, Products>(this.productList);
             this.productList.delete(product.productId);
             this.notifyAll();
             //roll back
             return () => {
-                this.productList = new Map<number, Product>(savedData);
+                this.productList = new Map<number, Products>(savedData);
                 this.notifyAll();
             }
 
         }
     }
 
-    onProductListChange() {
+    onProductsListChange() {
         return this.subject;
     }
 

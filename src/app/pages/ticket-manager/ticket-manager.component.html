@@ -4,10 +4,10 @@
             <label for="commandId"> informe a comanda do cliente: </label>
             <input type="text" class="form-control" [formControl]="controlCommand" placeholder="ex:234" id="commandId">
         </div>
-        <button type="button" (click)="getProductSales()"> buscar </button>
+        <button type="button" (click)="getOrderProducts()"> buscar </button>
     </div>
-    <article class="contentBox d-flex flex-column w-100 w-lg-50" *ngIf="this.productSales?.quantity > 0">
-        <h2 class="mx-auto"> Fixas restantes do cliente: {{ productSales?.quantity }} </h2>
+    <article class="contentBox d-flex flex-column w-100 w-lg-50" *ngIf="this.OrderProducts?.quantity > 0">
+        <h2 class="mx-auto"> Fixas restantes do cliente: {{ OrderProducts?.quantity }} </h2>
         <hr>
         <p class="mx-auto"> A retirar </p>
         <div class="boxRemove">

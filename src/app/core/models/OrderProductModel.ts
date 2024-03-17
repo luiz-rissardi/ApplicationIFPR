@@ -1,6 +1,6 @@
 
 
-export interface ProductSales{
+export interface OrderProducts{
     orderId: string,
     productId: number,
     quantity: number,

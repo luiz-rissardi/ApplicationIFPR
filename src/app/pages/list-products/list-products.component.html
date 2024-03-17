@@ -12,7 +12,7 @@
 
             <tbody>
                 <tr *ngFor="let product of this.products" [attr.data-bs-toggle]="modalIsOpen ? 'modal' : null"
-                    [attr.data-bs-target]="modalIsOpen ? '#deleteOrEdit' : null" (click)='this.chosenProduct({
+                    [attr.data-bs-target]="modalIsOpen ? '#deleteOrEdit' : null" (click)='this.chosenProducts({
                     productId:product.productId,
                     productName:product.productName,
                     price:product.price,
@@ -25,7 +25,7 @@
                     <td> {{product.price | number:'1.2-2' }} </td>
                     <td class="d-none d-md-flex grid gap-2 justify-content-end">
 
-                        <button type="button" class="btn btn-danger w-50 pt-2" (click)="this.inactiveProduct({
+                        <button type="button" class="btn btn-danger w-50 pt-2" (click)="this.inactiveProducts({
                             productId:product.productId,
                             productName:product.productName,
                             price:product.price,
@@ -38,7 +38,7 @@
                             </span>
                         </button>
 
-                        <button type="button" class="btn btn-warning w-50 pt-2" (click)="this.updateProduct({
+                        <button type="button" class="btn btn-warning w-50 pt-2" (click)="this.updateProducts({
                             productId:product.productId,
                             productName:product.productName,
                             price:product.price,
@@ -70,7 +70,7 @@
                 </div>
                 <div class="modal-body grid gap-2 d-flex">
                     <button type="button" data-bs-dismiss="modal" class="btn btn-danger pt-2" style="width: 40%;"
-                        (click)="this.inactiveProduct(this.productChosen)">
+                        (click)="this.inactiveProducts(this.productChosen)">
                         <span>
                             Deletar
                             <br>
@@ -79,7 +79,7 @@
                     </button>
 
                     <button type="button" class="btn btn-warning pt-2" data-bs-dismiss="modal" style="width: 40%;"
-                        (click)="this.updateProduct(this.productChosen)">
+                        (click)="this.updateProducts(this.productChosen)">
                         <span>
                             Editar
                             <br>

@@ -8,16 +8,16 @@ import { RecoverPasswordComponent } from './components/forms/recover-password/re
 
 import { MainComponent } from './pages/main/main.component';
 import { DashBoardComponent } from './pages/dash-boards/dash-board.component';
-import { ListProductsComponent } from './pages/list-products/list-products.component';
-import { SelectProductsComponent } from './pages/select-products/select-products.component';
+import { ListProductssComponent } from './pages/list-products/list-products.component';
+import { SelectProductssComponent } from './pages/select-products/select-products.component';
 import { MasterComponent } from './pages/master/master.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
 import { SellerGuard } from './core/guards/seller/guard-seller.guard';
 import { ManagerGuard } from './core/guards/manager/guard-manager.guard';
 
-import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
-import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
+import { CreateProductsFormComponent } from './components/forms/create-product-form/create-product-form.component';
+import { UpdateProductsFormComponent } from './components/forms/update-product-form/update-product-form.component';
 
 const routes: Routes = [,
   {
@@ -37,10 +37,10 @@ const routes: Routes = [,
       //caixa gerenciador
       { path: "", component: MainComponent },
       { path: "dashBoard", component: DashBoardComponent },
-      { path: "createProduct", component: CreateProductFormComponent },
-      { path: "updateProduct", component: UpdateProductFormComponent },
-      { path: "commerce", component: SelectProductsComponent },
-      { path: "listOfProducts", component: ListProductsComponent },
+      { path: "createProducts", component: CreateProductsFormComponent },
+      { path: "updateProducts", component: UpdateProductsFormComponent },
+      { path: "commerce", component: SelectProductssComponent },
+      { path: "listOfProductss", component: ListProductssComponent },
     ]
   },
   {

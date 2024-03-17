@@ -10,23 +10,23 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { WarningHandlerComponent } from './components/warning-handler/warning-handler.component';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { OrderCartComponent } from './components/order-cart/order-cart.component';
 import { LoginComponent } from './components/forms/login/login.component';
 import { CreateAccountComponent } from './components/forms/create-account/create-account.component';
 import { RecoverPasswordComponent } from './components/forms/recover-password/recover-password.component';
 import { SpinnerLoaderComponent } from './components/spinner-loader/spinner-loader.component';
 
 //pages
-import { ListProductsComponent } from './pages/list-products/list-products.component';
-import { SelectProductsComponent } from './pages/select-products/select-products.component';
+import { ListProductssComponent } from './pages/list-products/list-products.component';
+import { SelectProductssComponent } from './pages/select-products/select-products.component';
 import { DashBoardComponent } from './pages/dash-boards/dash-board.component';
 import { MasterComponent } from './pages/master/master.component';
 import { AuthComponent } from './pages/auth/auth.component';
 import { TicketManagerComponent } from './pages/ticket-manager/ticket-manager.component';
 import { MainComponent } from './pages/main/main.component';
-import { CreateProductFormComponent } from './components/forms/create-product-form/create-product-form.component';
-import { UpdateProductFormComponent } from './components/forms/update-product-form/update-product-form.component';
-import { DonutComponent } from './dashboards/donut/donut.component';
+import { CreateProductsFormComponent } from './components/forms/create-product-form/create-product-form.component';
+import { UpdateProductsFormComponent } from './components/forms/update-product-form/update-product-form.component';
+import { DonutComponent } from './components/dashboards/donut/donut.component';
 import { NgxApexchartsModule } from 'ngx-apexcharts';
 import { RelatoryComponent } from './components/relatory/relatory.component';
 
@@ -37,10 +37,10 @@ import { RelatoryComponent } from './components/relatory/relatory.component';
     DashBoardComponent,
     HeaderComponent,
     NavBarComponent,
-    SelectProductsComponent,
-    ListProductsComponent,
+    SelectProductssComponent,
+    ListProductssComponent,
     WarningHandlerComponent,
-    ShoppingCartComponent,
+    OrderCartComponent,
     LoginComponent,
     MasterComponent,
     SpinnerLoaderComponent,
@@ -48,8 +48,8 @@ import { RelatoryComponent } from './components/relatory/relatory.component';
     AuthComponent,
     TicketManagerComponent,
     RecoverPasswordComponent,
-    CreateProductFormComponent,
-    UpdateProductFormComponent,
+    CreateProductsFormComponent,
+    UpdateProductsFormComponent,
     DonutComponent,
     RelatoryComponent,
   ],

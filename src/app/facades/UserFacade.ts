@@ -4,7 +4,7 @@ import { WarningHandlerService } from "../core/services/warningHandler/warning-h
 import { Handler } from "../core/services/interfaces/warningHandler/handler";
 import { AccountState } from "../core/states/AccountState";
 import { Router } from "@angular/router";
-import { setProductIdUserAnexed, setUserNameStorage } from "../core/storage/sessionStorage";
+import { setProductsIdUserAnexed, setUserNameStorage } from "../core/storage/sessionStorage";
 
 @Injectable({
     providedIn: "root"
@@ -28,7 +28,7 @@ export class UserFacade {
                 if (authenticated) {
                     user = user[0];
                     this.AccountState.setState(user);
-                    setProductIdUserAnexed(user.productIdAnexed);
+                    setProductsIdUserAnexed(user.productIdAnexed);
                     const isAdmin = user.typeAccount === 1;
                     if (isAdmin) {
                         this.router.navigate(["/home"]);

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApexChart, ApexPlotOptions, ApexResponsive } from 'ngx-apexcharts';
-import { TopProductsSelling } from 'src/app/core/models/TopProductSelling';
-import { TopProductsSellingState } from 'src/app/core/states/TopProductSelling';
+import { TopProductssSelling } from 'src/app/core/models/TopProductSelling';
+import { TopProductssSellingState } from 'src/app/core/states/TopProductSelling';
 
 
-interface TopProducts {
+interface TopProductss {
   chartOptions: ApexChart;
   responsive: ApexResponsive[];
   pieOptions: ApexPlotOptions;
@@ -19,8 +19,8 @@ interface TopProducts {
 })
 export class DonutComponent {
 
-  constructor(private topProductsState: TopProductsSellingState) {
-    this.topProductsState.onProductListChange().subscribe((value: TopProductsSelling[]) => {
+  constructor(private topProductssState: TopProductssSellingState) {
+    this.topProductssState.onProductsListChange().subscribe((value: TopProductssSelling[]) => {
       this.options.labels = value.map(el => el.productName)
       this.options.series = value.map(el => Number(el.totalPrice))
     })
@@ -28,7 +28,7 @@ export class DonutComponent {
 
   private isMobile = window.innerWidth < 500 ? "400px" : "600px";
 
-  options: TopProducts = {
+  options: TopProductss = {
     chartOptions: {
       height: this.isMobile,
       width: this.isMobile,

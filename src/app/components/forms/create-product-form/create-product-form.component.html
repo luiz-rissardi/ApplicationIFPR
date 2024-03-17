@@ -2,7 +2,7 @@
     <div class="blusStrip"></div>
     <section class="main p-0">
         <div class="card main-card">
-            <form [formGroup]="this.formProduct">
+            <form [formGroup]="this.formProducts">
                 <input type="hidden" formControlName="productId">
                 <div class="form-group">
                     <label for="productName" class="form-label "> Nome do produto: </label>
@@ -20,7 +20,7 @@
                     <span class="invalid-feedback text-white bg-danger rounded p-1"> </span>
                 </div>
                 <div class="d-flex justify-content-end mt-3" >
-                    <button type="button" class="btn btn-success mx-3" (click)="this.CreateProduct()"> confirmar </button>
+                    <button type="button" class="btn btn-success mx-3" (click)="this.CreateProducts()"> confirmar </button>
                     <button type="button" class="btn btn-danger" routerLink="/home" > cancelar </button>
                 </div>
 

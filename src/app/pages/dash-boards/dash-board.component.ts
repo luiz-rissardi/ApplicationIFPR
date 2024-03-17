@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { TopProductsSelling } from 'src/app/core/models/TopProductSelling';
+import { TopProductssSelling } from 'src/app/core/models/TopProductSelling';
 import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 
 @Component({
@@ -12,8 +12,8 @@ import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 export class DashBoardComponent {
 
   form: FormGroup;
-  productsSelling:TopProductsSelling[]
-  totalPriceOfSales:number;
+  productsSelling:TopProductssSelling[]
+  totalPriceOfOrders:number;
 
 
   constructor(formBuilder: FormBuilder, private commerceFacade: CommerceFacade) {
@@ -21,19 +21,18 @@ export class DashBoardComponent {
       qualification: []
     })
 
-    this.commerceFacade.getTopProducts("5")
-    this.commerceFacade.getTopProducts("").subscribe((data:TopProductsSelling[]) => {
+    this.commerceFacade.getTopProductss("5").subscribe((data:TopProductssSelling[]) => {
       this.productsSelling = data
-      this.totalPriceOfSales = data.reduce((acc,el)=> {
+      this.totalPriceOfOrders = data.reduce((acc,el)=> {
         acc += Number(el.totalPrice)
         return acc
       },0)
     })
   }
 
-  getTopProducts() {
+  getTopProductss() {
     const rank = this.form.get("qualification").value;
-    this.commerceFacade.getTopProducts(rank)
+    this.commerceFacade.getTopProductss(rank)
   }
 }
 

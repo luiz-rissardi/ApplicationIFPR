@@ -1,7 +1,7 @@
 <div class="container-fluid p-0">
     <app-spinner-loader></app-spinner-loader>
     <app-header></app-header>
-    <app-shopping-cart *ngIf="this.activeShoppingCart"></app-shopping-cart>
+    <app-Order-cart *ngIf="this.activeOrderCart"></app-Order-cart>
     <section class="d-lg-flex p-0">
         <app-warning-handler></app-warning-handler>
         <app-nav-bar *ngIf="isAdminAccount"></app-nav-bar>

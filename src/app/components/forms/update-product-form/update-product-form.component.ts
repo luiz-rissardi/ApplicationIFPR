@@ -1,29 +1,29 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { StockFacade } from 'src/app/facades/StockFacade';
-import { Product } from 'src/app/core/models/productModel';
+import { ProductsFacade } from 'src/app/facades/ProductsFacade';
+import { Products } from 'src/app/core/models/ProductsModel';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
-import { ProductState } from 'src/app/core/states/ProductState';
-import { ProductsListState } from 'src/app/core/states/ProductsListState';
+import { ProductsState } from 'src/app/core/states/ProductState';
+import { ProductssListState } from 'src/app/core/states/ProductsListState';
 
 @Component({
   selector: 'app-update-product-form',
   templateUrl: './update-product-form.component.html',
   styleUrls: ['./update-product-form.component.scss']
 })
-export class UpdateProductFormComponent {
+export class UpdateProductsFormComponent {
 
-  public formProduct!: FormGroup;
+  public formProducts!: FormGroup;
 
   constructor(
     private Builder: FormBuilder,
-    private productState: ProductState,
-    private productListState: ProductsListState,
+    private productState: ProductsState,
+    private productListState: ProductssListState,
     private spinnerState: LoaderSpinnerState,
-    private stockFacade: StockFacade) {
+    private stockFacade: ProductsFacade) {
 
-    this.formProduct = this.Builder.group({
+    this.formProducts = this.Builder.group({
       productId: [null],
       productName: [null],
       quantity: [null],
@@ -32,8 +32,8 @@ export class UpdateProductFormComponent {
     })
 
     this.productState.getStateWhenChanging()
-      .subscribe((product: Product) => {
-        this.formProduct.setValue({
+      .subscribe((product: Products) => {
+        this.formProducts.setValue({
           productName: product.productName,
           price: product.price,
           quantity: product.quantity,
@@ -43,13 +43,13 @@ export class UpdateProductFormComponent {
       })
   }
 
-  PutProduct() {
+  PutProducts() {
     this.spinnerState.setState(true);
-    const { productName, quantity, price, productId, productChosen } = this.formProduct.value;
-    const execute = this.productListState.putProductIntoList({ productName, quantity, price, productId, active: true, productChosen })
+    const { productName, quantity, price, productId, productChosen } = this.formProducts.value;
+    const execute = this.productListState.putProductsIntoList({ productName, quantity, price, productId, active: true, productChosen })
     const rollback = execute();
     try {
-      this.stockFacade.updateProduct({ productName, quantity, price, productId, active: true, productChosen });
+      this.stockFacade.updateProducts({ productName, quantity, price, productId, active: true, productChosen });
     } catch (error) {
       rollback();
     }

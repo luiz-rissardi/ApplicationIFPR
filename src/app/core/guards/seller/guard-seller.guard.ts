@@ -31,7 +31,7 @@ export class SellerGuard implements CanActivateChild {
         }
       })
     if(!isValid){
-      this.route.navigate(["home/selectProducts"])
+      this.route.navigate(["home/selectProductss"])
     }
     return isValid;
   }
@@ -40,7 +40,7 @@ export class SellerGuard implements CanActivateChild {
     if (typeAccount == 2) {
       return true;
     } else {
-      this.route.navigate(["home/selectProducts"])
+      this.route.navigate(["home/selectProductss"])
     }
   }
 

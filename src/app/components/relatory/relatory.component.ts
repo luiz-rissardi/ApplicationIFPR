@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TopProductsSelling } from 'src/app/core/models/TopProductSelling';
+import { TopProductssSelling } from 'src/app/core/models/TopProductSelling';
 
 @Component({
   selector: 'app-relatory',
@@ -7,6 +7,6 @@ import { TopProductsSelling } from 'src/app/core/models/TopProductSelling';
   styleUrls: ['./relatory.component.scss']
 })
 export class RelatoryComponent {
-  @Input() totalPriceOfSales: number;
-  @Input() productSelling: TopProductsSelling[];
+  @Input() totalPriceOfOrders: number;
+  @Input() productSelling: TopProductssSelling[];
 }

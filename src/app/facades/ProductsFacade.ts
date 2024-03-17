@@ -1,21 +1,21 @@
 import { Injectable, Inject } from '@angular/core';
-import { StockService } from '../core/services/HttpRequests/Stock/stock-service.service';
-import { Product } from '../core/models/productModel';
+import { ProductsService } from '../core/services/HttpRequests/Products/products.service';
+import { Products } from '../core/models/ProductsModel';
 import { WarningHandlerService } from '../core/services/warningHandler/warning-handler.service';
 import { Handler } from '../core/services/interfaces/warningHandler/handler';
 import { Observable } from 'rxjs';
 import { LoaderSpinnerState } from '../core/states/LoaderSpinnerState';
-import { ProductsListState } from '../core/states/ProductsListState';
+import { ProductssListState } from '../core/states/ProductsListState';
 
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class StockFacade {
+export class ProductsFacade {
     constructor(
-        private service: StockService,
-        private productsListState: ProductsListState,
+        private service: ProductsService,
+        private productsListState: ProductssListState,
         private spinnerState: LoaderSpinnerState,
         @Inject(WarningHandlerService) private warningHandler: Handler
     ) {
@@ -37,10 +37,10 @@ export class StockFacade {
         });
     }
 
-    createProduct(product: Product): Promise<number> {
+    createProducts(product: Products): Promise<number> {
         return new Promise((resolve, reject) => {
             try {
-                this.service.createProduct(product).subscribe({
+                this.service.createProducts(product).subscribe({
                     next: (data: any) => {
                         this.warningHandler.reportSuccess(data.message, data.type);
                         resolve(data.productId);
@@ -59,25 +59,25 @@ export class StockFacade {
         })
     }
 
-    updateProduct(product: Product) {
+    updateProducts(product: Products) {
         this.handleOperation(
-            this.service.updateProduct(product),
+            this.service.updateProducts(product),
             "Não foi possível atualizar o produto!"
         )
     }
 
-    inactiveProduct(product: Product) {
+    inactiveProducts(product: Products) {
         product.active = false;
 
         this.handleOperation(
-            this.service.updateProduct(product),
+            this.service.updateProducts(product),
             "Não foi possível inativar o produto!"
         )
     }
 
-    findAllProducts(): Observable<any> {
+    findAllProductss(): Observable<any> {
         return new Observable(subscriber => {
-            this.service.getAllProduct().subscribe({
+            this.service.getAllProducts().subscribe({
                 next: (data: any) => {
                     subscriber.next(data)
                 },
@@ -92,21 +92,21 @@ export class StockFacade {
         })
     }
 
-    SubstractItem(products: Product[], productsOsShoppingCart: Product[]) {
-        const { substractsMapped, updates } = this.mapSubstraction(productsOsShoppingCart, products);
-        this.substractionOfStock(updates);
-        this.productsListState.setProductList(substractsMapped);
+    SubstractItem(products: Products[], productsOsOrderCart: Products[]) {
+        const { substractsMapped, updates } = this.mapSubstraction(productsOsOrderCart, products);
+        this.substractionOfProducts(updates);
+        this.productsListState.setProductsList(substractsMapped);
     }
 
-    private substractionOfStock(updates: any) {
+    private substractionOfProducts(updates: any) {
         this.handleOperation(
-            this.service.substractionStock(updates),
+            this.service.substractionProducts(updates),
             "não foi possivel substrair do estoque"
         )
     }
 
-    private mapSubstraction(productsOsShoppingCart: Product[], products: Product[]) {
-        const updates = productsOsShoppingCart.map(el => ({ productId: el.productId, quantity: el.quantity }));
+    private mapSubstraction(productsOsOrderCart: Products[], products: Products[]) {
+        const updates = productsOsOrderCart.map(el => ({ productId: el.productId, quantity: el.quantity }));
 
         const map = products.map(el => {
             let obj = el;

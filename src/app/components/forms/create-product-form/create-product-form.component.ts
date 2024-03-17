@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { StockFacade } from 'src/app/facades/StockFacade';
+import { ProductsFacade } from 'src/app/facades/ProductsFacade';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
-import { ProductsListState } from 'src/app/core/states/ProductsListState';
+import { ProductssListState } from 'src/app/core/states/ProductsListState';
 
 @Component({
   selector: 'app-create-product-form',
   templateUrl: './create-product-form.component.html',
   styleUrls: ['./create-product-form.component.scss']
 })
-export class CreateProductFormComponent {
+export class CreateProductsFormComponent {
 
-  public formProduct!: FormGroup;
+  public formProducts!: FormGroup;
 
   constructor(
     private Builder: FormBuilder,
-    private productListState: ProductsListState,
+    private productListState: ProductssListState,
     private spinnerState: LoaderSpinnerState,
-    private stockFacade: StockFacade
+    private stockFacade: ProductsFacade
   ) {
-    this.formProduct = this.Builder.group({
+    this.formProducts = this.Builder.group({
       productId: [null],
       productName: [null],
       quantity: [null],
@@ -28,12 +28,12 @@ export class CreateProductFormComponent {
     })
   }
 
-  async CreateProduct() {
+  async CreateProducts() {
     this.spinnerState.setState(true);
-    const { productName, quantity, price } = this.formProduct.value;
+    const { productName, quantity, price } = this.formProducts.value;
     try {
-      const productId = await this.stockFacade.createProduct({ productId: 1, productName, price, quantity, active: true, productChosen: false });
-      const execute = this.productListState.addProductIntoList({ productName, quantity, price, productId, active: true, productChosen: false })
+      const productId = await this.stockFacade.createProducts({ productId: 1, productName, price, quantity, active: true, productChosen: false });
+      const execute = this.productListState.addProductsIntoList({ productName, quantity, price, productId, active: true, productChosen: false })
       const rollback = execute();
       if (productId == undefined) rollback();
     } catch (error) {
