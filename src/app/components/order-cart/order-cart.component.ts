@@ -105,9 +105,11 @@ export class OrderCartComponent extends DOMManipulation implements OnInit {
 
   closeOrderCart() {
     this.removeClassToElement("backgroundCurtain", "showBackgroundCurtain");
-    this.setAttributeStyle("OrderCart", "display", "none");
     this.removeClassToElement("OrderCart", "show");
     this.addClassToElement("OrderCart", "hidden");
+    setTimeout(() => {
+      this.setAttributeStyle("OrderCart", "display", "none");
+    }, 1000);
   }
 
   openOrderCart() {
