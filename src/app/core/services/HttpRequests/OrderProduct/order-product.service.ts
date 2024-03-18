@@ -13,7 +13,7 @@ export class OrderProductsService extends ServiceBase {
     super(http)
   }
 
-  insertProductssIntoOrder(orderId: string, products: Products[]) {
+  insertProductsIntoOrder(orderId: string, products: Products[]) {
     try {
       const body = { orderId, products };
       return this.http.post(this.uri + "/order/product", body, this.options);
@@ -22,7 +22,7 @@ export class OrderProductsService extends ServiceBase {
     }
   }
 
-  getAllProductssOfOrder(orderId: string, productId: number) {
+  getAllProductsOfOrder(orderId: string, productId: number) {
     try {
       return this.http.get(this.uri + `/order/product/${orderId}&${productId}`, this.options);
     } catch (error) {
@@ -39,7 +39,7 @@ export class OrderProductsService extends ServiceBase {
     }
   }
 
-  getTopSellingProductss(rank: string) {
+  getTopSellingProducts(rank: string) {
     try {
       return this.http.get(this.uri + `/order/product/top/${rank}`,this.options);
     } catch (error) {

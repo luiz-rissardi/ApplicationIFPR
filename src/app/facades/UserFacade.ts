@@ -25,20 +25,23 @@ export class UserFacade {
             setUserNameStorage(name);
             this.accountService.login(name, password).subscribe((data: any) => {
                 let { authenticated, user } = data;
-                if (authenticated) {
-                    user = user[0];
-                    this.AccountState.setState(user);
-                    setProductsIdUserAnexed(user.productIdAnexed);
-                    const isAdmin = user.typeAccount === 1;
-                    if (isAdmin) {
-                        this.router.navigate(["/home"]);
-                    }
-                    else {
-                        this.router.navigate(["/home/manager"]);
-                    }
-                } else {
-                    this.waninrgHandler.reportError("usuario ou senha incorretos")
+
+                if (authenticated === false) {
+                    this.waninrgHandler.reportError("usuario ou senha incorretos");
+                    return;
                 }
+                
+                user = user[0];
+                this.AccountState.setState(user);
+                setProductsIdUserAnexed(user.productIdAnexed);
+                const isAdmin = user.typeAccount === 1;
+                if (isAdmin) {
+                    this.router.navigate(["/home"]);
+                }
+                else {
+                    this.router.navigate(["/home/manager"]);
+                }
+
             })
         } catch (error) {
             this.waninrgHandler.reportError("não foi possivel realizar o login")
@@ -67,8 +70,8 @@ export class UserFacade {
         try {
             this.accountService.updatePassword(userName, password)
                 .subscribe((data: any) => {
-                    this.waninrgHandler.reportSuccess(data?.message,data?.type);
-                    if(data?.type !== "invalid") this.router.navigate(["/auth"]);
+                    this.waninrgHandler.reportSuccess(data?.message, data?.type);
+                    if (data?.type !== "invalid") this.router.navigate(["/auth"]);
                 })
         } catch (error) {
             this.waninrgHandler.reportError("não foi possivel atualizar a senha")

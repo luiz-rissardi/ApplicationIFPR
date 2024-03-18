@@ -12,9 +12,9 @@ export class OrderService extends ServiceBase {
     super(http)
   }
 
-  createOrder(orderId: string) {
+  createOrder(orderId: string, commandId:number) {
     try {
-      return this.http.post(this.uri + "/order", { orderId }, this.options);
+      return this.http.post(this.uri + "/order", { orderId,commandId }, this.options);
     } catch (error) {
       throw new OrderException("não foi possivel criar uma nova venda")
     }

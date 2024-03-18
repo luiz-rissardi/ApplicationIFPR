@@ -40,12 +40,12 @@ export class TicketManagerComponent {
     const command = Number(this.controlCommand.value)
     
     if(!Number.isNaN(command)){
-      this.commerceFacade.getProductssOfOrder(command,this.productId).subscribe((data:OrderProducts) => {
-        this.OrderProducts = data
-        if(!data){
-          this.warningHandler.reportError("Usuário sem produtos")
-        }
-      })
+      // this.commerceFacade.getProductssOfOrder("command",this.productId).subscribe((data:OrderProducts) => {
+      //   this.OrderProducts = data
+      //   if(!data){
+      //     this.warningHandler.reportError("Usuário sem produtos")
+      //   }
+      // })
     }
     else{
       this.warningHandler.reportError("por favor informe o numero da comanda")

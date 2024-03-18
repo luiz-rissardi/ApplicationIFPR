@@ -6,21 +6,23 @@ import { Observable, switchMap } from "rxjs";
 import { WarningHandlerService } from "../core/services/warningHandler/warning-handler.service";
 import { Handler } from "../core/services/interfaces/warningHandler/handler";
 import { LoaderSpinnerState } from "../core/states/LoaderSpinnerState";
-import { ClientService } from "../core/services/HttpRequests/client/client.service";
+import { ClientService } from "../core/services/HttpRequests/Client/client.service";
 import { v4 as uuidv4 } from 'uuid';
 import { TopProductssSellingState } from "../core/states/TopProductSelling";
 import { TopProductssSelling } from "../core/models/TopProductSelling";
+import { CommandsService } from "../core/services/HttpRequests/Commands/commands.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CommerceFacade {
     constructor(
-        private OrderService: OrderService,
+        private orderService: OrderService,
         private productOrderService: OrderProductsService,
         private clientService: ClientService,
         private spinnerState: LoaderSpinnerState,
         private topProductssState: TopProductssSellingState,
+        private commandService: CommandsService,
         @Inject(WarningHandlerService) private warningHandler: Handler) { }
 
     private handlerOperation(operation: Observable<any>, errorMessage: string) {
@@ -40,24 +42,34 @@ export class CommerceFacade {
 
     insertOrder(products: Products[], phone: string) {
         const orderId = uuidv4();
+        let commandId: number;
         products = products.map(el => ({ ...el, price: Number(el.price) }));
-        const observable = this.clientService.handlerClient(phone, orderId).pipe(
-            switchMap((data: any) => {
-                console.log(data);
-                return this.OrderService.createOrder(data.orderId)
-            }),
-            switchMap((data: any) => this.productOrderService.insertProductssIntoOrder(data.orderId, products))
-        )
+        const observable = this.commandService.getAvaibleCommand()
+            .pipe(
+                switchMap((data: any) => {
+                    commandId = data.command.commandId;
+                    const observable = this.clientService.handlerClient(phone, orderId)
+                    return observable;
+                }),
+                switchMap((data: any) => {
+                    // se ele já existia não presisa usar a proxima comanda 
+                    if (data?.alreadyExists == false) {
+                        this.commandService.updateStatusCommand(commandId, false).subscribe(() => { })
+                    }
+                    
+                    return this.orderService.createOrder(data.orderId, commandId)
+                }),
+                switchMap((data: any) => this.productOrderService.insertProductsIntoOrder(data.orderId, products))
+            )
         this.handlerOperation(observable, "não foi possivel criar a venda");
     }
 
-    getProductssOfOrder(command: number, productId: number) {
-        this.spinnerState.setState(true);
-        const observable = this.clientService.getByCommand(command).pipe(
-            switchMap((data: any) => this.productOrderService.getAllProductssOfOrder(data?.orderId, productId))
-        )
-        this.handlerOperation(observable, "comanda não existe")
-        return observable
+    getProductssOfOrder(commandUrl: string, productId: number) {
+        // this.spinnerState.setState(true);
+        // const observable = this.productOrderService.getAllProductsOfOrder(data?.orderId, productId)
+        
+        // this.handlerOperation(observable, "comanda não existe")
+        // return observable
     }
 
     recordProductsOrder(orderId: string, productId: number, quantity: number) {
@@ -67,7 +79,7 @@ export class CommerceFacade {
     }
 
     getTopProductss(rank: string) {
-        const observable = this.productOrderService.getTopSellingProductss(rank);
+        const observable = this.productOrderService.getTopSellingProducts(rank);
         observable.subscribe((data: TopProductssSelling[]) => {
             this.topProductssState.setTopProductss(data)
         })

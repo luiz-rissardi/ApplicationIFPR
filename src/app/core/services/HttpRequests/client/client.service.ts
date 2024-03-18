@@ -21,11 +21,4 @@ export class ClientService extends ServiceBase {
     }
   }
 
-  getByCommand(command: number) {
-    try {
-      return this.http.get(this.uri + "/client/"+command, this.options);
-    } catch (error) {
-      throw new ClientException("não foi possivel buscar o cliente")
-    }
-  }
 }
