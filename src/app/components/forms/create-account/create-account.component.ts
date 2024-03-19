@@ -18,7 +18,7 @@ export class CreateAccountComponent extends ValidateForm implements OnInit {
 
   constructor(
     private userFacade: UserFacade,
-    private stockFacade: ProductsFacade,
+    private productFacade: ProductsFacade,
     private productListState: ProductssListState,
     formBuilder: FormBuilder,
     dom: Renderer2,
@@ -52,7 +52,7 @@ export class CreateAccountComponent extends ValidateForm implements OnInit {
     if (this.isNotEmpty(userName) && this.isNotEmpty(password) && this.isNotEmpty(productAnexed.productId)) {
       this.userFacade.createAccount({ userName, password, typeAccount: 2, productIdAnexed:productAnexed.productId });
       productAnexed.productChosen = true;
-      this.stockFacade.updateProducts(productAnexed)
+      this.productFacade.updateProducts(productAnexed)
       this.load = true;
       setTimeout(() => {
         this.load = false;

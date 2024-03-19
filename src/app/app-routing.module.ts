@@ -18,6 +18,7 @@ import { ManagerGuard } from './core/guards/manager/guard-manager.guard';
 
 import { CreateProductsFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductsFormComponent } from './components/forms/update-product-form/update-product-form.component';
+import { ResetCommandComponent } from './components/reset-command/reset-command.component';
 
 const routes: Routes = [,
   {
@@ -25,8 +26,8 @@ const routes: Routes = [,
     component: AuthComponent,
     children: [
       { path: "", component: LoginComponent },
-      { path: "createAccount", component: CreateAccountComponent },
-      { path: "updatePassword", component: RecoverPasswordComponent }
+      { path: "create-account", component: CreateAccountComponent },
+      { path: "update-password", component: RecoverPasswordComponent }
     ]
   },
   {
@@ -36,11 +37,12 @@ const routes: Routes = [,
     children: [
       //caixa gerenciador
       { path: "", component: MainComponent },
-      { path: "dashBoard", component: DashBoardComponent },
-      { path: "createProducts", component: CreateProductsFormComponent },
-      { path: "updateProducts", component: UpdateProductsFormComponent },
+      { path: "dash-board", component: DashBoardComponent },
+      { path: "create-products", component: CreateProductsFormComponent },
+      { path: "update-products", component: UpdateProductsFormComponent },
       { path: "commerce", component: SelectProductssComponent },
-      { path: "listOfProductss", component: ListProductssComponent },
+      { path: "list-of-productss", component: ListProductssComponent },
+      { path: "reset-command", component:ResetCommandComponent}
     ]
   },
   {

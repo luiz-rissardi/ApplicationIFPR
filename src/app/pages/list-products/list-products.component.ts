@@ -25,7 +25,7 @@ export class ListProductssComponent implements OnInit {
     private spinnerState:LoaderSpinnerState,
     private productState: ProductsState, 
     private productsListState: ProductssListState,
-    private stockFacade:ProductsFacade) {
+    private productFacade:ProductsFacade) {
   }
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class ListProductssComponent implements OnInit {
 
   updateProducts(product: Products) {
     this.productState.setState(product)
-    this.router.navigate(["/home/updateProducts/"])
+    this.router.navigate(["/home/update-products/"])
   }
 
   inactiveProducts(product:Products){
@@ -52,7 +52,7 @@ export class ListProductssComponent implements OnInit {
     const rollback = execute();
     try {
       product.productChosen = product.productChosen == 0?false:true;
-      this.stockFacade.inactiveProducts(product);
+      this.productFacade.inactiveProducts(product);
     } catch (error) {
       rollback();
     }

@@ -23,7 +23,7 @@ export class OrderCartComponent extends DOMManipulation implements OnInit {
     @Inject(WarningHandlerService) private listenHander: Handler,
     private OrderCartState: OrderCartState,
     private productsListState: ProductssListState,
-    private stockFacade: ProductsFacade,
+    private productFacade: ProductsFacade,
     private commerceFacade: CommerceFacade,
     private spinnerState: LoaderSpinnerState,
     dom: Renderer2,
@@ -95,7 +95,7 @@ export class OrderCartComponent extends DOMManipulation implements OnInit {
       let productsOsOrderCart = this.OrderCartState.getAllProductss();
       productsOsOrderCart = productsOsOrderCart.map(el => ({ ...el, active: el.active ? true : false, productChosen: el.productChosen ? true : false }));
       this.commerceFacade.insertOrder(productsOsOrderCart, phone);
-      this.stockFacade.SubstractItem(this.mapEntries(this.products), productsOsOrderCart);
+      this.productFacade.SubstractItem(this.mapEntries(this.products), productsOsOrderCart);
       this.removeAllItensOfOrderCart();
       this.closeOrderCart();
     } catch (error) {

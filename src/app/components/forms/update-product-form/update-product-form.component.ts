@@ -21,7 +21,7 @@ export class UpdateProductsFormComponent {
     private productState: ProductsState,
     private productListState: ProductssListState,
     private spinnerState: LoaderSpinnerState,
-    private stockFacade: ProductsFacade) {
+    private productFacade: ProductsFacade) {
 
     this.formProducts = this.Builder.group({
       productId: [null],
@@ -49,7 +49,7 @@ export class UpdateProductsFormComponent {
     const execute = this.productListState.putProductsIntoList({ productName, quantity, price, productId, active: true, productChosen })
     const rollback = execute();
     try {
-      this.stockFacade.updateProducts({ productName, quantity, price, productId, active: true, productChosen });
+      this.productFacade.updateProducts({ productName, quantity, price, productId, active: true, productChosen });
     } catch (error) {
       rollback();
     }

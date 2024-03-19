@@ -29,6 +29,7 @@ import { UpdateProductsFormComponent } from './components/forms/update-product-f
 import { DonutComponent } from './components/dashboards/donut/donut.component';
 import { NgxApexchartsModule } from 'ngx-apexcharts';
 import { RelatoryComponent } from './components/relatory/relatory.component';
+import { ResetCommandComponent } from './components/reset-command/reset-command.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { RelatoryComponent } from './components/relatory/relatory.component';
     UpdateProductsFormComponent,
     DonutComponent,
     RelatoryComponent,
+    ResetCommandComponent,
   ],
   imports: [
     BrowserModule,

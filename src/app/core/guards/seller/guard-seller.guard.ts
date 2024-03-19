@@ -3,7 +3,6 @@ import { AccountState } from '../../states/AccountState';
 import { Account } from '../../models/AccountModel';
 import { Injectable } from '@angular/core';
 import { getAuthOfStorage } from '../../storage/sessionStorage';
-import { AccountService } from '../../services/HttpRequests/User/user.service';
 
 @Injectable({
   providedIn: "root"
@@ -31,7 +30,7 @@ export class SellerGuard implements CanActivateChild {
         }
       })
     if(!isValid){
-      this.route.navigate(["home/selectProductss"])
+      this.route.navigate(["home/select-productss"])
     }
     return isValid;
   }
@@ -40,7 +39,7 @@ export class SellerGuard implements CanActivateChild {
     if (typeAccount == 2) {
       return true;
     } else {
-      this.route.navigate(["home/selectProductss"])
+      this.route.navigate(["home/select-productss"])
     }
   }
 
