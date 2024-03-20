@@ -15,19 +15,13 @@ export class ResetCommandComponent {
 
   constructor(
     formBuild: FormBuilder,
-    @Inject(WarningHandlerService) private warningHandler: Handler,
-    private commandFacade:CommandFacade
+    private commandFacade: CommandFacade
   ) {
     this.commandControl = formBuild.control([])
   }
 
   resetCommand() {
-    try {
-      const commandId = this.commandControl.value;
-      this.commandFacade.resetCommand(commandId)
-    } catch (error) {
-      this.warningHandler.reportError("não foi possivel zerar comanda")
-    }
-
+    const commandId = this.commandControl.value;
+    this.commandFacade.resetCommand(commandId)
   }
 }

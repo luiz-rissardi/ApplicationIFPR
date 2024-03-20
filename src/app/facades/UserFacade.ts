@@ -24,14 +24,14 @@ export class UserFacade {
         try {
             setUserNameStorage(name);
             this.accountService.login(name, password).subscribe((data: any) => {
+                console.log(data);
                 let { authenticated, user } = data;
-
+                console.log(data);
                 if (authenticated === false) {
                     this.waninrgHandler.reportError("usuario ou senha incorretos");
                     return;
                 }
                 
-                user = user[0];
                 this.AccountState.setState(user);
                 setProductsIdUserAnexed(user.productIdAnexed);
                 const isAdmin = user.typeAccount === 1;

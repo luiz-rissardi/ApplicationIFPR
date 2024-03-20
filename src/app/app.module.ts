@@ -29,7 +29,9 @@ import { UpdateProductsFormComponent } from './components/forms/update-product-f
 import { DonutComponent } from './components/dashboards/donut/donut.component';
 import { NgxApexchartsModule } from 'ngx-apexcharts';
 import { RelatoryComponent } from './components/relatory/relatory.component';
-import { ResetCommandComponent } from './components/reset-command/reset-command.component';
+import { ResetCommandComponent } from './pages/reset-command/reset-command.component';
+import { CommandModalComponent } from './components/command-modal/command-modal.component';
+import { InactiveCommandComponent } from './pages/inactive-command/inactive-command.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { ResetCommandComponent } from './components/reset-command/reset-command.
     DonutComponent,
     RelatoryComponent,
     ResetCommandComponent,
+    CommandModalComponent,
+    InactiveCommandComponent,
   ],
   imports: [
     BrowserModule,

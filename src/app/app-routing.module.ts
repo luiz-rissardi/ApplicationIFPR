@@ -18,7 +18,8 @@ import { ManagerGuard } from './core/guards/manager/guard-manager.guard';
 
 import { CreateProductsFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductsFormComponent } from './components/forms/update-product-form/update-product-form.component';
-import { ResetCommandComponent } from './components/reset-command/reset-command.component';
+import { ResetCommandComponent } from './pages/reset-command/reset-command.component';
+import { InactiveCommandComponent } from './pages/inactive-command/inactive-command.component';
 
 const routes: Routes = [,
   {
@@ -42,7 +43,8 @@ const routes: Routes = [,
       { path: "update-products", component: UpdateProductsFormComponent },
       { path: "commerce", component: SelectProductssComponent },
       { path: "list-of-productss", component: ListProductssComponent },
-      { path: "reset-command", component:ResetCommandComponent}
+      { path: "reset-command", component:ResetCommandComponent},
+      { path: "inactive-command", component:InactiveCommandComponent}
     ]
   },
   {

@@ -13,16 +13,22 @@
                 <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> home </span>
             </a>
         </li>
+        <li class="mt-lg-5">
+            <a routerLink="/home/inactive-command">
+                <i class="fi fi-rr-square-x"></i>
+                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> inativar </span>
+            </a>
+        </li>
+        <li class="mt-lg-5">
+            <a routerLink="/home/reset-command">
+                <i class="fi fi-rr-qrcode"></i>
+                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> comanda </span>
+            </a>
+        </li>
         <li class="my-lg-5">
             <a routerLink="/home/dash-board">
                 <i class="fi fi-rr-stats"></i>
                 <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> Graficos </span>
-            </a>
-        </li>
-        <li>
-            <a routerLink="/home/reset-command">
-                <i class="fi fi-rr-qrcode"></i>
-                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> comanda </span>
             </a>
         </li>
     </ul>

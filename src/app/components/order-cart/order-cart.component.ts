@@ -8,6 +8,7 @@ import { OrderCartState } from 'src/app/core/states/OrderCartState';
 import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 import { ProductsFacade } from 'src/app/facades/ProductsFacade';
 import { DOMManipulation } from 'src/app/shared/domManipulation/dommanipulation';
+import { CommandState } from 'src/app/core/states/Command';
 
 @Component({
   selector: 'app-Order-cart',
@@ -16,8 +17,9 @@ import { DOMManipulation } from 'src/app/shared/domManipulation/dommanipulation'
 })
 export class OrderCartComponent extends DOMManipulation implements OnInit {
 
-  public productsOfOrderCart: Map<number, Products> = new Map();
+  productsOfOrderCart: Map<number, Products> = new Map();
   private products: Map<number, Products> = new Map();
+
 
   constructor(
     @Inject(WarningHandlerService) private listenHander: Handler,

@@ -20,10 +20,19 @@ export class CommandsService extends ServiceBase {
     }
   }
 
-  updateStatusCommand(commandId:number, avaible:boolean) {
+  updateStatusCommand(commandId: number, avaible: boolean) {
     try {
       const body = { commandId, avaible }
       return this.http.patch(this.uri + "/command", body, this.options)
+    } catch (error) {
+      throw new CommandException("não foi possivle atualizar a comanda!")
+    }
+  }
+
+  inactiveCommand(commandId:number) {
+    try {
+      const body = { commandId }
+      return this.http.post(this.uri + "/command/inactive", body,this.options);
     } catch (error) {
       throw new CommandException("não foi possivle atualizar a comanda!")
     }

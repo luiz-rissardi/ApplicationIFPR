@@ -27,7 +27,15 @@ export class OrderService extends ServiceBase {
       return this.http.patch(this.uri + "/order", body, this.options);
     } catch (error) {
       throw new OrderException("não foi possivel atualizar a venda")
+    }
+  }
 
+  putCommandIntoOrder(orderId: string, newCommandId: number) {
+    try {
+      const body = { commandId:newCommandId,orderId };
+      return this.http.put(this.uri + "/order", body, this.options);
+    } catch (error) {
+      throw new OrderException("não foi possivel atualizar a venda")
     }
   }
 

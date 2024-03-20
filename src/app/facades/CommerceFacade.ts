@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { TopProductssSellingState } from "../core/states/TopProductSelling";
 import { TopProductssSelling } from "../core/models/TopProductSelling";
 import { CommandsService } from "../core/services/HttpRequests/Commands/commands.service";
+import { CommandState } from "../core/states/Command";
 
 @Injectable({
     providedIn: 'root'
@@ -23,6 +24,7 @@ export class CommerceFacade {
         private spinnerState: LoaderSpinnerState,
         private topProductssState: TopProductssSellingState,
         private commandService: CommandsService,
+        private commandState: CommandState,
         @Inject(WarningHandlerService) private warningHandler: Handler) { }
 
     private handlerOperation(operation: Observable<any>, errorMessage: string) {
@@ -56,34 +58,34 @@ export class CommerceFacade {
                     if (data?.alreadyExists == false) {
                         this.commandService.updateStatusCommand(commandId, false).subscribe(() => { })
                     }
-                    
+                    this.commandState.setState(commandId,true)
                     return this.orderService.createOrder(data.orderId, commandId)
                 }),
                 switchMap((data: any) => this.productOrderService.insertProductsIntoOrder(data.orderId, products))
             )
         this.handlerOperation(observable, "não foi possivel criar a venda");
-    }
+}
 
-    getProductssOfOrder(commandUrl: string, productId: number) {
-        // this.spinnerState.setState(true);
-        // const observable = this.productOrderService.getAllProductsOfOrder(data?.orderId, productId)
-        
-        // this.handlerOperation(observable, "comanda não existe")
-        // return observable
-    }
+getProductssOfOrder(commandUrl: string, productId: number) {
+    // this.spinnerState.setState(true);
+    // const observable = this.productOrderService.getAllProductsOfOrder(data?.orderId, productId)
 
-    recordProductsOrder(orderId: string, productId: number, quantity: number) {
-        this.spinnerState.setState(true);
-        const observable = this.productOrderService.lessProductsQuantityOfOrder(orderId, productId, quantity);
-        this.handlerOperation(observable, "não foi possivel realizar baixa");
-    }
+    // this.handlerOperation(observable, "comanda não existe")
+    // return observable
+}
 
-    getTopProductss(rank: string) {
-        const observable = this.productOrderService.getTopSellingProducts(rank);
-        observable.subscribe((data: TopProductssSelling[]) => {
-            this.topProductssState.setTopProductss(data)
-        })
-        this.handlerOperation(observable, "não foi possivel pegar a qualificação");
-        return observable;
-    }
+recordProductsOrder(orderId: string, productId: number, quantity: number) {
+    this.spinnerState.setState(true);
+    const observable = this.productOrderService.lessProductsQuantityOfOrder(orderId, productId, quantity);
+    this.handlerOperation(observable, "não foi possivel realizar baixa");
+}
+
+getTopProductss(rank: string) {
+    const observable = this.productOrderService.getTopSellingProducts(rank);
+    observable.subscribe((data: TopProductssSelling[]) => {
+        this.topProductssState.setTopProductss(data)
+    })
+    this.handlerOperation(observable, "não foi possivel pegar a qualificação");
+    return observable;
+}
 }

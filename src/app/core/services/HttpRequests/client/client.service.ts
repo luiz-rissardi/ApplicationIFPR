@@ -21,4 +21,12 @@ export class ClientService extends ServiceBase {
     }
   }
 
+  getClient(phone: string) {
+    try {
+      return this.http.get(this.uri + "/client/" + phone, this.options);
+    } catch (error) {
+      throw new ClientException("não foi possivel anexar o cliente")
+    }
+  }
+
 }
