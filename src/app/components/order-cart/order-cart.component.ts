@@ -3,12 +3,11 @@ import { Products } from 'src/app/core/models/ProductsModel';
 import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
 import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
-import { ProductssListState } from 'src/app/core/states/ProductsListState';
+import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { OrderCartState } from 'src/app/core/states/OrderCartState';
 import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 import { ProductsFacade } from 'src/app/facades/ProductsFacade';
 import { DOMManipulation } from 'src/app/shared/domManipulation/dommanipulation';
-import { CommandState } from 'src/app/core/states/Command';
 
 @Component({
   selector: 'app-Order-cart',
@@ -19,12 +18,13 @@ export class OrderCartComponent extends DOMManipulation implements OnInit {
 
   productsOfOrderCart: Map<number, Products> = new Map();
   private products: Map<number, Products> = new Map();
+  totalPrice: number = 0;
 
 
   constructor(
     @Inject(WarningHandlerService) private listenHander: Handler,
     private OrderCartState: OrderCartState,
-    private productsListState: ProductssListState,
+    private productsListState: ProductsListState,
     private productFacade: ProductsFacade,
     private commerceFacade: CommerceFacade,
     private spinnerState: LoaderSpinnerState,
@@ -38,6 +38,10 @@ export class OrderCartComponent extends DOMManipulation implements OnInit {
       .subscribe(data => {
         this.openOrderCart();
         this.setOrderCart(data);
+        this.totalPrice = 0;
+        this.mapEntries(data).forEach(el => {
+          this.totalPrice += Number(el.quantity) * Number(el.price)
+        })
       })
 
     this.productsListState.onProductsListChange().subscribe(data => {
@@ -80,6 +84,7 @@ export class OrderCartComponent extends DOMManipulation implements OnInit {
   cancel() {
     try {
       this.removeAllItensOfOrderCart();
+      this.closeOrderCart();
       this.listenHander.reportSuccess("venda cancelada", "valid")
     } catch (error) {
       this.listenHander.reportError("não foi possivel remover os produtos");

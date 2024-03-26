@@ -4,7 +4,7 @@ import { WarningHandlerService } from "../core/services/warningHandler/warning-h
 import { Handler } from "../core/services/interfaces/warningHandler/handler";
 import { AccountState } from "../core/states/AccountState";
 import { Router } from "@angular/router";
-import { setProductsIdUserAnexed, setUserNameStorage } from "../core/storage/sessionStorage";
+import { setUserNameStorage } from "../core/storage/sessionStorage";
 
 @Injectable({
     providedIn: "root"
@@ -12,7 +12,7 @@ import { setProductsIdUserAnexed, setUserNameStorage } from "../core/storage/ses
 
 export class UserFacade {
     constructor(
-        @Inject(WarningHandlerService) private waninrgHandler: Handler,
+        @Inject(WarningHandlerService) private warningHandler: Handler,
         private accountService: AccountService,
         private AccountState: AccountState,
         private router: Router,
@@ -24,16 +24,12 @@ export class UserFacade {
         try {
             setUserNameStorage(name);
             this.accountService.login(name, password).subscribe((data: any) => {
-                console.log(data);
                 let { authenticated, user } = data;
-                console.log(data);
                 if (authenticated === false) {
-                    this.waninrgHandler.reportError("usuario ou senha incorretos");
+                    this.warningHandler.reportError("usuario ou senha incorretos");
                     return;
                 }
-                
                 this.AccountState.setState(user);
-                setProductsIdUserAnexed(user.productIdAnexed);
                 const isAdmin = user.typeAccount === 1;
                 if (isAdmin) {
                     this.router.navigate(["/home"]);
@@ -44,7 +40,8 @@ export class UserFacade {
 
             })
         } catch (error) {
-            this.waninrgHandler.reportError("não foi possivel realizar o login")
+            console.log(error);
+            this.warningHandler.reportError("não foi possivel realizar o login")
         }
     }
 
@@ -58,11 +55,11 @@ export class UserFacade {
                         this.AccountState.setState(account);
                         this.router.navigate(["/home/manager"]);
                     } else {
-                        this.waninrgHandler.reportError(data?.message)
+                        this.warningHandler.reportError(data?.message)
                     }
                 })
         } catch (error) {
-            this.waninrgHandler.reportError("não foi possivel criar nova conta")
+            this.warningHandler.reportError("não foi possivel criar nova conta")
         }
     }
 
@@ -70,11 +67,11 @@ export class UserFacade {
         try {
             this.accountService.updatePassword(userName, password)
                 .subscribe((data: any) => {
-                    this.waninrgHandler.reportSuccess(data?.message, data?.type);
+                    this.warningHandler.reportSuccess(data?.message, data?.type);
                     if (data?.type !== "invalid") this.router.navigate(["/auth"]);
                 })
         } catch (error) {
-            this.waninrgHandler.reportError("não foi possivel atualizar a senha")
+            this.warningHandler.reportError("não foi possivel atualizar a senha")
         }
     }
 

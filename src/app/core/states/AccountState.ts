@@ -1,7 +1,6 @@
 import { ReplaySubject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Account } from "../models/AccountModel";
-import { setAuthStorage } from "../storage/sessionStorage";
 
 // pattern observable 
 @Injectable({
@@ -18,7 +17,6 @@ export class AccountState {
 
     setState(acconut: Account ) {
         this.account = acconut;
-        setAuthStorage(acconut.typeAccount);
         this.notifyAll();
     }
 

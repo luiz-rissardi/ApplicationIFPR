@@ -3,7 +3,7 @@ import { Products } from 'src/app/core/models/ProductsModel';
 import { Router } from '@angular/router';
 import { ProductsState } from 'src/app/core/states/ProductState';
 import { ProductsFacade } from 'src/app/facades/ProductsFacade';
-import { ProductssListState } from 'src/app/core/states/ProductsListState';
+import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
 
 
@@ -24,7 +24,7 @@ export class ListProductssComponent implements OnInit {
     private router: Router,
     private spinnerState:LoaderSpinnerState,
     private productState: ProductsState, 
-    private productsListState: ProductssListState,
+    private productsListState: ProductsListState,
     private productFacade:ProductsFacade) {
   }
 

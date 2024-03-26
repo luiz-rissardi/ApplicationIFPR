@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Account } from 'src/app/core/models/AccountModel';
 import { AccountState } from 'src/app/core/states/AccountState';
 import { OrderCartState } from 'src/app/core/states/OrderCartState';
-import { getAuthOfStorage } from 'src/app/core/storage/sessionStorage';
+import { getUserNameStorage } from 'src/app/core/storage/sessionStorage';
 
 @Component({
   selector: 'app-master',
@@ -20,7 +20,7 @@ export class MasterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isAdminAccount = getAuthOfStorage() == 1 ? true : false;
+    this.isAdminAccount = getUserNameStorage() == "ifpr";
     this.accountState.onChangeAccount()
       .subscribe((account: Account) => {
         this.isAdminAccount = account.typeAccount == 1 ? true : false;

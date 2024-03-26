@@ -2,7 +2,7 @@ import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@an
 import { Products } from 'src/app/core/models/ProductsModel';
 import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
 import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
-import { ProductssListState } from 'src/app/core/states/ProductsListState';
+import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { OrderCartState } from 'src/app/core/states/OrderCartState';
 import { DOMManipulation } from "src/app/shared/domManipulation/dommanipulation";
 
@@ -18,7 +18,7 @@ export class SelectProductssComponent extends DOMManipulation implements OnInit,
 
   constructor(
     @Inject(WarningHandlerService) private listenHander: Handler,
-    private productsListState: ProductssListState,
+    private productsListState: ProductsListState,
     private orderCartState: OrderCartState,
     el: ElementRef,
     dom: Renderer2

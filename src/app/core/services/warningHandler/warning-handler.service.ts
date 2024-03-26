@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Listen } from '../interfaces/warningHandler/listen';
 import { Handler } from '../interfaces/warningHandler/handler';
 
@@ -8,7 +8,7 @@ import { Handler } from '../interfaces/warningHandler/handler';
 })
 export class WarningHandlerService implements Handler, Listen {
 
-  private subject: ReplaySubject<string> = new ReplaySubject();
+  private subject: Subject<string> = new Subject();
 
   constructor() { }
 

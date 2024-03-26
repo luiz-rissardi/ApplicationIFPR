@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { CommerceFacade } from 'src/app/facades/CommerceFacade';
-import { getProductsIdUserAnexed } from 'src/app/core/storage/sessionStorage';
 import { OrderProducts } from 'src/app/core/models/OrderProductModel';
 import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
 import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { AccountState } from 'src/app/core/states/AccountState';
 import { Account } from 'src/app/core/models/AccountModel';
+import { OrderProductsFacade } from 'src/app/facades/OrderProductsFacade';
 
 @Component({
   selector: 'app-ticket-manager',
@@ -23,17 +23,14 @@ export class TicketManagerComponent {
 
   constructor(
     formBuiler: FormBuilder,
-    private commerceFacade: CommerceFacade,
+    private orderProductFacade: OrderProductsFacade,
     private userState:AccountState,
     @Inject(WarningHandlerService) private warningHandler: Handler,
   ) {
     this.controlCommand = formBuiler.control(null);
-    this.productId = Number(getProductsIdUserAnexed());
-    if(Number.isNaN(this.productId)){
-      this.userState.onChangeAccount().subscribe((data: Account) => {
-        this.productId = data.productIdAnexed;
-      })
-    }
+    this.userState.onChangeAccount().subscribe((data: Account) => {
+      this.productId = data.productIdAnexed;
+    })
   }
 
   getOrderProducts(){
@@ -70,7 +67,7 @@ export class TicketManagerComponent {
 
   confirmRemove() {
     this.OrderProducts.quantity -= this.amountToRemove;
-    this.commerceFacade.recordProductsOrder(this.OrderProducts.orderId, this.OrderProducts.productId, this.amountToRemove)
+    this.orderProductFacade.recordProductsOrder(this.OrderProducts.orderId, this.OrderProducts.productId, this.amountToRemove)
     this.amountToRemove = 0;
   }
 

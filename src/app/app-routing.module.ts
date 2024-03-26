@@ -13,13 +13,13 @@ import { SelectProductssComponent } from './pages/select-products/select-product
 import { MasterComponent } from './pages/master/master.component';
 import { AuthComponent } from './pages/auth/auth.component';
 
-import { SellerGuard } from './core/guards/seller/guard-seller.guard';
-import { ManagerGuard } from './core/guards/manager/guard-manager.guard';
+import { authGuard } from './core/guards/auth/auth.guard';
 
 import { CreateProductsFormComponent } from './components/forms/create-product-form/create-product-form.component';
 import { UpdateProductsFormComponent } from './components/forms/update-product-form/update-product-form.component';
 import { ResetCommandComponent } from './pages/reset-command/reset-command.component';
 import { InactiveCommandComponent } from './pages/inactive-command/inactive-command.component';
+import { RefoundComponent } from './pages/refound/refound.component';
 
 const routes: Routes = [,
   {
@@ -34,7 +34,7 @@ const routes: Routes = [,
   {
     path: "home",
     component: MasterComponent,
-    canActivateChild: [ManagerGuard],
+    canActivateChild: [authGuard],
     children: [
       //caixa gerenciador
       { path: "", component: MainComponent },
@@ -44,13 +44,14 @@ const routes: Routes = [,
       { path: "commerce", component: SelectProductssComponent },
       { path: "list-of-productss", component: ListProductssComponent },
       { path: "reset-command", component:ResetCommandComponent},
-      { path: "inactive-command", component:InactiveCommandComponent}
+      { path: "inactive-command", component:InactiveCommandComponent},
+      { path: "refound", component:RefoundComponent}
     ]
   },
   {
     path: "home",
     component: MasterComponent,
-    canActivateChild: [SellerGuard],
+    canActivateChild: [authGuard],
     children: [
       //vendedor gerenciador
       { path: "manager", component: TicketManagerComponent },

@@ -34,7 +34,7 @@
         li{
             display: flex;
             list-style: none;
-            margin-top: 2vh;
+            margin-top: 3vh !important;
             margin-inline: 10px;
 
             a{
@@ -51,6 +51,7 @@
 
                 @include BreakPoint(mobile-only){
                     width: auto;
+                    max-width: 55px;
                 }
 
                 span{

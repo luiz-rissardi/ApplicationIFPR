@@ -29,7 +29,6 @@ export class CommandFacade {
                 this.warningHandler.reportSuccess(data?.message, data?.type);
             },
             error: (error) => {
-                console.log(error);
                 this.spinnerState.setState(false);
                 this.warningHandler.reportError(errorMessage);
             },
@@ -42,7 +41,7 @@ export class CommandFacade {
     resetCommand(commandId: number) {
         this.spinnerState.setState(true);
         const observable = this.orderService.inactiveOrder(commandId).pipe(
-            switchMap(data => this.commandService.updateStatusCommand(commandId, true))
+            switchMap(() => this.commandService.updateStatusCommand(commandId, true))
         );
         this.handlerOperation(observable, "não foi possível resetar comanda")
     }
@@ -66,7 +65,7 @@ export class CommandFacade {
                 return this.commandService.inactiveCommand(data.oldCommandId)
             })
         )
-        this.handlerOperation(observable,"não foi possivel inativar a comanda");
+        this.handlerOperation(observable,"numero de telefone não encontardo");
 
     }
 }

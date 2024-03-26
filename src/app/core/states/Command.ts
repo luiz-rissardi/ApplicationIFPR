@@ -1,4 +1,4 @@
-import { ReplaySubject } from "rxjs";
+import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 
 // pattern observable 
@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 })
 
 export class CommandState {
-    private subject: ReplaySubject<any> = new ReplaySubject<any >(1);
+    private subject: Subject<any> = new Subject<any>();
     private commandId: number;
     private show: boolean = false;
 

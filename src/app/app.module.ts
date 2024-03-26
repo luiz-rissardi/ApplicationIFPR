@@ -32,6 +32,7 @@ import { RelatoryComponent } from './components/relatory/relatory.component';
 import { ResetCommandComponent } from './pages/reset-command/reset-command.component';
 import { CommandModalComponent } from './components/command-modal/command-modal.component';
 import { InactiveCommandComponent } from './pages/inactive-command/inactive-command.component';
+import { RefoundComponent } from './pages/refound/refound.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { InactiveCommandComponent } from './pages/inactive-command/inactive-comm
     ResetCommandComponent,
     CommandModalComponent,
     InactiveCommandComponent,
+    RefoundComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { UserFacade } from 'src/app/facades/UserFacade';
 import { Products } from 'src/app/core/models/ProductsModel';
-import { ProductssListState } from 'src/app/core/states/ProductsListState';
+import { ProductsListState } from 'src/app/core/states/ProductsListState';
 import { ValidateForm } from '../validateFormService/validateFomr-Service';
 import { ProductsFacade } from 'src/app/facades/ProductsFacade';
 
@@ -19,7 +19,7 @@ export class CreateAccountComponent extends ValidateForm implements OnInit {
   constructor(
     private userFacade: UserFacade,
     private productFacade: ProductsFacade,
-    private productListState: ProductssListState,
+    private productListState: ProductsListState,
     formBuilder: FormBuilder,
     dom: Renderer2,
     el: ElementRef,

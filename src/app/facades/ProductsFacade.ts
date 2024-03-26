@@ -5,7 +5,7 @@ import { WarningHandlerService } from '../core/services/warningHandler/warning-h
 import { Handler } from '../core/services/interfaces/warningHandler/handler';
 import { Observable } from 'rxjs';
 import { LoaderSpinnerState } from '../core/states/LoaderSpinnerState';
-import { ProductssListState } from '../core/states/ProductsListState';
+import { ProductsListState } from '../core/states/ProductsListState';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ import { ProductssListState } from '../core/states/ProductsListState';
 export class ProductsFacade {
     constructor(
         private service: ProductsService,
-        private productsListState: ProductssListState,
+        private productsListState: ProductsListState,
         private spinnerState: LoaderSpinnerState,
         @Inject(WarningHandlerService) private warningHandler: Handler
     ) {
@@ -92,8 +92,8 @@ export class ProductsFacade {
         })
     }
 
-    SubstractItem(products: Products[], productsOsOrderCart: Products[]) {
-        const { substractsMapped, updates } = this.mapSubstraction(productsOsOrderCart, products);
+    SubstractItem(products: Products[], productsOfOrderCart: Products[]) {
+        const { substractsMapped, updates } = this.mapSubstraction(productsOfOrderCart, products);
         this.substractionOfProducts(updates);
         this.productsListState.setProductsList(substractsMapped);
     }
@@ -105,8 +105,8 @@ export class ProductsFacade {
         )
     }
 
-    private mapSubstraction(productsOsOrderCart: Products[], products: Products[]) {
-        const updates = productsOsOrderCart.map(el => ({ productId: el.productId, quantity: el.quantity }));
+    private mapSubstraction(productsOfOrderCart: Products[], products: Products[]) {
+        const updates = productsOfOrderCart.map(el => ({ productId: el.productId, quantity: el.quantity }));
 
         const map = products.map(el => {
             let obj = el;

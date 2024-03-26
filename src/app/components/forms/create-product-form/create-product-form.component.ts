@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ProductsFacade } from 'src/app/facades/ProductsFacade';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
-import { ProductssListState } from 'src/app/core/states/ProductsListState';
+import { ProductsListState } from 'src/app/core/states/ProductsListState';
 
 @Component({
   selector: 'app-create-product-form',
@@ -16,7 +16,7 @@ export class CreateProductsFormComponent {
 
   constructor(
     private Builder: FormBuilder,
-    private productListState: ProductssListState,
+    private productListState: ProductsListState,
     private spinnerState: LoaderSpinnerState,
     private productFacade: ProductsFacade
   ) {

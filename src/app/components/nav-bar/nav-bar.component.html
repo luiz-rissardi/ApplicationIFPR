@@ -20,6 +20,13 @@
             </a>
         </li>
         <li class="mt-lg-5">
+            <a routerLink="/home/refound">
+                <i class="fi fi-rr-coins"></i> <!-- Ícone de moeda -->
+                <i class="fi fi-rr-arrow-down"></i>
+                <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> estorno </span>
+            </a>
+        </li>
+        <li class="mt-lg-5">
             <a routerLink="/home/reset-command">
                 <i class="fi fi-rr-qrcode"></i>
                 <span class="ms-2 iconName" *ngIf="this.ShowNavDescriptionItem === true"> comanda </span>

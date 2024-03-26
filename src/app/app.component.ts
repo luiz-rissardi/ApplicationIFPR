@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsFacade } from './facades/ProductsFacade';
-import { ProductssListState } from './core/states/ProductsListState';
+import { ProductsListState } from './core/states/ProductsListState';
 import { LoaderSpinnerState } from './core/states/LoaderSpinnerState';
 
 @Component({
@@ -14,7 +14,7 @@ export class AppComponent implements OnInit{
   //get data of database
   constructor(
     private productsFacade: ProductsFacade,
-    private productListState: ProductssListState,
+    private productListState: ProductsListState,
     private spinnerState: LoaderSpinnerState
   ) {
   }

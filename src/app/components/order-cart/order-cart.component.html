@@ -33,6 +33,9 @@
             </ng-container>
         </li>
     </ul>
+    <div class="PriceCalc">
+        <p> Valor a pagar: {{ totalPrice | number:'1.2-2' }}R$ </p>
+    </div>
     <div class="d-flex me-3">
         <button type="button" class="btn btn-success mx-3 ms-auto w-50" (click)="confirmOrder()"> confirmar </button>
         <button type="button" class="btn btn-danger w-50" (click)="cancel()"> cancelar </button>

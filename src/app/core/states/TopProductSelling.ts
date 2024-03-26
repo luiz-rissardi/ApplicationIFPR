@@ -8,7 +8,7 @@ import { TopProductssSelling } from "../models/TopProductSelling";
     providedIn: "root"
 })
 
-export class TopProductssSellingState {
+export class TopProductsSellingState {
 
     private topProductss: TopProductssSelling[]
     private subject: ReplaySubject<TopProductssSelling[]> = new ReplaySubject(1);

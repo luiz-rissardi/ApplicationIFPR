@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApexChart, ApexPlotOptions, ApexResponsive } from 'ngx-apexcharts';
 import { TopProductssSelling } from 'src/app/core/models/TopProductSelling';
-import { TopProductssSellingState } from 'src/app/core/states/TopProductSelling';
+import { TopProductsSellingState } from 'src/app/core/states/TopProductSelling';
 
 
 interface TopProductss {
@@ -19,8 +19,8 @@ interface TopProductss {
 })
 export class DonutComponent {
 
-  constructor(private topProductssState: TopProductssSellingState) {
-    this.topProductssState.onProductsListChange().subscribe((value: TopProductssSelling[]) => {
+  constructor(private topProductsState: TopProductsSellingState) {
+    this.topProductsState.onProductsListChange().subscribe((value: TopProductssSelling[]) => {
       this.options.labels = value.map(el => el.productName)
       this.options.series = value.map(el => Number(el.totalPrice))
     })

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TopProductssSelling } from 'src/app/core/models/TopProductSelling';
 import { CommerceFacade } from 'src/app/facades/CommerceFacade';
+import { OrderProductsFacade } from 'src/app/facades/OrderProductsFacade';
 
 @Component({
   selector: 'app-dash-board',
@@ -16,12 +17,12 @@ export class DashBoardComponent {
   totalPriceOfOrders:number;
 
 
-  constructor(formBuilder: FormBuilder, private commerceFacade: CommerceFacade) {
+  constructor(formBuilder: FormBuilder, private orderProductFacade: OrderProductsFacade) {
     this.form = formBuilder.group({
       qualification: []
     })
 
-    this.commerceFacade.getTopProductss("5").subscribe((data:TopProductssSelling[]) => {
+    this.orderProductFacade.getTopProducts("5").subscribe((data:TopProductssSelling[]) => {
       this.productsSelling = data
       this.totalPriceOfOrders = data.reduce((acc,el)=> {
         acc += Number(el.totalPrice)
@@ -32,7 +33,7 @@ export class DashBoardComponent {
 
   getTopProductss() {
     const rank = this.form.get("qualification").value;
-    this.commerceFacade.getTopProductss(rank)
+    this.orderProductFacade.getTopProducts(rank)
   }
 }
 

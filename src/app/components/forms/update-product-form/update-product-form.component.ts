@@ -5,7 +5,7 @@ import { ProductsFacade } from 'src/app/facades/ProductsFacade';
 import { Products } from 'src/app/core/models/ProductsModel';
 import { LoaderSpinnerState } from 'src/app/core/states/LoaderSpinnerState';
 import { ProductsState } from 'src/app/core/states/ProductState';
-import { ProductssListState } from 'src/app/core/states/ProductsListState';
+import { ProductsListState } from 'src/app/core/states/ProductsListState';
 
 @Component({
   selector: 'app-update-product-form',
@@ -19,7 +19,7 @@ export class UpdateProductsFormComponent {
   constructor(
     private Builder: FormBuilder,
     private productState: ProductsState,
-    private productListState: ProductssListState,
+    private productListState: ProductsListState,
     private spinnerState: LoaderSpinnerState,
     private productFacade: ProductsFacade) {
 

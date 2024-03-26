@@ -8,7 +8,7 @@ import { Injectable } from "@angular/core";
     providedIn: "root"
 })
 
-export class ProductssListState {
+export class ProductsListState {
 
     private productList: Map<number, Products> = new Map<number, Products>();
     private subject: ReplaySubject<any> = new ReplaySubject(1);
@@ -19,6 +19,12 @@ export class ProductssListState {
             this.productList.set(product.productId, product);
         })
         this.notifyAll();
+    }
+
+    addQuantityIntoProduct(productId: number, quantity: number){
+        const product = this.productList.get(productId);
+        product.quantity += quantity;
+        this.putProductsIntoList(product);
     }
 
     addProductsIntoList(product: Products) {

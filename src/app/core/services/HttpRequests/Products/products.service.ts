@@ -19,7 +19,7 @@ export class ProductsService extends ServiceBase {
     try {
       return this.http.post(this.uri + "/product", product, this.options);
     } catch (error: any) {
-      throw new ProductsException(`não foi possível criar um novo usuário => ${error.message}`)
+      throw new ProductsException(`não foi possível criar um novo produto => ${error.message}`)
     }
   }
 
@@ -35,7 +35,20 @@ export class ProductsService extends ServiceBase {
     try {
       return this.http.get(this.uri + "/product");
     } catch (error: any) {
-      throw new ProductsException(`não foi possivel buscar todos os dados => ${error.message}`)
+      throw new ProductsException(`não foi possivel buscar todos os produtos => ${error.message}`)
+    }
+  }
+
+  refoundProducts(quantity: number, productId: string) {
+    try {
+      const body = {
+        quantity, 
+        productId
+      }
+      return this.http.patch(this.uri + "/product",body,this.options);
+    } catch (error) {
+      throw new ProductsException(`não foi possivel atualizar o usuário => ${error.message}`)
+
     }
   }
 
@@ -44,7 +57,7 @@ export class ProductsService extends ServiceBase {
       const body = { productId: product.productId, product }
       return this.http.put(this.uri + "/product", body, this.options);
     } catch (error: any) {
-      throw new ProductsException(`não foi possivel atualizar o usuário => ${error.message}`)
+      throw new ProductsException(`não foi possivel atualizar o produto => ${error.message}`)
     }
   }
 }
