@@ -1,22 +1,20 @@
-<section class="container-fluid p-5 d-block d-lg-flex grid gap-5">
-    <div class="tick-manager-container w-100 w-lg-50 mt-5">
-        <div class="w-100">
-            <label for="commandId"> informe a comanda do cliente: </label>
-            <input type="text" class="form-control" [formControl]="controlCommand" placeholder="ex:234" id="commandId">
-        </div>
-        <button type="button" (click)="getOrderProducts()"> buscar </button>
+<section class="container-fluid p-0 h-100">
+    <h2 class=" text-center">
+        Escanear QR code
+    </h2>
+
+    <div id="cameraContainer" *ngIf="this.product == undefined">
+        <button type="button" class="scannerQrCode" (click)="scan()"> escanear QRcode </button>
+        <video id="cameraView" width="300" height="300" autoplay playsinline></video>
     </div>
-    <article class="contentBox d-flex flex-column w-100 w-lg-50" *ngIf="this.OrderProducts?.quantity > 0">
-        <h2 class="mx-auto"> Fixas restantes do cliente: {{ OrderProducts?.quantity }} </h2>
-        <hr>
-        <p class="mx-auto"> A retirar </p>
-        <div class="boxRemove">
-            <button (click)="addToRemove()" class="text-dark"> + </button>
-            <span> {{ amountToRemove }} </span>
-            <button (click)="lessToRemove()" class="text-dark"> - </button>
+
+    <section class="d-flex flex-column" *ngIf="this.product != undefined">
+        <h3 class="my-3 mx-auto"> quantiedade de ({{ product.productName }}) disponíveis : {{ product.quantity }} </h3>
+        <div class="ProductContainer">
+            <button class="btn btn-secondary" (click)="this.addToRemove()"> + </button>
+            <span class="ProductContainer-quantity"> {{ amountToRemove }} </span>
+            <button class="btn btn-secondary" (click)="this.lessToRemove()"> - </button>
         </div>
-        <button class="recordButton mt-4" (click)="confirmRemove()">
-            confirmar retiro
-        </button>
-    </article>
+        <button class="btn btn-success my-5 mx-auto w-75" (click)="this.confirmRemove()"> confirmar retirada </button>
+    </section>
 </section>

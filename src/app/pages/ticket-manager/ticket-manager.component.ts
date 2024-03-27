@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
-import { CommerceFacade } from 'src/app/facades/CommerceFacade';
-import { OrderProducts } from 'src/app/core/models/OrderProductModel';
-import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
-import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
-import { FormBuilder, FormControl } from '@angular/forms';
 import { AccountState } from 'src/app/core/states/AccountState';
 import { Account } from 'src/app/core/models/AccountModel';
+import jsQR from 'jsqr';
+import { getProductsIdUserAnexed } from 'src/app/core/storage/sessionStorage';
 import { OrderProductsFacade } from 'src/app/facades/OrderProductsFacade';
+import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
+import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
+import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 
 @Component({
   selector: 'app-ticket-manager',
@@ -16,49 +16,35 @@ import { OrderProductsFacade } from 'src/app/facades/OrderProductsFacade';
 export class TicketManagerComponent {
 
   private productId: number;
-  controlCommand:FormControl;
-  OrderProducts: OrderProducts;
   amountToRemove: number = 0;
-  
+  product: any;
+
 
   constructor(
-    formBuiler: FormBuilder,
-    private orderProductFacade: OrderProductsFacade,
-    private userState:AccountState,
-    @Inject(WarningHandlerService) private warningHandler: Handler,
+    private userState: AccountState,
+    private orderProductsFacade: OrderProductsFacade,
+    @Inject(WarningHandlerService) private warningHandler: Handler
   ) {
-    this.controlCommand = formBuiler.control(null);
+    this.productId = Number(getProductsIdUserAnexed());
     this.userState.onChangeAccount().subscribe((data: Account) => {
       this.productId = data.productIdAnexed;
     })
   }
 
-  getOrderProducts(){
-    const command = Number(this.controlCommand.value)
-    
-    if(!Number.isNaN(command)){
-      // this.commerceFacade.getProductssOfOrder("command",this.productId).subscribe((data:OrderProducts) => {
-      //   this.OrderProducts = data
-      //   if(!data){
-      //     this.warningHandler.reportError("Usuário sem produtos")
-      //   }
-      // })
-    }
-    else{
-      this.warningHandler.reportError("por favor informe o numero da comanda")
-    }
+  // "7b45c2b0-2a89-4518-a4e5-271b0d634de0" command Url
+  scan() {
+    this.startCamera()
   }
 
   addToRemove() {
-    if (this.amountToRemove < this.OrderProducts?.quantity) {
+    if (this.amountToRemove < this.product?.quantity) {
       this.amountToRemove++;
     } else {
       this.warningHandler.reportError("quantiedade máxima atingida")
     }
   }
-
   lessToRemove() {
-    if (this.amountToRemove > 1) {
+    if (this.amountToRemove > 0) {
       this.amountToRemove--;
     } else {
       this.warningHandler.reportError("quantiedade minima atingida")
@@ -66,9 +52,40 @@ export class TicketManagerComponent {
   }
 
   confirmRemove() {
-    this.OrderProducts.quantity -= this.amountToRemove;
-    this.orderProductFacade.recordProductsOrder(this.OrderProducts.orderId, this.OrderProducts.productId, this.amountToRemove)
+    this.product.quantity -= this.amountToRemove;
+    this.orderProductsFacade.recordProductsOrder(this.product.orderId, this.product.productId, this.amountToRemove)
     this.amountToRemove = 0;
   }
 
+  private startCamera() {
+    const cameraView: HTMLVideoElement = document.getElementsByTagName('video')[0];
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      .then((stream) => {
+        cameraView.srcObject = stream;
+        requestAnimationFrame(this.tick(cameraView))
+      })
+      .catch(function (err) {
+        console.error('Erro ao acessar a câmera: ', err);
+      });
+  }
+
+  private tick(video: HTMLVideoElement) {
+    return async () => {
+      const canvasElement = document.createElement('canvas');
+      canvasElement.width = 200;
+      canvasElement.height = 200;
+      const context = canvasElement.getContext('2d');
+      context.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+
+      const imageData = context.getImageData(0, 0, canvasElement.width, canvasElement.height);
+      const code = jsQR(imageData.data, imageData.width, imageData.height);
+      if (code) {
+        this.orderProductsFacade.getOneProductOfOrder(code.data, 12)
+          .subscribe((data: any) => {
+            this.product = data
+          })
+      }
+      requestAnimationFrame(this.tick(video));
+    };
+  }
 }

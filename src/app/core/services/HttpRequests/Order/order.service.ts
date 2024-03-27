@@ -32,10 +32,18 @@ export class OrderService extends ServiceBase {
 
   putCommandIntoOrder(orderId: string, newCommandId: number) {
     try {
-      const body = { commandId:newCommandId,orderId };
+      const body = { commandId: newCommandId, orderId };
       return this.http.put(this.uri + "/order", body, this.options);
     } catch (error) {
       throw new OrderException("não foi possivel atualizar a venda")
+    }
+  }
+  
+  getOrderByCommandId(commandId: any){
+    try {
+      return this.http.get(this.uri + "/order/" + commandId,this.options);
+    } catch (error) {
+      throw new OrderException("não foi possivel pegar a venda")
     }
   }
 

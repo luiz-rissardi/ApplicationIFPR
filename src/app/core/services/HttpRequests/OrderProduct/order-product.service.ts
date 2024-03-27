@@ -22,7 +22,7 @@ export class OrderProductsService extends ServiceBase {
     }
   }
 
-  getProductsOfOrder(orderId: string, productId: number) {
+  getProductOfOrder(orderId: string, productId: number) {
     try {
       return this.http.get(this.uri + `/order/product/${orderId}&${productId}`, this.options);
     } catch (error) {

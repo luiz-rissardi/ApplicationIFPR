@@ -7,6 +7,8 @@ import { LoaderSpinnerState } from "../core/states/LoaderSpinnerState";
 import { ClientService } from "../core/services/HttpRequests/Client/client.service";
 import { TopProductsSellingState } from "../core/states/TopProductSelling";
 import { TopProductssSelling } from "../core/models/TopProductSelling";
+import { CommandsService } from "../core/services/HttpRequests/Commands/commands.service";
+import { OrderService } from "../core/services/HttpRequests/Order/order.service";
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +17,8 @@ export class OrderProductsFacade {
     constructor(
         private orderProductService: OrderProductsService,
         private clientService: ClientService,
+        private commandService: CommandsService,
+        private orderService: OrderService,
         private spinnerState: LoaderSpinnerState,
         private topProductsState: TopProductsSellingState,
         @Inject(WarningHandlerService) private warningHandler: Handler) { }
@@ -64,6 +68,16 @@ export class OrderProductsFacade {
             this.topProductsState.setTopProductss(data)
         })
         this.handlerOperation(observable, "não foi possivel pegar a qualificação");
+        return observable;
+    }
+
+    getOneProductOfOrder(commandUrl: string, productId: number) {
+        const observable = this.commandService.getCommandByUrl(commandUrl)
+            .pipe(
+                switchMap((data: any) => this.orderService.getOrderByCommandId(data.commandId)),
+                switchMap((data: any) => this.orderProductService.getProductOfOrder(data.orderId, productId))
+            )
+        this.handlerOperation(observable, "erro ao pegar produtos da comanda");
         return observable;
     }
 

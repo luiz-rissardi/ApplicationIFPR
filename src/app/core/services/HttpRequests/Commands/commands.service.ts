@@ -29,12 +29,21 @@ export class CommandsService extends ServiceBase {
     }
   }
 
-  inactiveCommand(commandId:number) {
+  inactiveCommand(commandId: number) {
     try {
       const body = { commandId }
-      return this.http.post(this.uri + "/command/inactive", body,this.options);
+      return this.http.post(this.uri + "/command/inactive", body, this.options);
     } catch (error) {
       throw new CommandException("não foi possivle atualizar a comanda!")
+    }
+  }
+  
+  getCommandByUrl(commandUrl: string){
+    try {
+      const body = { commandUrl };
+      return this.http.post(this.uri + "/command",body,this.options);
+    } catch (error) {
+      throw new CommandException("não foi possivle pegar a comanda!")
     }
   }
 }
