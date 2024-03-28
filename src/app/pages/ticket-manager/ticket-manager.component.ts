@@ -6,7 +6,6 @@ import { getProductsIdUserAnexed } from 'src/app/core/storage/sessionStorage';
 import { OrderProductsFacade } from 'src/app/facades/OrderProductsFacade';
 import { WarningHandlerService } from 'src/app/core/services/warningHandler/warning-handler.service';
 import { Handler } from 'src/app/core/services/interfaces/warningHandler/handler';
-import { CommerceFacade } from 'src/app/facades/CommerceFacade';
 
 @Component({
   selector: 'app-ticket-manager',
