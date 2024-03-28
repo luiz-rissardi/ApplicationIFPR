@@ -1,4 +1,4 @@
-import { NgModule, isDevMode } from '@angular/core';
+import { Inject, Injectable, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,6 +33,7 @@ import { ResetCommandComponent } from './pages/reset-command/reset-command.compo
 import { CommandModalComponent } from './components/command-modal/command-modal.component';
 import { InactiveCommandComponent } from './pages/inactive-command/inactive-command.component';
 import { RefoundComponent } from './pages/refound/refound.component';
+import { ClientService } from './core/services/HttpRequests/Client/client.service';
 
 @NgModule({
   declarations: [

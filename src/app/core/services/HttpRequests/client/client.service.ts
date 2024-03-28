@@ -1,10 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ClientException } from 'src/app/core/exceptions/ClientExeption';
 import { ServiceBase } from '../shared/serviceBase';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "any"
 })
 export class ClientService extends ServiceBase {
 
